@@ -18,6 +18,7 @@ import net.ssehub.kernel_haven.util.logic.Conjunction;
 import net.ssehub.kernel_haven.util.logic.Disjunction;
 import net.ssehub.kernel_haven.util.logic.Formula;
 import net.ssehub.kernel_haven.util.logic.Negation;
+import net.ssehub.kernel_haven.util.logic.True;
 import net.ssehub.kernel_haven.util.logic.Variable;
 
 /**
@@ -326,6 +327,89 @@ public class ParserTest {
         
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests that a pseudo block is added if there is a non-whitespace character is outside of all blocks. 
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testContentOutsideOfAllBlocks() throws IOException, FormatException {
+        String code = "a;\n"
+                + "#if defined(A)\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        CodeBlock expected = new CodeBlock(1, 4, new File("test.c"), True.INSTANCE, True.INSTANCE);
+        
+        expected.addNestedElement(new CodeBlock(2, 4, new File("test.c"), new Variable("A"),  new Variable("A")));
+        
+        assertThat(result, is(Arrays.asList(expected)));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests that a pseudo block is added if there is a non-whitespace character is outside of all blocks. 
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testContentOutsideOfAllBlocksWithMultipleBlocks() throws IOException, FormatException {
+        String code = "#if defined(A)\n"
+                + " someCode;\n"
+                + "#endif\n"
+                + "something outside of all blocks;\n"
+                + "#if defined(B)\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        CodeBlock expected = new CodeBlock(1, 7, new File("test.c"), True.INSTANCE, True.INSTANCE);
+        
+        expected.addNestedElement(new CodeBlock(1, 3, new File("test.c"), new Variable("A"),  new Variable("A")));
+        expected.addNestedElement(new CodeBlock(5, 7, new File("test.c"), new Variable("B"),  new Variable("B")));
+        
+        assertThat(result, is(Arrays.asList(expected)));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests that no pseudo block is added if the content outside of the blocks is commented out.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testsCommentOutContentOutsideBlocks() throws IOException, FormatException {
+        String code = " /* only a comment */ \t \n" 
+                + "#if defined(A)\n"
+                + " someCode;\n"
+                + "#endif\n"
+                + "  // some commented out text ";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(2, 4, new File("test.c"), new Variable("A"),  new Variable("A")))));
         
         parser.close();
     }

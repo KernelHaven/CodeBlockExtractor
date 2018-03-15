@@ -71,7 +71,6 @@ class Parser implements Closeable {
         
         /*
          * TODO:
-         *      - foundContentOutsideTopBlocks
          *      - line continuation
          *      - #elif
          *      - #else
@@ -98,6 +97,10 @@ class Parser implements Closeable {
                 
             } else if (line.startsWith("#endif")) {
                 handleEndif();
+                
+            } else if (!foundContentOutsideTopBlocks && !line.isEmpty() && nesting.isEmpty()) {
+                // we found a non-whitespace character outside of all #if blocks
+                foundContentOutsideTopBlocks = true;
             }
         }
         
@@ -176,7 +179,7 @@ class Parser implements Closeable {
      */
     private void handleEndif() throws FormatException {
         if (nesting.isEmpty()) {
-            throw new FormatException("Found #endif with no corresponding opening in line"
+            throw new FormatException("Found #endif with no corresponding opening in line "
                     + in.getLineNumber());
         }
         
