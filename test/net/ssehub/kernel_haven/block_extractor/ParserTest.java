@@ -16,6 +16,7 @@ import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.util.FormatException;
 import net.ssehub.kernel_haven.util.logic.Conjunction;
 import net.ssehub.kernel_haven.util.logic.Disjunction;
+import net.ssehub.kernel_haven.util.logic.False;
 import net.ssehub.kernel_haven.util.logic.Formula;
 import net.ssehub.kernel_haven.util.logic.Negation;
 import net.ssehub.kernel_haven.util.logic.True;
@@ -59,7 +60,7 @@ public class ParserTest {
      */
     @Test
     public void testIfWithComplexCondition() throws IOException, FormatException {
-        String code = "#if defined(A) && (!defined(B) || defined(C))\n"
+        String code = "#if (defined(A) && (!defined(B) || defined(C)))\n"
                 + " someCode;\n"
                 + " moreCode;\n"
                 + "#endif\n";
@@ -465,6 +466,275 @@ public class ParserTest {
         
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(1, 5, new File("test.c"), True.INSTANCE, True.INSTANCE))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests a simple #if with and #else.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testElse() throws IOException, FormatException {
+        String code = "#if defined(A)\n"
+                + " someCode;\n"
+                + "#else\n"
+                + " someElseCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula notA = new Negation(new Variable("A"));
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")),
+                new CodeBlock(3, 5, new File("test.c"), notA, notA)
+        )));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests a simple #if with and #elif.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testElif() throws IOException, FormatException {
+        String code = "#if defined(A)\n"
+                + " someCode;\n"
+                + "#elif defined(B)\n"
+                + " someElseCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula notAandB = new Conjunction(new Negation(new Variable("A")), new Variable("B"));
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")),
+                new CodeBlock(3, 5, new File("test.c"), notAandB, notAandB)
+        )));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests a simple #if with two #elifs and an #else.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testElifElifElse() throws IOException, FormatException {
+        String code = "#if defined(A)\n"
+                + " someCode;\n"
+                + "#elif defined(B)\n"
+                + " someElseCode;\n"
+                + "#elif defined(C)\n"
+                + " someElseCode;\n"
+                + "#else\n"
+                + " someElseCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula firstElif = new Conjunction(new Negation(new Variable("A")), new Variable("B"));
+        Formula secondElif = new Conjunction(new Negation(firstElif), new Variable("C"));
+        Formula elseCond = new Negation(secondElif);
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")),
+                new CodeBlock(3, 5, new File("test.c"), firstElif, firstElif),
+                new CodeBlock(5, 7, new File("test.c"), secondElif, secondElif),
+                new CodeBlock(7, 9, new File("test.c"), elseCond, elseCond)
+        )));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests an #else without #if.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testElseWithoutIf() throws IOException, FormatException {
+        String code = "#else\n"
+                + " someElseCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
+     * Tests an #elif without #if.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testElifWithoutIf() throws IOException, FormatException {
+        String code = "#elif\n"
+                + " someElseCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
+     * Tests an #elif with an invalid condition.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testElifInvalidCondition() throws IOException, FormatException {
+        String code = "#if defined(A)\n"
+                + " someCode;\n"
+                + "#elif defined(B) || \n"
+                + " someElseCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
+     * Tests a simple #if with condition true.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testConditionLiteralTrue() throws IOException, FormatException {
+        String code = "#if 1\n"
+                + " someCode;\n"
+                + " moreCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula condition = True.INSTANCE;
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 4, new File("test.c"), condition, condition))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests a simple #if with condition true.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testConditionLiteralFalse() throws IOException, FormatException {
+        String code = "#if 0\n"
+                + " someCode;\n"
+                + " moreCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula condition = False.INSTANCE;
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 4, new File("test.c"), condition, condition))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests a simple #if with condition true.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testIfConditionMissingDefined() throws IOException, FormatException {
+        String code = "#if A\n"
+                + " someCode;\n"
+                + " moreCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
+     * Tests a simple #if with condition true.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testIfdefConditionDoubleDefine() throws IOException, FormatException {
+        String code = "#ifdef defined(A)\n"
+                + " someCode;\n"
+                + " moreCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
+     * Tests an #if with no following space.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testIfWithoutSpace() throws IOException, FormatException {
+        String code = "#if(defined(A))\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")))));
         
         parser.close();
     }

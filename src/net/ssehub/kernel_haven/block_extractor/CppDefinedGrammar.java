@@ -84,7 +84,7 @@ public class CppDefinedGrammar extends CStyleBooleanGrammar {
             return false;
         }
         
-        // check that this is not the bracket of a definedEx()
+        // check that this is not the bracket of a defined()
         int j = i - 1;
         while (j > 0 && super.isIdentifierChar(str, j)) {
             j--;
@@ -119,7 +119,7 @@ public class CppDefinedGrammar extends CStyleBooleanGrammar {
         
         if (!identifier.matches("defined\\([a-zA-Z0-9_]+\\)")) {
             throw new ExpressionFormatException("Identifier \"" + identifier
-                    + "\" is not valid definedEx() expression");
+                    + "\" is not valid defined() expression");
         }
         
         identifier = identifier.substring("defined(".length(), identifier.length() - 1);

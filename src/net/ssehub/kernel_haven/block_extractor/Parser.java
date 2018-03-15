@@ -18,10 +18,12 @@ import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.util.FormatException;
 import net.ssehub.kernel_haven.util.logic.Conjunction;
 import net.ssehub.kernel_haven.util.logic.Formula;
+import net.ssehub.kernel_haven.util.logic.Negation;
 import net.ssehub.kernel_haven.util.logic.True;
 import net.ssehub.kernel_haven.util.logic.parser.ExpressionFormatException;
 import net.ssehub.kernel_haven.util.logic.parser.VariableCache;
 import net.ssehub.kernel_haven.util.null_checks.NonNull;
+import net.ssehub.kernel_haven.util.null_checks.Nullable;
 
 /**
  * A parser that walks through a file and returns all found {@link CodeBlock}s.
@@ -36,10 +38,25 @@ class Parser implements Closeable {
     
     private net.ssehub.kernel_haven.util.logic.parser.@NonNull Parser<@NonNull Formula> conditionParser;
     
+    /**
+     * All blocks that are not nested inside other blocks.
+     */
     private @NonNull List<@NonNull CodeBlock> topBlocks;
     
+    /**
+     * The current nesting hierarchy. May be empty.
+     */
     private @NonNull Deque<@NonNull CodeBlock> nesting;
     
+    /**
+     * The condition of the previous #if or #elif sibling. Used to construct the negated conditions for
+     * #elif and #else.
+     */
+    private @Nullable Formula previousCondition;
+    
+    /**
+     * Whether we are currently inside an inline comment.
+     */
     private boolean inInlineComment;
     
     /**
@@ -74,12 +91,6 @@ class Parser implements Closeable {
      */
     public @NonNull List<@NonNull CodeBlock> readBlocks() throws IOException, FormatException {
         boolean foundContentOutsideTopBlocks = false;
-        
-        /*
-         * TODO:
-         *      - #elif
-         *      - #else
-         */
         
         String line;
         while ((line = in.readLine()) != null) {
@@ -159,21 +170,11 @@ class Parser implements Closeable {
     }
     
     /**
-     * Handles an #if line. Called by the main parsing loop if it is determined that the current line is an #if,
-     * #ifdef or #ifdef.
+     * Builds a new block with the given condition and adds it to the {@link #nesting}.
      * 
-     * @param expression The condition expression containing defined() calls.
-     * 
-     * @throws FormatException If handling the #if fails.
+     * @param condition The immediate condition of this block.
      */
-    private void handleIf(@NonNull String expression) throws FormatException {
-        Formula condition;
-        try {
-            condition = conditionParser.parse(expression);
-        } catch (ExpressionFormatException e) {
-            throw new FormatException(e);
-        }
-        
+    private void buildBlock(@NonNull Formula condition) {
         Formula pc;
         if (!nesting.isEmpty()) {
             pc = new Conjunction(notNull(nesting.peek()).getPresenceCondition(), condition);
@@ -186,36 +187,10 @@ class Parser implements Closeable {
     }
     
     /**
-     * Handles an #elif line. Called by the main parsing loop if it is determined that the current line is an #elif.
-     * 
-     * @param condition The condition expression containing defined() calls.
-     * 
-     * @throws FormatException If handling the #elif fails.
+     * Call this when the block at the top of {@link #nesting} is finished. Pops it from {@link #nesting}, sets its
+     * end line number and adds it to the surround block (or {@link #topBlocks} if its a top block).
      */
-    private void handleElif(@NonNull String condition) throws FormatException {
-        throw new FormatException("#elif is currently not supported");
-    }
-    
-    /**
-     * Handles an #else line. Called by the main parsing loop if it is determined that the current line is an #else.
-     * 
-     * @throws FormatException If handling the #else fails.
-     */
-    private void handleElse() throws FormatException {
-        throw new FormatException("#else are currently not supported");
-    }
-    
-    /**
-     * Handles an #endif line. Called by the main parsing loop if it is determined that the current line is an #endif.
-     * 
-     * @throws FormatException If handling the #endif fails.
-     */
-    private void handleEndif() throws FormatException {
-        if (nesting.isEmpty()) {
-            throw new FormatException("Found #endif with no corresponding opening in line "
-                    + currentLineNumber);
-        }
-        
+    private void finishBlock() {
         CodeBlock block = notNull(nesting.pop());
         
         // copy to set the end line // TODO: this is not ideal....
@@ -234,6 +209,88 @@ class Parser implements Closeable {
         } else {
             notNull(nesting.peek()).addNestedElement(block);
         }
+    }
+    
+    /**
+     * Handles an #if line. Called by the main parsing loop if it is determined that the current line is an #if,
+     * #ifdef or #ifdef.
+     * 
+     * @param expression The condition expression containing defined() calls.
+     * 
+     * @throws FormatException If handling the #if fails.
+     */
+    private void handleIf(@NonNull String expression) throws FormatException {
+        Formula condition;
+        try {
+            condition = conditionParser.parse(expression);
+        } catch (ExpressionFormatException e) {
+            throw new FormatException(e);
+        }
+        previousCondition = condition;
+        
+        buildBlock(condition);
+    }
+    
+    /**
+     * Handles an #elif line. Called by the main parsing loop if it is determined that the current line is an #elif.
+     * 
+     * @param expression The condition expression containing defined() calls.
+     * 
+     * @throws FormatException If handling the #elif fails.
+     */
+    private void handleElif(@NonNull String expression) throws FormatException {
+        Formula previousCondition = this.previousCondition;
+        if (previousCondition == null) {
+            throw new FormatException("Found #elif in line " + currentLineNumber + " with on previous #if condition");
+        }
+        
+        Formula condition;
+        try {
+            condition = conditionParser.parse(expression);
+        } catch (ExpressionFormatException e) {
+            throw new FormatException(e);
+        }
+        
+        condition = new Conjunction(new Negation(previousCondition), condition);
+        this.previousCondition = condition;
+        
+        finishBlock(); // finish the previous #if or #elif
+        buildBlock(condition);
+    }
+    
+    /**
+     * Handles an #else line. Called by the main parsing loop if it is determined that the current line is an #else.
+     * 
+     * @throws FormatException If handling the #else fails.
+     */
+    private void handleElse() throws FormatException {
+        Formula previousCondition = this.previousCondition;
+        if (previousCondition == null) {
+            throw new FormatException("Found #else in line " + currentLineNumber + " with on previous #if condition");
+        }
+        
+        this.previousCondition = null; // no more #elifs or #else allowed after this
+        
+        Formula condition = new Negation(previousCondition);
+        
+        finishBlock(); // finish the previous #if or #elif
+        buildBlock(condition);
+    }
+    
+    /**
+     * Handles an #endif line. Called by the main parsing loop if it is determined that the current line is an #endif.
+     * 
+     * @throws FormatException If handling the #endif fails.
+     */
+    private void handleEndif() throws FormatException {
+        if (nesting.isEmpty()) {
+            throw new FormatException("Found #endif with no corresponding opening in line "
+                    + currentLineNumber);
+        }
+        
+        previousCondition = null;
+        
+        finishBlock();
     }
     
     /**

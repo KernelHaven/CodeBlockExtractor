@@ -85,4 +85,12 @@ public class CodeBlockExtractorTest {
         extractor.runOnFile(new File("invalid.c"));
     }
     
+    /**
+     * Silly test, but we need it for 100% coverage.
+     */
+    @Test
+    public void testName() {
+        assertThat(new CodeBlockExtractor().getName(), is("CodeBlockExtractor"));
+    }
+    
 }
