@@ -261,4 +261,73 @@ public class ParserTest {
         parser.close();
     }
     
+    /**
+     * Tests that comments are handled correctly.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testEverythingCommentedOutWithInline() throws IOException, FormatException {
+        String code = "/*#if defined(A)\n"
+                + " someCode; /\n"
+                + "#endif*/\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList()));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests that comments are handled correctly.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testEverythingCommentedOutWithLinecomment() throws IOException, FormatException {
+        String code = "//#if defined(A)\n"
+                + "// someCode;\n"
+                + "//#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList()));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests that comments are handled correctly.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testCommentsInCondition() throws IOException, FormatException {
+        String code = "#if defined(A) /* && defined(B) */ || defined(C) // && defined(D) \n"
+                + " / someCode; /\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula condition = new Disjunction(new Variable("A"), new Variable("C"));
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+        
+        parser.close();
+    }
+    
 }

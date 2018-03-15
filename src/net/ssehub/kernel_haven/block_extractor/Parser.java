@@ -40,6 +40,8 @@ class Parser implements Closeable {
     
     private @NonNull Deque<@NonNull CodeBlock> nesting;
     
+    private boolean inInlineComment;
+    
     /**
      * Creates a parser for the given input.
      * 
@@ -73,12 +75,11 @@ class Parser implements Closeable {
          *      - line continuation
          *      - #elif
          *      - #else
-         *      - comments
          */
         
         String line;
         while ((line = in.readLine()) != null) {
-            line = line.trim();
+            line = removeComments(line).trim();
             
             if (line.startsWith("#ifdef")) {
                 handleIf("defined(" + line.substring("#ifdef".length()).trim() + ")");
@@ -197,6 +198,44 @@ class Parser implements Closeable {
         } else {
             notNull(nesting.peek()).addNestedElement(block);
         }
+    }
+    
+    /**
+     * Removes inline (/* ... *&#47;)  and line (//) comments from the given line. Uses the {@link #inInlineComment}
+     * attribute to keep track whether we are inside an inline comment.
+     * 
+     * @param line The line to remove the comments from.
+     * @return The line with comments removed.
+     */
+    private String removeComments(String line) {
+        String replaced = line;
+        
+        if (line.indexOf('/') != -1) {
+            StringBuilder result = new StringBuilder();
+            
+            char[] chars = line.toCharArray();
+            
+            for (int i = 0; i < chars.length; i++) {
+                if (inInlineComment) {
+                    if (chars[i] == '/' && chars[i - 1] == '*') {
+                        inInlineComment = false;
+                    }
+                    
+                } else {
+                    if (chars[i] == '/' && i + 1 < chars.length && chars[i + 1] == '/') {
+                        break; // line comment, everything from now on is removed
+                    } else if (chars[i] == '/' && i + 1 < chars.length && chars[i + 1] == '*') {
+                        inInlineComment = true;
+                    } else {
+                        result.append(chars[i]);
+                    }
+                }
+            }
+            
+            replaced = result.toString();
+        }
+        
+        return replaced;
     }
     
     /**
