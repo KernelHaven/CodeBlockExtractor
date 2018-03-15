@@ -350,7 +350,7 @@ public class ParserTest {
         
         List<CodeBlock> result = parser.readBlocks();
         
-        CodeBlock expected = new CodeBlock(1, 4, new File("test.c"), True.INSTANCE, True.INSTANCE);
+        CodeBlock expected = new CodeBlock(1, 5, new File("test.c"), True.INSTANCE, True.INSTANCE);
         
         expected.addNestedElement(new CodeBlock(2, 4, new File("test.c"), new Variable("A"),  new Variable("A")));
         
@@ -380,7 +380,7 @@ public class ParserTest {
         
         List<CodeBlock> result = parser.readBlocks();
         
-        CodeBlock expected = new CodeBlock(1, 7, new File("test.c"), True.INSTANCE, True.INSTANCE);
+        CodeBlock expected = new CodeBlock(1, 8, new File("test.c"), True.INSTANCE, True.INSTANCE);
         
         expected.addNestedElement(new CodeBlock(1, 3, new File("test.c"), new Variable("A"),  new Variable("A")));
         expected.addNestedElement(new CodeBlock(5, 7, new File("test.c"), new Variable("B"),  new Variable("B")));
@@ -465,7 +465,7 @@ public class ParserTest {
         List<CodeBlock> result = parser.readBlocks();
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 5, new File("test.c"), True.INSTANCE, True.INSTANCE))));
+                new CodeBlock(1, 6, new File("test.c"), True.INSTANCE, True.INSTANCE))));
         
         parser.close();
     }

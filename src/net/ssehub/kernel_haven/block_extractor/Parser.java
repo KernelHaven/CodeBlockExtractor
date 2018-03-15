@@ -157,7 +157,9 @@ class Parser implements Closeable {
         List<@NonNull CodeBlock> result;
         if (foundContentOutsideTopBlocks) {
             // if we found code outside of #ifdefs, then add a pseudo block for the whole file
-            CodeBlock topElement = new CodeBlock(1, currentLineNumber, sourceFile, True.INSTANCE, True.INSTANCE);
+            
+            // use currentLineNumber + 1 because of trailing \n
+            CodeBlock topElement = new CodeBlock(1, currentLineNumber + 1, sourceFile, True.INSTANCE, True.INSTANCE);
             for (CodeBlock element : topBlocks) {
                 topElement.addNestedElement(element);
             }
