@@ -16,6 +16,8 @@ import net.ssehub.kernel_haven.config.DefaultSettings;
 import net.ssehub.kernel_haven.test_utils.TestConfiguration;
 import net.ssehub.kernel_haven.util.CodeExtractorException;
 import net.ssehub.kernel_haven.util.ExtractorException;
+import net.ssehub.kernel_haven.util.logic.Disjunction;
+import net.ssehub.kernel_haven.util.logic.Formula;
 import net.ssehub.kernel_haven.util.logic.Variable;
 
 /**
@@ -49,6 +51,32 @@ public class CodeBlockExtractorTest {
         
         assertThat(result.getElement(0), is(
                 new CodeBlock(2, 4, new File("simpleIf.c"), new Variable("A"), new Variable("A"))));
+    }
+    
+    /**
+     * Tests running the extractor on one Linux file.
+     * 
+     * @throws ExtractorException unwanted.
+     * @throws SetUpException unwanted.
+     */
+    @Test
+    public void testLinuxFile() throws ExtractorException, SetUpException {
+        Configuration config = new TestConfiguration(new Properties());
+        config.setValue(DefaultSettings.SOURCE_TREE, TESTDATA);
+        config.setValue(DefaultSettings.ARCH, "x86"); // this means we analyze Linux
+        
+        CodeBlockExtractor extractor = new CodeBlockExtractor();
+        extractor.init(config);
+        
+        SourceFile result = extractor.runOnFile(new File("linux.c"));
+        
+        assertThat(result.getPath(), is(new File("linux.c")));
+        assertThat(result.getTopElementCount(), is(1));
+        
+        Formula condition = new Disjunction(new Variable("A"), new Variable("A_MODULE"));
+        
+        assertThat(result.getElement(0), is(
+                new CodeBlock(2, 4, new File("linux.c"), condition, condition)));
     }
     
     /**

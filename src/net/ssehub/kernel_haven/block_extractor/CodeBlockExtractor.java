@@ -26,9 +26,13 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
 
     private File sourceTree;
     
+    private boolean doLinuxReplacements;
+    
     @Override
     protected void init(@NonNull Configuration config) throws SetUpException {
         this.sourceTree = config.getValue(DefaultSettings.SOURCE_TREE);
+        // if the arch setting is set, then we are (probably) analysing Linux
+        this.doLinuxReplacements = config.getValue(DefaultSettings.ARCH) != null;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
         
         SourceFile result = new SourceFile(target);
         
-        try (Parser parser = new Parser(new FileReader(absoulteTarget), target)) {
+        try (Parser parser = new Parser(new FileReader(absoulteTarget), target, doLinuxReplacements)) {
             
             for (CodeBlock block : parser.readBlocks()) {
                 result.addElement(block);

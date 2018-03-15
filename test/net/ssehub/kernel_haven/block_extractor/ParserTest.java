@@ -739,4 +739,125 @@ public class ParserTest {
         parser.close();
     }
     
+    /**
+     * Tests an defined (VAR) with a space before the bracket.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testDefinedWithSpace() throws IOException, FormatException {
+        String code = "#if defined (A)\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests an defined VAR without the brackets.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testDefinedWithoutBrackets() throws IOException, FormatException {
+        String code = "#if defined A\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests the Linux macro handling for IS_ENABLED(VAR).
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testLinuxReplacementIsEnabled() throws IOException, FormatException {
+        String code = "#if IS_ENABLED(A)\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true);
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula condition = new Disjunction(new Variable("A"), new Variable("A_MODULE"));
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests the Linux macro handling for IS_BUILTIN(VAR).
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testLinuxReplacementIsBuiltin() throws IOException, FormatException {
+        String code = "#if IS_BUILTIN(A)\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true);
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula condition = new Variable("A");
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests the Linux macro handling for IS_MODULE(VAR).
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testLinuxReplacementIsModule() throws IOException, FormatException {
+        String code = "#if IS_MODULE(A)\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true);
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula condition = new Variable("A_MODULE");
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+        
+        parser.close();
+    }
+    
 }

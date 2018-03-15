@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.util.FormatException;
@@ -31,10 +33,19 @@ import net.ssehub.kernel_haven.util.null_checks.Nullable;
  * @author Adam
  */
 class Parser implements Closeable {
-
+    
+    private static final Pattern DEFINED_WITH_SPACE_PATTERN = Pattern.compile("defined\\s+\\(\\s*(\\w+)\\s*\\)");
+    private static final Pattern DEFINED_WITHOUT_BRACKETS_PATTERN = Pattern.compile("defined\\s+(\\w+)");
+    
+    private static final Pattern LINUX_IS_ENABLED_PATTERN = Pattern.compile("IS_ENABLED\\s*\\(\\s*(\\w+)\\s*\\)");
+    private static final Pattern LINUX_IS_BUILTIN_PATTERN = Pattern.compile("IS_BUILTIN\\s*\\(\\s*(\\w+)\\s*\\)");
+    private static final Pattern LINUX_IS_MODULE_PATTERN = Pattern.compile("IS_MODULE\\s*\\(\\s*(\\w+)\\s*\\)");
+    
     private @NonNull LineNumberReader in;
     
     private @NonNull File sourceFile;
+    
+    private boolean doLinuxReplacements;
     
     private net.ssehub.kernel_haven.util.logic.parser.@NonNull Parser<@NonNull Formula> conditionParser;
     
@@ -72,8 +83,22 @@ class Parser implements Closeable {
      * @param sourceFile The source file to specify in the {@link CodeBlock}s.
      */
     public Parser(@NonNull Reader in, @NonNull File sourceFile) {
+        this(in, sourceFile, false);
+    }
+    
+    /**
+     * Creates a parser for the given input.
+     * 
+     * @param in The reader to get the input from. This will be wrapped into a {@link BufferedReader}.
+     * @param sourceFile The source file to specify in the {@link CodeBlock}s.
+     * @param doLinuxReplacements Whether to replace preprocessor macros found in the Linux Kernel (i.e.
+     *      IS_ENABLED, IS_BUILTIN, IS_MODULE).
+     */
+    public Parser(@NonNull Reader in, @NonNull File sourceFile, boolean doLinuxReplacements) {
         this.in = new LineNumberReader(in);
         this.sourceFile = sourceFile;
+        this.doLinuxReplacements = doLinuxReplacements;
+        
         this.conditionParser = new net.ssehub.kernel_haven.util.logic.parser.Parser<>(
                 new CppDefinedGrammar(new VariableCache()));
         
@@ -144,6 +169,77 @@ class Parser implements Closeable {
         return buildResult(foundContentOutsideTopBlocks);
     }
 
+    /**
+     * Parses the given CPP expression.
+     * 
+     * @param expression The expression to parse.
+     * 
+     * @return The parsed formula.
+     * 
+     * @throws FormatException If the expression cannot be parsed.
+     */
+    private @NonNull Formula parse(@NonNull String expression) throws FormatException {
+        if (doLinuxReplacements) {
+            /*
+             * Do replacements needed for Linux:
+             *   * IS_ENABLED(VAR) -> defined(VAR) || defined(VAR_MODULE)
+             *   * IS_BUILTIN(VAR) -> defined(VAR)
+             *   * IS_MODULE(VAR) -> defined(VAR_MODULE)
+             */
+            Matcher m = LINUX_IS_ENABLED_PATTERN.matcher(expression);
+            while (m.find()) {
+                String var = m.group(1);
+                expression = notNull(expression.replace(m.group(),
+                        "(defined(" + var + ") || defined(" + var + "_MODULE))"));
+                m = LINUX_IS_ENABLED_PATTERN.matcher(expression);
+            }
+            
+            m = LINUX_IS_BUILTIN_PATTERN.matcher(expression);
+            while (m.find()) {
+                String var = m.group(1);
+                expression = notNull(expression.replace(m.group(),
+                        "defined(" + var + ")"));
+                m = LINUX_IS_BUILTIN_PATTERN.matcher(expression);
+            }
+            
+            m = LINUX_IS_MODULE_PATTERN.matcher(expression);
+            while (m.find()) {
+                String var = m.group(1);
+                expression = notNull(expression.replace(m.group(),
+                        "defined(" + var + "_MODULE)"));
+                m = LINUX_IS_MODULE_PATTERN.matcher(expression);
+            }
+        }
+        
+        /*
+         * Do replacements needed because of limitation of our grammar
+         *   * defined (VAR) -> defined(VAR)     (no spaces allowed)
+         *   * defined VAR -> defined(VAR)       (add brackets)
+         */
+        
+        Matcher m = DEFINED_WITH_SPACE_PATTERN.matcher(expression);
+        while (m.find()) {
+            String var = m.group(1);
+            expression = notNull(expression.replace(m.group(),
+                    "defined(" + var + ")"));
+            m = DEFINED_WITH_SPACE_PATTERN.matcher(expression);
+        }
+        
+        m = DEFINED_WITHOUT_BRACKETS_PATTERN.matcher(expression);
+        while (m.find()) {
+            String var = m.group(1);
+            expression = notNull(expression.replace(m.group(),
+                    "defined(" + var + ")"));
+            m = DEFINED_WITHOUT_BRACKETS_PATTERN.matcher(expression);
+        }
+        
+        try {
+            return conditionParser.parse(expression);
+        } catch (ExpressionFormatException e) {
+            throw new FormatException(e);
+        }
+    }
+    
     /**
      * Builds the final list of top blocks from {@link #topBlocks}. If foundContentOutsideTopBlocks is
      * <code>true</code>, then a pseudo block is added for the while file and the {@link #topBlocks} are nested
@@ -222,12 +318,7 @@ class Parser implements Closeable {
      * @throws FormatException If handling the #if fails.
      */
     private void handleIf(@NonNull String expression) throws FormatException {
-        Formula condition;
-        try {
-            condition = conditionParser.parse(expression);
-        } catch (ExpressionFormatException e) {
-            throw new FormatException(e);
-        }
+        Formula condition = parse(expression);
         previousCondition = condition;
         
         buildBlock(condition);
@@ -246,13 +337,7 @@ class Parser implements Closeable {
             throw new FormatException("Found #elif in line " + currentLineNumber + " with on previous #if condition");
         }
         
-        Formula condition;
-        try {
-            condition = conditionParser.parse(expression);
-        } catch (ExpressionFormatException e) {
-            throw new FormatException(e);
-        }
-        
+        Formula condition = parse(expression);
         condition = new Conjunction(new Negation(previousCondition), condition);
         this.previousCondition = condition;
         
