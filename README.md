@@ -10,7 +10,7 @@ A simple extractor that extracts #ifdef blocks in C source files (`*.c`).
 
 Place [`CodeBlockExtractor.jar`](TODO) in the plugins folder of KernelHaven.
 
-To use this extractor, set `code.extractor.class` to `TODO` in the KernelHaven properties.
+To use this extractor, set `code.extractor.class` to `net.ssehub.kernel_haven.block_extractor.CodeBlockExtractor` in the KernelHaven properties.
 
 ## Dependencies
 
