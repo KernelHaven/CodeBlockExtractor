@@ -43,6 +43,12 @@ class Parser implements Closeable {
     private boolean inInlineComment;
     
     /**
+     * Use this instead of in.getLineNumber() because we may join multiple lines together because of continuation with
+     * '\'.
+     */
+    private int currentLineNumber;
+    
+    /**
      * Creates a parser for the given input.
      * 
      * @param in The reader to get the input from. This will be wrapped into a {@link BufferedReader}.
@@ -71,13 +77,28 @@ class Parser implements Closeable {
         
         /*
          * TODO:
-         *      - line continuation
          *      - #elif
          *      - #else
          */
         
         String line;
         while ((line = in.readLine()) != null) {
+            currentLineNumber = in.getLineNumber();
+            line = line.trim();
+            
+            // line continuation
+            if (line.startsWith("#")) {
+                while (line.endsWith("\\")) {
+                    // remove trailing \
+                    line = line.substring(0, line.length() - 1);
+                    
+                    String next = in.readLine();
+                    if (next != null) {
+                        line += next;
+                    }
+                }
+            }
+            
             line = removeComments(line).trim();
             
             if (line.startsWith("#ifdef")) {
@@ -109,10 +130,23 @@ class Parser implements Closeable {
                     + " but no closing #endif");
         }
         
+        return buildResult(foundContentOutsideTopBlocks);
+    }
+
+    /**
+     * Builds the final list of top blocks from {@link #topBlocks}. If foundContentOutsideTopBlocks is
+     * <code>true</code>, then a pseudo block is added for the while file and the {@link #topBlocks} are nested
+     * inside of it.
+     * 
+     * @param foundContentOutsideTopBlocks Whether non-whitespace characters were found outside of all blocks.
+     * 
+     * @return The final list of top-blocks for this file.
+     */
+    private @NonNull List<@NonNull CodeBlock> buildResult(boolean foundContentOutsideTopBlocks) {
         List<@NonNull CodeBlock> result;
         if (foundContentOutsideTopBlocks) {
             // if we found code outside of #ifdefs, then add a pseudo block for the whole file
-            CodeBlock topElement = new CodeBlock(1, in.getLineNumber(), sourceFile, True.INSTANCE, True.INSTANCE);
+            CodeBlock topElement = new CodeBlock(1, currentLineNumber, sourceFile, True.INSTANCE, True.INSTANCE);
             for (CodeBlock element : topBlocks) {
                 topElement.addNestedElement(element);
             }
@@ -121,7 +155,6 @@ class Parser implements Closeable {
         } else {
             result = topBlocks;
         }
-        
         return result;
     }
     
@@ -148,7 +181,7 @@ class Parser implements Closeable {
             pc = condition;
         }
         
-        CodeBlock newBlock = new CodeBlock(in.getLineNumber(), -1, sourceFile, condition, pc);
+        CodeBlock newBlock = new CodeBlock(currentLineNumber, -1, sourceFile, condition, pc);
         nesting.push(newBlock);
     }
     
@@ -180,7 +213,7 @@ class Parser implements Closeable {
     private void handleEndif() throws FormatException {
         if (nesting.isEmpty()) {
             throw new FormatException("Found #endif with no corresponding opening in line "
-                    + in.getLineNumber());
+                    + currentLineNumber);
         }
         
         CodeBlock block = notNull(nesting.pop());
@@ -190,7 +223,7 @@ class Parser implements Closeable {
         for (CodeBlock child : block.iterateNestedBlocks()) {
             nested.add(child);
         }
-        block = new CodeBlock(block.getLineStart(), in.getLineNumber(), sourceFile, block.getCondition(),
+        block = new CodeBlock(block.getLineStart(), currentLineNumber, sourceFile, block.getCondition(),
                 block.getPresenceCondition());
         for (CodeBlock child : nested) {
             block.addNestedElement(child);

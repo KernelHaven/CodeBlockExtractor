@@ -414,4 +414,59 @@ public class ParserTest {
         parser.close();
     }
     
+    /**
+     * Tests that continuation works.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testContinuation() throws IOException, FormatException {
+        String code = "#if defined(A) \\\n"
+                + "     || defined(B)\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula condition = new Disjunction(new Variable("A"), new Variable("B"));
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 4, new File("test.c"), condition, condition))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests continuation two weird continuations.
+     * <ul>
+     *  <li>The first causes an #if to disappear and is commented out</li>
+     *  <li>The second is at the end of the file</li>
+     * </ul>
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testWeirdContinuation() throws IOException, FormatException {
+        String code = "#include <something> // this cause the next line to not be an #if -> \\\n"
+                + "#if defined(A) \\\n"
+                + "     || defined(B)\n"
+                + " someCode;\n"
+                + "#error \\\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 5, new File("test.c"), True.INSTANCE, True.INSTANCE))));
+        
+        parser.close();
+    }
+    
 }
