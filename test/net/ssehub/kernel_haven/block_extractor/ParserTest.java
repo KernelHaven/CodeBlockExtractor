@@ -798,7 +798,7 @@ public class ParserTest {
                 + "#endif\n";
         
         Parser parser = new Parser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true);
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true, false);
         
         List<CodeBlock> result = parser.readBlocks();
         
@@ -823,7 +823,7 @@ public class ParserTest {
                 + "#endif\n";
         
         Parser parser = new Parser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true);
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true, false);
         
         List<CodeBlock> result = parser.readBlocks();
         
@@ -848,7 +848,7 @@ public class ParserTest {
                 + "#endif\n";
         
         Parser parser = new Parser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true);
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true, false);
         
         List<CodeBlock> result = parser.readBlocks();
         
@@ -857,6 +857,54 @@ public class ParserTest {
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(1, 3, new File("test.c"), condition, condition))));
         
+        parser.close();
+    }
+    
+    /**
+     * Tests fuzzy parsing.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testFuzzyParsing() throws IOException, FormatException {
+        String code = "#if (A==2) || (B > 54) || (C >= 3) || (D!=2) || (E<2) || (F <= 5)\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), false, true);
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula condition = new Disjunction(new Variable("A_eq_2"),
+                new Disjunction(new Variable("B_gt_54"), 
+                        new Disjunction(new Variable("C_ge_3"), 
+                                new Disjunction(new Variable("D_ne_2"), 
+                                        new Disjunction(new Variable("E_lt_2"), new Variable("F_le_5"))))));
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests a case where fuzzy parsing still fails.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testFuzzyParsingStillFails() throws IOException, FormatException {
+        String code = "#if A + 1 > 5\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), false, true);
+        
+        parser.readBlocks();
         parser.close();
     }
     
