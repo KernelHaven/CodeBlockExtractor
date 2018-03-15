@@ -242,4 +242,23 @@ public class ParserTest {
         parser.close();
     }
     
+    /**
+     * Tests an #if with a malformed expression.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testIfWithMalformedExpression() throws IOException, FormatException {
+        String code = "#if defined(A) ||\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        Parser parser = new Parser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
 }

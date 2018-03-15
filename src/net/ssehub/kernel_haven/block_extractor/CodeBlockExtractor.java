@@ -10,6 +10,7 @@ import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.code_model.SourceFile;
 import net.ssehub.kernel_haven.config.Configuration;
 import net.ssehub.kernel_haven.config.DefaultSettings;
+import net.ssehub.kernel_haven.util.CodeExtractorException;
 import net.ssehub.kernel_haven.util.ExtractorException;
 import net.ssehub.kernel_haven.util.FormatException;
 import net.ssehub.kernel_haven.util.null_checks.NonNull;
@@ -32,12 +33,7 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
 
     @Override
     protected @Nullable SourceFile runOnFile(@NonNull File target) throws ExtractorException {
-        
         File absoulteTarget = new File(sourceTree, target.getPath());
-        if (!absoulteTarget.isFile()) {
-            throw new ExtractorException("Could not parse file, because it does not exist: "
-                    + absoulteTarget.getAbsolutePath());
-        }
         
         SourceFile result = new SourceFile(target);
         
@@ -48,9 +44,10 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
             }
             
         } catch (IOException e) {
-            throw new ExtractorException("Can't read " + absoulteTarget, e);
+            throw (CodeExtractorException)
+                new CodeExtractorException(target, "Can't read " + absoulteTarget).initCause(e);
         } catch (FormatException e) {
-            throw new ExtractorException("Can't parse " + target, e);
+            throw new CodeExtractorException(target, e);
         }
         
         return result;
