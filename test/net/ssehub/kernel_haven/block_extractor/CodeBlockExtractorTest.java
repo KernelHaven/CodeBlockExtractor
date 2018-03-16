@@ -50,7 +50,7 @@ public class CodeBlockExtractorTest {
         assertThat(result.getTopElementCount(), is(1));
         
         assertThat(result.getElement(0), is(
-                new CodeBlock(2, 4, new File("simpleIf.c"), new Variable("A"), new Variable("A"))));
+                new CodeBlock(2, 3, new File("simpleIf.c"), new Variable("A"), new Variable("A"))));
     }
     
     /**
@@ -76,7 +76,7 @@ public class CodeBlockExtractorTest {
         Formula condition = new Disjunction(new Variable("A"), new Variable("A_MODULE"));
         
         assertThat(result.getElement(0), is(
-                new CodeBlock(2, 4, new File("linux.c"), condition, condition)));
+                new CodeBlock(2, 3, new File("linux.c"), condition, condition)));
     }
     
     /**

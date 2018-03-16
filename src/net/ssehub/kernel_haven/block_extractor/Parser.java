@@ -229,7 +229,7 @@ class Parser implements Closeable {
         for (CodeBlock child : block.iterateNestedBlocks()) {
             nested.add(child);
         }
-        block = new CodeBlock(block.getLineStart(), currentLineNumber, sourceFile, block.getCondition(),
+        block = new CodeBlock(block.getLineStart(), currentLineNumber - 1, sourceFile, block.getCondition(),
                 block.getPresenceCondition());
         for (CodeBlock child : nested) {
             block.addNestedElement(child);

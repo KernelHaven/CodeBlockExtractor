@@ -47,7 +47,7 @@ public class ParserTest {
         List<CodeBlock> result = parser.readBlocks();
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")))));
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")))));
         
         parser.close();
     }
@@ -74,7 +74,7 @@ public class ParserTest {
                 new Variable("C")));
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 4, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
         
         parser.close();
     }
@@ -100,9 +100,9 @@ public class ParserTest {
         
         List<CodeBlock> result = parser.readBlocks();
 
-        CodeBlock expected = new CodeBlock(1, 7, new File("test.c"), new Variable("A"), new Variable("A"));
+        CodeBlock expected = new CodeBlock(1, 6, new File("test.c"), new Variable("A"), new Variable("A"));
         
-        expected.addNestedElement(new CodeBlock(3, 5, new File("test.c"), new Variable("B"), 
+        expected.addNestedElement(new CodeBlock(3, 4, new File("test.c"), new Variable("B"), 
                 new Conjunction(new Variable("A"), new Variable("B"))));
         
         assertThat(result, is(Arrays.asList(expected)));
@@ -131,8 +131,8 @@ public class ParserTest {
         List<CodeBlock> result = parser.readBlocks();
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")),
-                new CodeBlock(4, 6, new File("test.c"), new Variable("B"), new Variable("B"))
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")),
+                new CodeBlock(4, 5, new File("test.c"), new Variable("B"), new Variable("B"))
         )));
         
         parser.close();
@@ -156,7 +156,7 @@ public class ParserTest {
         List<CodeBlock> result = parser.readBlocks();
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")))));
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")))));
         
         parser.close();
     }
@@ -181,7 +181,7 @@ public class ParserTest {
         Formula condition = new Negation(new Variable("A"));
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
         
         parser.close();
     }
@@ -327,7 +327,7 @@ public class ParserTest {
         Formula condition = new Disjunction(new Variable("A"), new Variable("C"));
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
         
         parser.close();
     }
@@ -352,7 +352,7 @@ public class ParserTest {
         
         CodeBlock expected = new CodeBlock(1, 5, new File("test.c"), True.INSTANCE, True.INSTANCE);
         
-        expected.addNestedElement(new CodeBlock(2, 4, new File("test.c"), new Variable("A"),  new Variable("A")));
+        expected.addNestedElement(new CodeBlock(2, 3, new File("test.c"), new Variable("A"),  new Variable("A")));
         
         assertThat(result, is(Arrays.asList(expected)));
         
@@ -382,8 +382,8 @@ public class ParserTest {
         
         CodeBlock expected = new CodeBlock(1, 8, new File("test.c"), True.INSTANCE, True.INSTANCE);
         
-        expected.addNestedElement(new CodeBlock(1, 3, new File("test.c"), new Variable("A"),  new Variable("A")));
-        expected.addNestedElement(new CodeBlock(5, 7, new File("test.c"), new Variable("B"),  new Variable("B")));
+        expected.addNestedElement(new CodeBlock(1, 2, new File("test.c"), new Variable("A"),  new Variable("A")));
+        expected.addNestedElement(new CodeBlock(5, 6, new File("test.c"), new Variable("B"),  new Variable("B")));
         
         assertThat(result, is(Arrays.asList(expected)));
         
@@ -410,7 +410,7 @@ public class ParserTest {
         List<CodeBlock> result = parser.readBlocks();
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(2, 4, new File("test.c"), new Variable("A"),  new Variable("A")))));
+                new CodeBlock(2, 3, new File("test.c"), new Variable("A"),  new Variable("A")))));
         
         parser.close();
     }
@@ -436,7 +436,7 @@ public class ParserTest {
         Formula condition = new Disjunction(new Variable("A"), new Variable("B"));
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 4, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
         
         parser.close();
     }
@@ -492,8 +492,8 @@ public class ParserTest {
         Formula notA = new Negation(new Variable("A"));
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")),
-                new CodeBlock(3, 5, new File("test.c"), notA, notA)
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")),
+                new CodeBlock(3, 4, new File("test.c"), notA, notA)
         )));
         
         parser.close();
@@ -521,8 +521,8 @@ public class ParserTest {
         Formula notAandB = new Conjunction(new Negation(new Variable("A")), new Variable("B"));
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")),
-                new CodeBlock(3, 5, new File("test.c"), notAandB, notAandB)
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")),
+                new CodeBlock(3, 4, new File("test.c"), notAandB, notAandB)
         )));
         
         parser.close();
@@ -556,10 +556,10 @@ public class ParserTest {
         Formula elseCond = new Negation(secondElif);
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")),
-                new CodeBlock(3, 5, new File("test.c"), firstElif, firstElif),
-                new CodeBlock(5, 7, new File("test.c"), secondElif, secondElif),
-                new CodeBlock(7, 9, new File("test.c"), elseCond, elseCond)
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")),
+                new CodeBlock(3, 4, new File("test.c"), firstElif, firstElif),
+                new CodeBlock(5, 6, new File("test.c"), secondElif, secondElif),
+                new CodeBlock(7, 8, new File("test.c"), elseCond, elseCond)
         )));
         
         parser.close();
@@ -645,7 +645,7 @@ public class ParserTest {
         Formula condition = True.INSTANCE;
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 4, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
         
         parser.close();
     }
@@ -671,7 +671,7 @@ public class ParserTest {
         Formula condition = False.INSTANCE;
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 4, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
         
         parser.close();
     }
@@ -734,7 +734,7 @@ public class ParserTest {
         List<CodeBlock> result = parser.readBlocks();
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")))));
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")))));
         
         parser.close();
     }
@@ -757,7 +757,7 @@ public class ParserTest {
         List<CodeBlock> result = parser.readBlocks();
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")))));
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")))));
         
         parser.close();
     }
@@ -780,7 +780,7 @@ public class ParserTest {
         List<CodeBlock> result = parser.readBlocks();
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), new Variable("A"), new Variable("A")))));
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")))));
         
         parser.close();
     }
@@ -805,7 +805,7 @@ public class ParserTest {
         Formula condition = new Disjunction(new Variable("A"), new Variable("A_MODULE"));
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
         
         parser.close();
     }
@@ -830,7 +830,7 @@ public class ParserTest {
         Formula condition = new Variable("A");
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
         
         parser.close();
     }
@@ -855,7 +855,7 @@ public class ParserTest {
         Formula condition = new Variable("A_MODULE");
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
         
         parser.close();
     }
@@ -884,7 +884,7 @@ public class ParserTest {
                                         new Disjunction(new Variable("E_lt_2"), new Variable("F_le_5"))))));
         
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
         
         parser.close();
     }
