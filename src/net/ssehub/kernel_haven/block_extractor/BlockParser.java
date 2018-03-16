@@ -79,9 +79,10 @@ class BlockParser implements Closeable {
     private int currentLineNumber;
     
     /**
-     * Creates a parser for the given input.
+     * Creates a parser for the given input. Fuzzy parsing and Linux replacements are disabled.
      * 
-     * @param in The reader to get the input from. This will be wrapped into a {@link BufferedReader}.
+     * @param in The reader to get the input from. Internally, this will be wrapped into a {@link BufferedReader},
+     *      so passing an unbuffered reader here is ok.
      * @param sourceFile The source file to specify in the {@link CodeBlock}s.
      */
     public BlockParser(@NonNull Reader in, @NonNull File sourceFile) {
@@ -91,7 +92,8 @@ class BlockParser implements Closeable {
     /**
      * Creates a parser for the given input.
      * 
-     * @param in The reader to get the input from. This will be wrapped into a {@link BufferedReader}.
+     * @param in The reader to get the input from. Internally, this will be wrapped into a {@link BufferedReader},
+     *      so passing an unbuffered reader here is ok.
      * @param sourceFile The source file to specify in the {@link CodeBlock}s.
      * @param doLinuxReplacements Whether to replace preprocessor macros found in the Linux Kernel (i.e.
      *      IS_ENABLED, IS_BUILTIN, IS_MODULE).
