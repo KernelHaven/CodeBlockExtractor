@@ -13,8 +13,6 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.util.FormatException;
@@ -22,8 +20,6 @@ import net.ssehub.kernel_haven.util.logic.Conjunction;
 import net.ssehub.kernel_haven.util.logic.Formula;
 import net.ssehub.kernel_haven.util.logic.Negation;
 import net.ssehub.kernel_haven.util.logic.True;
-import net.ssehub.kernel_haven.util.logic.parser.ExpressionFormatException;
-import net.ssehub.kernel_haven.util.logic.parser.VariableCache;
 import net.ssehub.kernel_haven.util.null_checks.NonNull;
 import net.ssehub.kernel_haven.util.null_checks.Nullable;
 
@@ -32,24 +28,13 @@ import net.ssehub.kernel_haven.util.null_checks.Nullable;
  *
  * @author Adam
  */
-class BlockParser implements Closeable {
-    
-    private static final Pattern DEFINED_WITH_SPACE_PATTERN = Pattern.compile("defined\\s+\\(\\s*(\\w+)\\s*\\)");
-    private static final Pattern DEFINED_WITHOUT_BRACKETS_PATTERN = Pattern.compile("defined\\s+(\\w+)");
-    
-    private static final Pattern LINUX_IS_ENABLED_PATTERN = Pattern.compile("IS_ENABLED\\s*\\(\\s*(\\w+)\\s*\\)");
-    private static final Pattern LINUX_IS_BUILTIN_PATTERN = Pattern.compile("IS_BUILTIN\\s*\\(\\s*(\\w+)\\s*\\)");
-    private static final Pattern LINUX_IS_MODULE_PATTERN = Pattern.compile("IS_MODULE\\s*\\(\\s*(\\w+)\\s*\\)");
+public class BlockParser implements Closeable {
     
     private @NonNull LineNumberReader in;
     
     private @NonNull File sourceFile;
     
-    private boolean doLinuxReplacements;
-    
-    private boolean fuzzyParsing;
-    
-    private net.ssehub.kernel_haven.util.logic.parser.@NonNull Parser<@NonNull Formula> conditionParser;
+    private CppConditionParser conditionParser;
     
     /**
      * All blocks that are not nested inside other blocks.
@@ -95,20 +80,17 @@ class BlockParser implements Closeable {
      * @param in The reader to get the input from. Internally, this will be wrapped into a {@link BufferedReader},
      *      so passing an unbuffered reader here is ok.
      * @param sourceFile The source file to specify in the {@link CodeBlock}s.
-     * @param doLinuxReplacements Whether to replace preprocessor macros found in the Linux Kernel (i.e.
+     * @param handleLinuxMacros Whether to handle preprocessor macros found in the Linux Kernel (i.e.
      *      IS_ENABLED, IS_BUILTIN, IS_MODULE).
      * @param fuzzyParsing Whether to do fuzzy parsing for non-boolean integer comparisons.
      */
-    public BlockParser(@NonNull Reader in, @NonNull File sourceFile, boolean doLinuxReplacements,
+    public BlockParser(@NonNull Reader in, @NonNull File sourceFile, boolean handleLinuxMacros,
             boolean fuzzyParsing) {
         
         this.in = new LineNumberReader(in);
         this.sourceFile = sourceFile;
-        this.doLinuxReplacements = doLinuxReplacements;
-        this.fuzzyParsing = fuzzyParsing;
         
-        this.conditionParser = new net.ssehub.kernel_haven.util.logic.parser.Parser<>(
-                new CppDefinedGrammar(new VariableCache()));
+        this.conditionParser = new CppConditionParser(handleLinuxMacros, fuzzyParsing);
         
         this.topBlocks = new LinkedList<>();
         this.nesting = new LinkedList<>();
@@ -255,7 +237,7 @@ class BlockParser implements Closeable {
      * @throws FormatException If handling the #if fails.
      */
     private void handleIf(@NonNull String expression) throws FormatException {
-        Formula condition = parse(expression);
+        Formula condition = conditionParser.parse(expression);
         previousCondition = condition;
         
         buildBlock(condition);
@@ -274,7 +256,7 @@ class BlockParser implements Closeable {
             throw new FormatException("Found #elif in line " + currentLineNumber + " with on previous #if condition");
         }
         
-        Formula condition = parse(expression);
+        Formula condition = conditionParser.parse(expression);
         condition = new Conjunction(new Negation(previousCondition), condition);
         this.previousCondition = condition;
         
@@ -353,147 +335,6 @@ class BlockParser implements Closeable {
         }
         
         return replaced;
-    }
-    
-    /**
-     * Parses the given CPP expression.
-     * 
-     * @param expression The expression to parse.
-     * 
-     * @return The parsed formula.
-     * 
-     * @throws FormatException If the expression cannot be parsed.
-     */
-    private @NonNull Formula parse(@NonNull String expression) throws FormatException {
-        if (doLinuxReplacements) {
-            expression = doLinuxReplacements(expression);
-        }
-        
-        /*
-         * Do replacements needed because of limitation of our grammar
-         *   * defined (VAR) -> defined(VAR)     (no spaces allowed)
-         *   * defined VAR -> defined(VAR)       (add brackets)
-         */
-        
-        Matcher m = DEFINED_WITH_SPACE_PATTERN.matcher(expression);
-        while (m.find()) {
-            String var = m.group(1);
-            expression = notNull(expression.replace(m.group(),
-                    "defined(" + var + ")"));
-            m = DEFINED_WITH_SPACE_PATTERN.matcher(expression);
-        }
-        
-        m = DEFINED_WITHOUT_BRACKETS_PATTERN.matcher(expression);
-        while (m.find()) {
-            String var = m.group(1);
-            expression = notNull(expression.replace(m.group(),
-                    "defined(" + var + ")"));
-            m = DEFINED_WITHOUT_BRACKETS_PATTERN.matcher(expression);
-        }
-        
-        Formula result;
-        try {
-            result = conditionParser.parse(expression);
-        } catch (ExpressionFormatException e) {
-            if (!fuzzyParsing) {
-                throw new FormatException(e);
-            }
-            
-            // try fuzzy parsing
-            try {
-                result = conditionParser.parse(fuzzyfy(expression));
-            } catch (ExpressionFormatException e1) {
-                throw new FormatException(e1);
-            }
-        }
-        
-        return result;
-    }
-
-    /**
-     * Do replacements for preprocesor macros needed for Linux.
-     * 
-     * @param expression The expression to do replacements for.
-     * 
-     * @return The expression with replcamenets done.
-     */
-    private @NonNull String doLinuxReplacements(@NonNull String expression) {
-        /*
-         * Do replacements needed for Linux:
-         *   * IS_ENABLED(VAR) -> defined(VAR) || defined(VAR_MODULE)
-         *   * IS_BUILTIN(VAR) -> defined(VAR)
-         *   * IS_MODULE(VAR) -> defined(VAR_MODULE)
-         */
-        
-        Matcher m = LINUX_IS_ENABLED_PATTERN.matcher(expression);
-        while (m.find()) {
-            String var = m.group(1);
-            expression = notNull(expression.replace(m.group(),
-                    "(defined(" + var + ") || defined(" + var + "_MODULE))"));
-            m = LINUX_IS_ENABLED_PATTERN.matcher(expression);
-        }
-        
-        m = LINUX_IS_BUILTIN_PATTERN.matcher(expression);
-        while (m.find()) {
-            String var = m.group(1);
-            expression = notNull(expression.replace(m.group(),
-                    "defined(" + var + ")"));
-            m = LINUX_IS_BUILTIN_PATTERN.matcher(expression);
-        }
-        
-        m = LINUX_IS_MODULE_PATTERN.matcher(expression);
-        while (m.find()) {
-            String var = m.group(1);
-            expression = notNull(expression.replace(m.group(),
-                    "defined(" + var + "_MODULE)"));
-            m = LINUX_IS_MODULE_PATTERN.matcher(expression);
-        }
-        return expression;
-    }
-    
-    /**
-     * Replaces comparison operators with escaped versions. This can be used to "fuzzy parse" expressions that are
-     * otherwise (pure boolean) unparseable. Also adds defined() calls around the newly added variables.
-     * 
-     * @param expression The expression to fuzzyfy.
-     * @return A fuzzyfied expression.
-     */
-    private @NonNull String fuzzyfy(@NonNull String expression) {
-        Pattern comparisonOperatorPattern = Pattern.compile("(\\w+)\\s*(==|!=|>=|<=|>|<)\\s*(\\w+)");
-        
-        Matcher m = comparisonOperatorPattern.matcher(expression);
-        while (m.find()) {
-            String newOp;
-            switch (m.group(2)) {
-            case "==":
-                newOp = "_eq_";
-                break;
-            case "!=":
-                newOp = "_ne_";
-                break;
-            case "<":
-                newOp = "_lt_";
-                break;
-            case "<=":
-                newOp = "_le_";
-                break;
-            case ">":
-                newOp = "_gt_";
-                break;
-            case ">=":
-                newOp = "_ge_";
-                break;
-            default:
-                newOp = m.group(2);
-                break;
-            }
-            
-            expression = notNull(expression.replace(m.group(), "defined(" + m.group(1) + newOp + m.group(3) + ")"));
-            
-            m = comparisonOperatorPattern.matcher(expression);
-        }
-        
-        return expression;
     }
     
     /**

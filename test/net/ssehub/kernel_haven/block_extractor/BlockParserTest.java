@@ -16,7 +16,6 @@ import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.util.FormatException;
 import net.ssehub.kernel_haven.util.logic.Conjunction;
 import net.ssehub.kernel_haven.util.logic.Disjunction;
-import net.ssehub.kernel_haven.util.logic.False;
 import net.ssehub.kernel_haven.util.logic.Formula;
 import net.ssehub.kernel_haven.util.logic.Negation;
 import net.ssehub.kernel_haven.util.logic.True;
@@ -48,33 +47,6 @@ public class BlockParserTest {
         
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")))));
-        
-        parser.close();
-    }
-    
-    /**
-     * Tests a simple #if with a more complex condition.
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException unwanted.
-     */
-    @Test
-    public void testIfWithComplexCondition() throws IOException, FormatException {
-        String code = "#if (defined(A) && (!defined(B) || defined(C)))\n"
-                + " someCode;\n"
-                + " moreCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
-        
-        List<CodeBlock> result = parser.readBlocks();
-        
-        Formula condition = new Conjunction(new Variable("A"), new Disjunction(new Negation(new Variable("B")),
-                new Variable("C")));
-        
-        assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
         
         parser.close();
     }
@@ -529,6 +501,27 @@ public class BlockParserTest {
     }
     
     /**
+     * Tests an #elif with an invalid condition.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testElifInvalidCondition() throws IOException, FormatException {
+        String code = "#if defined(A)\n"
+                + " someCode;\n"
+                + "#elif defined(B) || \n"
+                + " someElseCode;\n"
+                + "#endif\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
      * Tests a simple #if with two #elifs and an #else.
      * 
      * @throws IOException unwanted.
@@ -604,79 +597,6 @@ public class BlockParserTest {
     }
     
     /**
-     * Tests an #elif with an invalid condition.
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException wanted.
-     */
-    @Test(expected = FormatException.class)
-    public void testElifInvalidCondition() throws IOException, FormatException {
-        String code = "#if defined(A)\n"
-                + " someCode;\n"
-                + "#elif defined(B) || \n"
-                + " someElseCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
-        
-        parser.readBlocks();
-        parser.close();
-    }
-    
-    /**
-     * Tests a simple #if with condition true.
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException unwanted.
-     */
-    @Test
-    public void testConditionLiteralTrue() throws IOException, FormatException {
-        String code = "#if 1\n"
-                + " someCode;\n"
-                + " moreCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
-        
-        List<CodeBlock> result = parser.readBlocks();
-        
-        Formula condition = True.INSTANCE;
-        
-        assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
-        
-        parser.close();
-    }
-    
-    /**
-     * Tests a simple #if with condition true.
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException unwanted.
-     */
-    @Test
-    public void testConditionLiteralFalse() throws IOException, FormatException {
-        String code = "#if 0\n"
-                + " someCode;\n"
-                + " moreCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
-        
-        List<CodeBlock> result = parser.readBlocks();
-        
-        Formula condition = False.INSTANCE;
-        
-        assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
-        
-        parser.close();
-    }
-    
-    /**
      * Tests a simple #if with condition true.
      * 
      * @throws IOException unwanted.
@@ -736,175 +656,6 @@ public class BlockParserTest {
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")))));
         
-        parser.close();
-    }
-    
-    /**
-     * Tests an defined (VAR) with a space before the bracket.
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException unwanted.
-     */
-    @Test
-    public void testDefinedWithSpace() throws IOException, FormatException {
-        String code = "#if defined (A)\n"
-                + " someCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
-        
-        List<CodeBlock> result = parser.readBlocks();
-        
-        assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")))));
-        
-        parser.close();
-    }
-    
-    /**
-     * Tests an defined VAR without the brackets.
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException unwanted.
-     */
-    @Test
-    public void testDefinedWithoutBrackets() throws IOException, FormatException {
-        String code = "#if defined A\n"
-                + " someCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
-        
-        List<CodeBlock> result = parser.readBlocks();
-        
-        assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")))));
-        
-        parser.close();
-    }
-    
-    /**
-     * Tests the Linux macro handling for IS_ENABLED(VAR).
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException unwanted.
-     */
-    @Test
-    public void testLinuxReplacementIsEnabled() throws IOException, FormatException {
-        String code = "#if IS_ENABLED(A)\n"
-                + " someCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true, false);
-        
-        List<CodeBlock> result = parser.readBlocks();
-        
-        Formula condition = new Disjunction(new Variable("A"), new Variable("A_MODULE"));
-        
-        assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
-        
-        parser.close();
-    }
-    
-    /**
-     * Tests the Linux macro handling for IS_BUILTIN(VAR).
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException unwanted.
-     */
-    @Test
-    public void testLinuxReplacementIsBuiltin() throws IOException, FormatException {
-        String code = "#if IS_BUILTIN(A)\n"
-                + " someCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true, false);
-        
-        List<CodeBlock> result = parser.readBlocks();
-        
-        Formula condition = new Variable("A");
-        
-        assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
-        
-        parser.close();
-    }
-    
-    /**
-     * Tests the Linux macro handling for IS_MODULE(VAR).
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException unwanted.
-     */
-    @Test
-    public void testLinuxReplacementIsModule() throws IOException, FormatException {
-        String code = "#if IS_MODULE(A)\n"
-                + " someCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true, false);
-        
-        List<CodeBlock> result = parser.readBlocks();
-        
-        Formula condition = new Variable("A_MODULE");
-        
-        assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
-        
-        parser.close();
-    }
-    
-    /**
-     * Tests fuzzy parsing.
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException unwanted.
-     */
-    @Test
-    public void testFuzzyParsing() throws IOException, FormatException {
-        String code = "#if (A==2) || (B > 54) || (C >= 3) || (D!=2) || (E<2) || (F <= 5)\n"
-                + " someCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), false, true);
-        
-        List<CodeBlock> result = parser.readBlocks();
-        
-        Formula condition = new Disjunction(new Variable("A_eq_2"),
-                new Disjunction(new Variable("B_gt_54"), 
-                        new Disjunction(new Variable("C_ge_3"), 
-                                new Disjunction(new Variable("D_ne_2"), 
-                                        new Disjunction(new Variable("E_lt_2"), new Variable("F_le_5"))))));
-        
-        assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
-        
-        parser.close();
-    }
-    
-    /**
-     * Tests a case where fuzzy parsing still fails.
-     * 
-     * @throws IOException unwanted.
-     * @throws FormatException wanted.
-     */
-    @Test(expected = FormatException.class)
-    public void testFuzzyParsingStillFails() throws IOException, FormatException {
-        String code = "#if A + 1 > 5\n"
-                + " someCode;\n"
-                + "#endif\n";
-        
-        BlockParser parser = new BlockParser(
-                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), false, true);
-        
-        parser.readBlocks();
         parser.close();
     }
     

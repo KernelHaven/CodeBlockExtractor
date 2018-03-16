@@ -13,6 +13,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
     CodeBlockExtractorTest.class,
     BlockParserTest.class,
+    CppConditionParserTest.class,
     ScenarioTests.class,
     })
 public class AllTests {

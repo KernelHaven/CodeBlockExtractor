@@ -26,7 +26,7 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
 
     private File sourceTree;
     
-    private boolean doLinuxReplacements;
+    private boolean handleLinuxMacros;
     
     private boolean fuzzyParsing;
     
@@ -34,8 +34,8 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
     protected void init(@NonNull Configuration config) throws SetUpException {
         this.sourceTree = config.getValue(DefaultSettings.SOURCE_TREE);
         
-        // if the arch setting is set, then we are (probably) analysing Linux
-        this.doLinuxReplacements = config.getValue(DefaultSettings.ARCH) != null;
+        // if the arch setting is set, then we are (probably) analyzing Linux
+        this.handleLinuxMacros = config.getValue(DefaultSettings.ARCH) != null;
         
         this.fuzzyParsing = config.getValue(DefaultSettings.FUZZY_PARSING);
     }
@@ -47,7 +47,7 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
         SourceFile result = new SourceFile(target);
         
         try (BlockParser parser = new BlockParser(
-                new FileReader(absoulteTarget), target, doLinuxReplacements, fuzzyParsing)) {
+                new FileReader(absoulteTarget), target, handleLinuxMacros, fuzzyParsing)) {
             
             for (CodeBlock block : parser.readBlocks()) {
                 result.addElement(block);
