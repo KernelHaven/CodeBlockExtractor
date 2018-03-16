@@ -23,11 +23,11 @@ import net.ssehub.kernel_haven.util.logic.True;
 import net.ssehub.kernel_haven.util.logic.Variable;
 
 /**
- * Tests the {@link Parser}.
+ * Tests the {@link BlockParser}.
  *
  * @author Adam
  */
-public class ParserTest {
+public class BlockParserTest {
 
     /**
      * Tests a simple #if with a defined() call.
@@ -41,7 +41,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -65,7 +65,7 @@ public class ParserTest {
                 + " moreCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -95,7 +95,7 @@ public class ParserTest {
                 + " evenMoreCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -125,7 +125,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -150,7 +150,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -173,7 +173,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -199,7 +199,7 @@ public class ParserTest {
                 + "#endif\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         parser.readBlocks();
@@ -219,7 +219,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         parser.readBlocks();
@@ -237,7 +237,7 @@ public class ParserTest {
         String code = "#ifdef A\n"
                 + " someCode;\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         parser.readBlocks();
@@ -256,7 +256,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         parser.readBlocks();
@@ -275,7 +275,7 @@ public class ParserTest {
                 + " someCode; /\n"
                 + "#endif*/\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -297,7 +297,7 @@ public class ParserTest {
                 + "// someCode;\n"
                 + "//#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -319,7 +319,7 @@ public class ParserTest {
                 + " / someCode; /\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -345,7 +345,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -375,7 +375,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -404,7 +404,7 @@ public class ParserTest {
                 + "#endif\n"
                 + "  // some commented out text ";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -428,7 +428,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -459,7 +459,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#error \\\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -484,7 +484,7 @@ public class ParserTest {
                 + " someElseCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -513,7 +513,7 @@ public class ParserTest {
                 + " someElseCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -546,7 +546,7 @@ public class ParserTest {
                 + " someElseCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -577,7 +577,7 @@ public class ParserTest {
                 + " someElseCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         parser.readBlocks();
@@ -596,7 +596,7 @@ public class ParserTest {
                 + " someElseCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         parser.readBlocks();
@@ -617,7 +617,7 @@ public class ParserTest {
                 + " someElseCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         parser.readBlocks();
@@ -637,7 +637,7 @@ public class ParserTest {
                 + " moreCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -663,7 +663,7 @@ public class ParserTest {
                 + " moreCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -689,7 +689,7 @@ public class ParserTest {
                 + " moreCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         parser.readBlocks();
@@ -709,7 +709,7 @@ public class ParserTest {
                 + " moreCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         parser.readBlocks();
@@ -728,7 +728,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -751,7 +751,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -774,7 +774,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
         
         List<CodeBlock> result = parser.readBlocks();
@@ -797,7 +797,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true, false);
         
         List<CodeBlock> result = parser.readBlocks();
@@ -822,7 +822,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true, false);
         
         List<CodeBlock> result = parser.readBlocks();
@@ -847,7 +847,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), true, false);
         
         List<CodeBlock> result = parser.readBlocks();
@@ -872,7 +872,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), false, true);
         
         List<CodeBlock> result = parser.readBlocks();
@@ -901,7 +901,7 @@ public class ParserTest {
                 + " someCode;\n"
                 + "#endif\n";
         
-        Parser parser = new Parser(
+        BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"), false, true);
         
         parser.readBlocks();

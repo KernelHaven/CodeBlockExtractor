@@ -46,7 +46,8 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
         
         SourceFile result = new SourceFile(target);
         
-        try (Parser parser = new Parser(new FileReader(absoulteTarget), target, doLinuxReplacements, fuzzyParsing)) {
+        try (BlockParser parser = new BlockParser(
+                new FileReader(absoulteTarget), target, doLinuxReplacements, fuzzyParsing)) {
             
             for (CodeBlock block : parser.readBlocks()) {
                 result.addElement(block);

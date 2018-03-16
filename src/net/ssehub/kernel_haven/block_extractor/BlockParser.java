@@ -32,7 +32,7 @@ import net.ssehub.kernel_haven.util.null_checks.Nullable;
  *
  * @author Adam
  */
-class Parser implements Closeable {
+class BlockParser implements Closeable {
     
     private static final Pattern DEFINED_WITH_SPACE_PATTERN = Pattern.compile("defined\\s+\\(\\s*(\\w+)\\s*\\)");
     private static final Pattern DEFINED_WITHOUT_BRACKETS_PATTERN = Pattern.compile("defined\\s+(\\w+)");
@@ -84,7 +84,7 @@ class Parser implements Closeable {
      * @param in The reader to get the input from. This will be wrapped into a {@link BufferedReader}.
      * @param sourceFile The source file to specify in the {@link CodeBlock}s.
      */
-    public Parser(@NonNull Reader in, @NonNull File sourceFile) {
+    public BlockParser(@NonNull Reader in, @NonNull File sourceFile) {
         this(in, sourceFile, false, false);
     }
     
@@ -97,7 +97,9 @@ class Parser implements Closeable {
      *      IS_ENABLED, IS_BUILTIN, IS_MODULE).
      * @param fuzzyParsing Whether to do fuzzy parsing for non-boolean integer comparisons.
      */
-    public Parser(@NonNull Reader in, @NonNull File sourceFile, boolean doLinuxReplacements, boolean fuzzyParsing) {
+    public BlockParser(@NonNull Reader in, @NonNull File sourceFile, boolean doLinuxReplacements,
+            boolean fuzzyParsing) {
+        
         this.in = new LineNumberReader(in);
         this.sourceFile = sourceFile;
         this.doLinuxReplacements = doLinuxReplacements;

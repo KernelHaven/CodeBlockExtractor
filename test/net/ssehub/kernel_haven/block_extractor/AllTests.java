@@ -12,7 +12,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
     CodeBlockExtractorTest.class,
-    ParserTest.class,
+    BlockParserTest.class,
     ScenarioTests.class,
     })
 public class AllTests {
