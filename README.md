@@ -19,3 +19,5 @@ This plugin has no additional dependencies other than KernelHaven.
 ## License
 
 This plugin is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
+
+Note that some of the files in `testdata/scenario` may be licensed differently (e.g. because they are taken from the Linux Kernel). They serve only as a test case and are not included in any JAR release of this plugin.
