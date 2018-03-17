@@ -1,6 +1,9 @@
 package net.ssehub.kernel_haven.block_extractor;
 
 import static net.ssehub.kernel_haven.block_extractor.InvalidConditionHandling.EXCEPTION;
+import static net.ssehub.kernel_haven.util.logic.FormulaBuilder.and;
+import static net.ssehub.kernel_haven.util.logic.FormulaBuilder.not;
+import static net.ssehub.kernel_haven.util.logic.FormulaBuilder.or;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -8,11 +11,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import net.ssehub.kernel_haven.util.logic.Conjunction;
-import net.ssehub.kernel_haven.util.logic.Disjunction;
 import net.ssehub.kernel_haven.util.logic.False;
-import net.ssehub.kernel_haven.util.logic.Formula;
-import net.ssehub.kernel_haven.util.logic.Negation;
 import net.ssehub.kernel_haven.util.logic.True;
 import net.ssehub.kernel_haven.util.logic.Variable;
 import net.ssehub.kernel_haven.util.logic.parser.ExpressionFormatException;
@@ -33,10 +32,7 @@ public class CppConditionParserTest {
     public void testComplexCondition() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
-        Formula condition = new Conjunction(new Variable("A"), new Disjunction(new Negation(new Variable("B")),
-                new Variable("C")));
-        
-        assertThat(parser.parse("(defined(A) && (!defined(B) || defined(C)))"), is(condition));
+        assertThat(parser.parse("(defined(A) && (!defined(B) || defined(C)))"), is(and("A", or(not("B"), "C"))));
     }
     
     /**
@@ -100,8 +96,7 @@ public class CppConditionParserTest {
     public void testLinuxMacros() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(true, false, EXCEPTION);
 
-        Formula condition = new Disjunction(new Variable("A"), new Variable("A_MODULE"));
-        assertThat(parser.parse("IS_ENABLED(A)"), is(condition));
+        assertThat(parser.parse("IS_ENABLED(A)"), is(or("A", "A_MODULE")));
         
         assertThat(parser.parse("IS_BUILTIN(A)"), is(new Variable("A")));
         assertThat(parser.parse("IS_MODULE(A)"), is(new Variable("A_MODULE")));

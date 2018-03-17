@@ -1,5 +1,8 @@
 package net.ssehub.kernel_haven.block_extractor;
 
+import static net.ssehub.kernel_haven.util.logic.FormulaBuilder.and;
+import static net.ssehub.kernel_haven.util.logic.FormulaBuilder.not;
+import static net.ssehub.kernel_haven.util.logic.FormulaBuilder.or;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -14,10 +17,7 @@ import org.junit.Test;
 
 import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.util.FormatException;
-import net.ssehub.kernel_haven.util.logic.Conjunction;
-import net.ssehub.kernel_haven.util.logic.Disjunction;
 import net.ssehub.kernel_haven.util.logic.Formula;
-import net.ssehub.kernel_haven.util.logic.Negation;
 import net.ssehub.kernel_haven.util.logic.True;
 import net.ssehub.kernel_haven.util.logic.Variable;
 
@@ -74,8 +74,7 @@ public class BlockParserTest {
 
         CodeBlock expected = new CodeBlock(1, 6, new File("test.c"), new Variable("A"), new Variable("A"));
         
-        expected.addNestedElement(new CodeBlock(3, 4, new File("test.c"), new Variable("B"), 
-                new Conjunction(new Variable("A"), new Variable("B"))));
+        expected.addNestedElement(new CodeBlock(3, 4, new File("test.c"), new Variable("B"), and("A", "B")));
         
         assertThat(result, is(Arrays.asList(expected)));
         
@@ -150,10 +149,8 @@ public class BlockParserTest {
         
         List<CodeBlock> result = parser.readBlocks();
         
-        Formula condition = new Negation(new Variable("A"));
-        
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 2, new File("test.c"), not("A"), not("A")))));
         
         parser.close();
     }
@@ -296,10 +293,8 @@ public class BlockParserTest {
         
         List<CodeBlock> result = parser.readBlocks();
         
-        Formula condition = new Disjunction(new Variable("A"), new Variable("C"));
-        
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 2, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 2, new File("test.c"), or("A", "C"), or("A", "C")))));
         
         parser.close();
     }
@@ -405,10 +400,8 @@ public class BlockParserTest {
         
         List<CodeBlock> result = parser.readBlocks();
         
-        Formula condition = new Disjunction(new Variable("A"), new Variable("B"));
-        
         assertThat(result, is(Arrays.asList(
-                new CodeBlock(1, 3, new File("test.c"), condition, condition))));
+                new CodeBlock(1, 3, new File("test.c"), or("A", "B"), or("A", "B")))));
         
         parser.close();
     }
@@ -461,11 +454,9 @@ public class BlockParserTest {
         
         List<CodeBlock> result = parser.readBlocks();
         
-        Formula notA = new Negation(new Variable("A"));
-        
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")),
-                new CodeBlock(3, 4, new File("test.c"), notA, notA)
+                new CodeBlock(3, 4, new File("test.c"), not("A"), not("A"))
         )));
         
         parser.close();
@@ -490,11 +481,9 @@ public class BlockParserTest {
         
         List<CodeBlock> result = parser.readBlocks();
         
-        Formula notA = new Negation(new Variable("A"));
-        
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")),
-                new CodeBlock(3, 4, new File("test.c"), notA, notA)
+                new CodeBlock(3, 4, new File("test.c"), not("A"), not("A"))
         )));
         
         parser.close();
@@ -523,13 +512,10 @@ public class BlockParserTest {
         
         CodeBlock firstExpected = new CodeBlock(1, 4, new File("test.c"), new Variable("A"), new Variable("A"));
         
-        firstExpected.addNestedElement(new CodeBlock(2, 3, new File("test.c"), new Variable("B"), 
-                new Conjunction(new Variable("A"), new Variable("B"))));
-        
-        Formula notA = new Negation(new Variable("A"));
+        firstExpected.addNestedElement(new CodeBlock(2, 3, new File("test.c"), new Variable("B"), and("A", "B")));
         
         assertThat(result, is(Arrays.asList(firstExpected,
-                new CodeBlock(5, 6, new File("test.c"), notA, notA))));
+                new CodeBlock(5, 6, new File("test.c"), not("A"), not("A")))));
         
         parser.close();
     }
@@ -557,13 +543,10 @@ public class BlockParserTest {
         
         CodeBlock firstExpected = new CodeBlock(1, 4, new File("test.c"), new Variable("A"), new Variable("A"));
         
-        firstExpected.addNestedElement(new CodeBlock(2, 3, new File("test.c"), new Variable("B"), 
-                new Conjunction(new Variable("A"), new Variable("B"))));
-        
-        Formula notAandC = new Conjunction(new Negation(new Variable("A")), new Variable("C"));
+        firstExpected.addNestedElement(new CodeBlock(2, 3, new File("test.c"), new Variable("B"), and("A", "B")));
         
         assertThat(result, is(Arrays.asList(firstExpected,
-                new CodeBlock(5, 6, new File("test.c"), notAandC, notAandC))));
+                new CodeBlock(5, 6, new File("test.c"), and(not("A"), "C"), and(not("A"), "C")))));
         
         parser.close();
     }
@@ -587,11 +570,9 @@ public class BlockParserTest {
         
         List<CodeBlock> result = parser.readBlocks();
         
-        Formula notAandB = new Conjunction(new Negation(new Variable("A")), new Variable("B"));
-        
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")),
-                new CodeBlock(3, 4, new File("test.c"), notAandB, notAandB)
+                new CodeBlock(3, 4, new File("test.c"), and(not("A"), "B"), and(not("A"), "B"))
         )));
         
         parser.close();
@@ -641,9 +622,9 @@ public class BlockParserTest {
         
         List<CodeBlock> result = parser.readBlocks();
         
-        Formula firstElif = new Conjunction(new Negation(new Variable("A")), new Variable("B"));
-        Formula secondElif = new Conjunction(new Negation(firstElif), new Variable("C"));
-        Formula elseCond = new Negation(secondElif);
+        Formula firstElif = and(not("A"), "B");
+        Formula secondElif = and(not(firstElif), "C");
+        Formula elseCond = not(secondElif);
         
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")),
