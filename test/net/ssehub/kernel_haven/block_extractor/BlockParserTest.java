@@ -884,4 +884,27 @@ public class BlockParserTest {
         parser.close();
     }
     
+    /**
+     * Tests that an empty line is handled correclty.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testEmptyLine() throws IOException, FormatException {
+        String code = "something\n"
+                + "\n"
+                + "something\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 4, new File("test.c"), True.INSTANCE, True.INSTANCE))));
+        
+        parser.close();
+    }
+    
 }

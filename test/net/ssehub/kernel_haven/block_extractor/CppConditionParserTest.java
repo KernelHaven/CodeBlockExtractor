@@ -8,7 +8,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import net.ssehub.kernel_haven.util.FormatException;
 import net.ssehub.kernel_haven.util.logic.Conjunction;
 import net.ssehub.kernel_haven.util.logic.Disjunction;
 import net.ssehub.kernel_haven.util.logic.False;
@@ -16,6 +15,7 @@ import net.ssehub.kernel_haven.util.logic.Formula;
 import net.ssehub.kernel_haven.util.logic.Negation;
 import net.ssehub.kernel_haven.util.logic.True;
 import net.ssehub.kernel_haven.util.logic.Variable;
+import net.ssehub.kernel_haven.util.logic.parser.ExpressionFormatException;
 
 /**
  * Tests the {@link CppConditionParser}.
@@ -27,10 +27,10 @@ public class CppConditionParserTest {
     /**
      * Tests a more complex condition that uses all boolean operators.
      * 
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testComplexCondition() throws FormatException {
+    public void testComplexCondition() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
         Formula condition = new Conjunction(new Variable("A"), new Disjunction(new Negation(new Variable("B")),
@@ -42,10 +42,10 @@ public class CppConditionParserTest {
     /**
      * Tests parsing a literal true.
      * 
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testConditionLiteralTrue() throws FormatException {
+    public void testConditionLiteralTrue() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
         assertThat(parser.parse("1"), is(True.INSTANCE));
@@ -56,10 +56,10 @@ public class CppConditionParserTest {
     /**
      * Tests parsing a literal false.
      * 
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testConditionLiteralFalse() throws FormatException {
+    public void testConditionLiteralFalse() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
         assertThat(parser.parse("0"), is(False.INSTANCE));
@@ -70,10 +70,10 @@ public class CppConditionParserTest {
      * Tests an defined (VAR) with a space before the bracket.
      * 
      * @throws IOException unwanted.
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testDefinedWithSpace() throws FormatException {
+    public void testDefinedWithSpace() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
         assertThat(parser.parse("defined (A)"), is(new Variable("A")));
@@ -82,10 +82,10 @@ public class CppConditionParserTest {
     /**
      * Tests an defined VAR without the brackets.
      * 
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testDefinedWithoutBrackets() throws FormatException {
+    public void testDefinedWithoutBrackets() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
         assertThat(parser.parse("defined A"), is(new Variable("A")));
@@ -94,10 +94,10 @@ public class CppConditionParserTest {
     /**
      * Tests the Linux macro handling.
      * 
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testLinuxMacros() throws FormatException {
+    public void testLinuxMacros() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(true, false, EXCEPTION);
 
         Formula condition = new Disjunction(new Variable("A"), new Variable("A_MODULE"));
@@ -111,10 +111,10 @@ public class CppConditionParserTest {
     /**
      * Tests that IS_ENABLED() throws an exception if Linux handling is disabled.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testIsEnabledWithoutLinuxEnabled() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testIsEnabledWithoutLinuxEnabled() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("IS_ENABLED(A)");
@@ -123,10 +123,10 @@ public class CppConditionParserTest {
     /**
      * Tests that IS_BUILTIN() throws an exception if Linux handling is disabled.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testIsBuiltinWithoutLinuxEnabled() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testIsBuiltinWithoutLinuxEnabled() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("IS_BUILTIN(A)");
@@ -135,10 +135,10 @@ public class CppConditionParserTest {
     /**
      * Tests that IS_MODULE() throws an exception if Linux handling is disabled.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testIsModuleWithoutLinuxEnabled() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testIsModuleWithoutLinuxEnabled() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("IS_MODULE(A)");
@@ -147,10 +147,10 @@ public class CppConditionParserTest {
     /**
      * Tests that an unknown function throws an exception.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testUnknownFunctionWithLinuxEnabled() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testUnknownFunctionWithLinuxEnabled() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(true, false, EXCEPTION);
 
         parser.parse("func(A)");
@@ -159,10 +159,10 @@ public class CppConditionParserTest {
     /**
      * Tests that an unknown function throws an exception.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testUnknownFunction() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testUnknownFunction() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("func(A)");
@@ -171,10 +171,10 @@ public class CppConditionParserTest {
     /**
      * Tests fuzzy parsing with variables and literals.
      * 
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testFuzzyParsingVarAndLiteral() throws FormatException {
+    public void testFuzzyParsingVarAndLiteral() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
         
         assertThat(parser.parse("A == 2"), is(new Variable("A_eq_2")));
@@ -188,10 +188,10 @@ public class CppConditionParserTest {
     /**
      * Tests fuzzy parsing with literal on the left.
      * 
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testFuzzyParsingVarAndLiteralReversed() throws FormatException {
+    public void testFuzzyParsingVarAndLiteralReversed() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
         
         assertThat(parser.parse("2 == A"), is(new Variable("A_eq_2")));
@@ -205,10 +205,10 @@ public class CppConditionParserTest {
     /**
      * Tests fuzzy parsing with two variabels.
      * 
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testFuzzyParsingVarAndVar() throws FormatException {
+    public void testFuzzyParsingVarAndVar() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
         
         assertThat(parser.parse("A == B"), is(new Variable("A_eq_B")));
@@ -222,10 +222,10 @@ public class CppConditionParserTest {
     /**
      * Tests a case where fuzzy parsing still fails.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testFuzzyParsingWithNonVarOnLeft() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testFuzzyParsingWithNonVarOnLeft() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
 
         parser.parse("(A + 1) > 5");
@@ -234,10 +234,10 @@ public class CppConditionParserTest {
     /**
      * Tests a case where fuzzy parsing still fails.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testFuzzyParsingWithNonVarOnRight() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testFuzzyParsingWithNonVarOnRight() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
 
         parser.parse("5 > (A + 1)");
@@ -246,10 +246,10 @@ public class CppConditionParserTest {
     /**
      * Tests a case where fuzzy parsing still fails.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testFuzzyParsingWithOneNonVar() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testFuzzyParsingWithOneNonVar() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
 
         parser.parse("B > (A + 1)");
@@ -258,10 +258,10 @@ public class CppConditionParserTest {
     /**
      * Tests that unsupported operators throw an exception.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testUnsupportedOperators() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testUnsupportedOperators() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("A ^ 1");
@@ -270,10 +270,10 @@ public class CppConditionParserTest {
     /**
      * Tests that an unary - throws an exception if it is not applied to an integer literal.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testUnsupportedUnarySub() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testUnsupportedUnarySub() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("-A");
@@ -282,10 +282,10 @@ public class CppConditionParserTest {
     /**
      * Tests that a variable without a defined throws an exception.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testVariableWithoutDefined() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testVariableWithoutDefined() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("A");
@@ -294,10 +294,10 @@ public class CppConditionParserTest {
     /**
      * Tests that a variable without a defined is translated correctly with fuzzy parsing.
      * 
-     * @throws FormatException unwanted..
+     * @throws ExpressionFormatException unwanted..
      */
     @Test
-    public void testVariableWithoutDefinedFuzzyParsing() throws FormatException {
+    public void testVariableWithoutDefinedFuzzyParsing() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
 
         assertThat(parser.parse("A"), is(new Variable("A_ne_0")));
@@ -306,10 +306,10 @@ public class CppConditionParserTest {
     /**
      * Tests that a defined() call without a parameter throws an exception.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testDefinedWithoutArgument() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testDefinedWithoutArgument() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("defined()");
@@ -318,10 +318,10 @@ public class CppConditionParserTest {
     /**
      * Tests that a defined() call on a literal throws an exception.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testDefinedOnLiteral() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testDefinedOnLiteral() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("defined(1)");
@@ -330,10 +330,10 @@ public class CppConditionParserTest {
     /**
      * Tests that a comparator operator throws an exception if fuzzy parsing is disabled.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testComparatorWithoutFuzzyParsing() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testComparatorWithoutFuzzyParsing() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("A == 2");
@@ -342,10 +342,10 @@ public class CppConditionParserTest {
     /**
      * Tests that an invalid expression throws an exception if {@link InvalidConditionHandling#EXCEPTION} is used.
      * 
-     * @throws FormatException wanted.
+     * @throws ExpressionFormatException wanted.
      */
-    @Test(expected = FormatException.class)
-    public void testMalformedException() throws FormatException {
+    @Test(expected = ExpressionFormatException.class)
+    public void testMalformedException() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("defined(A) || ");
@@ -354,10 +354,10 @@ public class CppConditionParserTest {
     /**
      * Tests that an invalid expression is replaced by True if {@link InvalidConditionHandling#TRUE} is used.
      * 
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testMalformedTrue() throws FormatException {
+    public void testMalformedTrue() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, InvalidConditionHandling.TRUE);
 
         assertThat(parser.parse("defined(A) || "), is(True.INSTANCE));
@@ -367,10 +367,10 @@ public class CppConditionParserTest {
      * Tests that an invalid expression is replaced by an error variable if {@link InvalidConditionHandling#TRUE} is
      * used.
      * 
-     * @throws FormatException unwanted.
+     * @throws ExpressionFormatException unwanted.
      */
     @Test
-    public void testMalformedVariable() throws FormatException {
+    public void testMalformedVariable() throws ExpressionFormatException {
         CppConditionParser parser = new CppConditionParser(false, false, InvalidConditionHandling.ERROR_VARIABLE);
 
         assertThat(parser.parse("defined(A) || "), is(new Variable("PARSING_ERROR")));

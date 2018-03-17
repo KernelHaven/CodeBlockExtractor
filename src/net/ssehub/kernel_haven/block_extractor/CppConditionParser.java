@@ -2,7 +2,6 @@ package net.ssehub.kernel_haven.block_extractor;
 
 import static net.ssehub.kernel_haven.util.null_checks.NullHelpers.notNull;
 
-import net.ssehub.kernel_haven.util.FormatException;
 import net.ssehub.kernel_haven.util.cpp.parser.CppOperator;
 import net.ssehub.kernel_haven.util.cpp.parser.CppParser;
 import net.ssehub.kernel_haven.util.cpp.parser.ast.CppExpression;
@@ -62,9 +61,9 @@ public class CppConditionParser implements ICppExressionVisitor<@NonNull Formula
      * 
      * @return The boolean formula created from the given expression..
      * 
-     * @throws FormatException If the expression can not be parsed into a boolean formula.
+     * @throws ExpressionFormatException If the expression can not be parsed into a boolean formula.
      */
-    public @NonNull Formula parse(@NonNull String expression) throws FormatException {
+    public @NonNull Formula parse(@NonNull String expression) throws ExpressionFormatException {
         Formula result;
         try {
             result = cppParser.parse(expression).accept(this);
@@ -77,7 +76,7 @@ public class CppConditionParser implements ICppExressionVisitor<@NonNull Formula
                 result = ERROR_VARIBLE;
                 
             } else {
-                throw new FormatException(e);
+                throw e;
             }
             
         }

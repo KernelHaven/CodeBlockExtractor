@@ -20,6 +20,7 @@ import net.ssehub.kernel_haven.util.logic.Conjunction;
 import net.ssehub.kernel_haven.util.logic.Formula;
 import net.ssehub.kernel_haven.util.logic.Negation;
 import net.ssehub.kernel_haven.util.logic.True;
+import net.ssehub.kernel_haven.util.logic.parser.ExpressionFormatException;
 import net.ssehub.kernel_haven.util.null_checks.NonNull;
 
 /**
@@ -114,7 +115,7 @@ public class BlockParser implements Closeable {
             currentLineNumber = in.getLineNumber();
             StringBuilder lineBuffer = new StringBuilder(line.trim());
             
-            if (lineBuffer.charAt(0) == '#') {
+            if (lineBuffer.length() > 0 && lineBuffer.charAt(0) == '#') {
                 // spaces after hash
                 while (lineBuffer.length() > 1 && Character.isWhitespace(lineBuffer.charAt(1))) {
                     lineBuffer.replace(1, 2, "");
@@ -244,7 +245,12 @@ public class BlockParser implements Closeable {
      * @throws FormatException If handling the #if fails.
      */
     private void handleIf(@NonNull String expression) throws FormatException {
-        Formula condition = conditionParser.parse(expression);
+        Formula condition;
+        try {
+            condition = conditionParser.parse(expression);
+        } catch (ExpressionFormatException e) {
+            throw new FormatException("Can't parse expression in line " + currentLineNumber + ": " + expression);
+        }
         previousCondition.push(condition);
         
         buildBlock(condition);
@@ -263,7 +269,12 @@ public class BlockParser implements Closeable {
         }
         Formula previousCondition = notNull(this.previousCondition.pop());
         
-        Formula condition = conditionParser.parse(expression);
+        Formula condition;
+        try {
+            condition = conditionParser.parse(expression);
+        } catch (ExpressionFormatException e) {
+            throw new FormatException("Can't parse expression in line " + currentLineNumber + ": " + expression);
+        }
         condition = new Conjunction(new Negation(previousCondition), condition);
         this.previousCondition.push(condition);
         
