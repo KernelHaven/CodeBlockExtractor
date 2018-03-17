@@ -249,7 +249,7 @@ public class BlockParser implements Closeable {
         try {
             condition = conditionParser.parse(expression);
         } catch (ExpressionFormatException e) {
-            throw new FormatException("Can't parse expression in line " + currentLineNumber + ": " + expression);
+            throw new FormatException("Can't parse expression in line " + currentLineNumber + ": " + expression, e);
         }
         previousCondition.push(condition);
         
@@ -273,7 +273,7 @@ public class BlockParser implements Closeable {
         try {
             condition = conditionParser.parse(expression);
         } catch (ExpressionFormatException e) {
-            throw new FormatException("Can't parse expression in line " + currentLineNumber + ": " + expression);
+            throw new FormatException("Can't parse expression in line " + currentLineNumber + ": " + expression, e);
         }
         condition = new Conjunction(new Negation(previousCondition), condition);
         this.previousCondition.push(condition);
