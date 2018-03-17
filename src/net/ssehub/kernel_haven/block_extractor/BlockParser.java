@@ -21,7 +21,6 @@ import net.ssehub.kernel_haven.util.logic.Formula;
 import net.ssehub.kernel_haven.util.logic.Negation;
 import net.ssehub.kernel_haven.util.logic.True;
 import net.ssehub.kernel_haven.util.null_checks.NonNull;
-import net.ssehub.kernel_haven.util.null_checks.Nullable;
 
 /**
  * A parser that walks through a file and returns all found {@link CodeBlock}s.
@@ -48,9 +47,9 @@ public class BlockParser implements Closeable {
     
     /**
      * The condition of the previous #if or #elif sibling. Used to construct the negated conditions for
-     * #elif and #else.
+     * #elif and #else. A stack to preserve nesting information.
      */
-    private @Nullable Formula previousCondition;
+    private @NonNull Deque<@NonNull Formula> previousCondition;
     
     /**
      * Whether we are currently inside an inline comment.
@@ -96,6 +95,7 @@ public class BlockParser implements Closeable {
         
         this.topBlocks = new LinkedList<>();
         this.nesting = new LinkedList<>();
+        this.previousCondition = new LinkedList<>();
     }
     
     /**
@@ -240,7 +240,7 @@ public class BlockParser implements Closeable {
      */
     private void handleIf(@NonNull String expression) throws FormatException {
         Formula condition = conditionParser.parse(expression);
-        previousCondition = condition;
+        previousCondition.push(condition);
         
         buildBlock(condition);
     }
@@ -253,14 +253,14 @@ public class BlockParser implements Closeable {
      * @throws FormatException If handling the #elif fails.
      */
     private void handleElif(@NonNull String expression) throws FormatException {
-        Formula previousCondition = this.previousCondition;
-        if (previousCondition == null) {
-            throw new FormatException("Found #elif in line " + currentLineNumber + " with on previous #if condition");
+        if (previousCondition.isEmpty()) {
+            throw new FormatException("Found #elif in line " + currentLineNumber + " with no previous #if condition");
         }
+        Formula previousCondition = notNull(this.previousCondition.pop());
         
         Formula condition = conditionParser.parse(expression);
         condition = new Conjunction(new Negation(previousCondition), condition);
-        this.previousCondition = condition;
+        this.previousCondition.push(condition);
         
         finishBlock(); // finish the previous #if or #elif
         buildBlock(condition);
@@ -272,12 +272,12 @@ public class BlockParser implements Closeable {
      * @throws FormatException If handling the #else fails.
      */
     private void handleElse() throws FormatException {
-        Formula previousCondition = this.previousCondition;
-        if (previousCondition == null) {
-            throw new FormatException("Found #else in line " + currentLineNumber + " with on previous #if condition");
+        if (previousCondition.isEmpty()) {
+            throw new FormatException("Found #else in line " + currentLineNumber + " with no previous #if condition");
         }
+        Formula previousCondition = notNull(this.previousCondition.pop());
         
-        this.previousCondition = null; // no more #elifs or #else allowed after this
+        // previousCondition is popped: no more #elif or #else allowed after this
         
         Formula condition = new Negation(previousCondition);
         
@@ -296,9 +296,12 @@ public class BlockParser implements Closeable {
                     + currentLineNumber);
         }
         
-        previousCondition = null;
-        
         finishBlock();
+        
+        // only pop when no previous #else has already poped
+        if (previousCondition.size() > nesting.size()) {
+            previousCondition.pop();
+        }
     }
     
     /**

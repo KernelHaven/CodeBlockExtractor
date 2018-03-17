@@ -443,7 +443,7 @@ public class BlockParserTest {
     }
     
     /**
-     * Tests a simple #if with and #else.
+     * Tests a simple #if with an #else.
      * 
      * @throws IOException unwanted.
      * @throws FormatException unwanted.
@@ -472,7 +472,104 @@ public class BlockParserTest {
     }
     
     /**
-     * Tests a simple #if with and #elif.
+     * Tests a simple #ifdef with an #else.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testIfdefElse() throws IOException, FormatException {
+        String code = "#ifdef A\n"
+                + " someCode;\n"
+                + "#else\n"
+                + " someElseCode;\n"
+                + "#endif\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        Formula notA = new Negation(new Variable("A"));
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")),
+                new CodeBlock(3, 4, new File("test.c"), notA, notA)
+        )));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests an #if with an #else and a nested #if before the #else.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testElseWithNestingBefore() throws IOException, FormatException {
+        String code = "#if defined(A)\n"
+                + " #if defined(B)\n"
+                + "     someCode;\n"
+                + " #endif\n"
+                + "#else\n"
+                + " someElseCode;\n"
+                + "#endif\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        CodeBlock firstExpected = new CodeBlock(1, 4, new File("test.c"), new Variable("A"), new Variable("A"));
+        
+        firstExpected.addNestedElement(new CodeBlock(2, 3, new File("test.c"), new Variable("B"), 
+                new Conjunction(new Variable("A"), new Variable("B"))));
+        
+        Formula notA = new Negation(new Variable("A"));
+        
+        assertThat(result, is(Arrays.asList(firstExpected,
+                new CodeBlock(5, 6, new File("test.c"), notA, notA))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests an #if with an #elif and a nested #if before the #elif.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testElifWithNestingBefore() throws IOException, FormatException {
+        String code = "#if defined(A)\n"
+                + " #if defined(B)\n"
+                + "     someCode;\n"
+                + " #endif\n"
+                + "#elif defined(C)\n"
+                + " someElseCode;\n"
+                + "#endif\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        CodeBlock firstExpected = new CodeBlock(1, 4, new File("test.c"), new Variable("A"), new Variable("A"));
+        
+        firstExpected.addNestedElement(new CodeBlock(2, 3, new File("test.c"), new Variable("B"), 
+                new Conjunction(new Variable("A"), new Variable("B"))));
+        
+        Formula notAandC = new Conjunction(new Negation(new Variable("A")), new Variable("C"));
+        
+        assertThat(result, is(Arrays.asList(firstExpected,
+                new CodeBlock(5, 6, new File("test.c"), notAandC, notAandC))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests a simple #if with an #elif.
      * 
      * @throws IOException unwanted.
      * @throws FormatException unwanted.
@@ -585,9 +682,71 @@ public class BlockParserTest {
      */
     @Test(expected = FormatException.class)
     public void testElifWithoutIf() throws IOException, FormatException {
-        String code = "#elif\n"
+        String code = "#elif defined(B)\n"
                 + " someElseCode;\n"
                 + "#endif\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
+     * Tests an #elif after the #endif.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testElifAfterEndif() throws IOException, FormatException {
+        String code = "#if defined(A)\n" 
+                + " someElseCode;\n"
+                + "#endif\n"
+                + "#elif defined(B)\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
+     * Tests an #else after the #endif.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testElseAfterEndif() throws IOException, FormatException {
+        String code = "#if defined(A)\n" 
+                + " someElseCode;\n"
+                + "#endif\n"
+                + "#else\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
+     * Tests an #else after the #endif after an #else.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testElseAfterEndifWithElse() throws IOException, FormatException {
+        String code = "#if defined(A)\n" 
+                + " someElseCode;\n"
+                + "#else\n"
+                + " someElseCode;\n"
+                + "#endif\n"
+                + "#else\n";
         
         BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
