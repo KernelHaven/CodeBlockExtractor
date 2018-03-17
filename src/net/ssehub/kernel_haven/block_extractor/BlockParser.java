@@ -112,22 +112,27 @@ public class BlockParser implements Closeable {
         String line;
         while ((line = in.readLine()) != null) {
             currentLineNumber = in.getLineNumber();
-            line = line.trim();
+            StringBuilder lineBuffer = new StringBuilder(line.trim());
             
-            // line continuation
-            if (line.startsWith("#")) {
-                while (line.endsWith("\\")) {
+            if (lineBuffer.charAt(0) == '#') {
+                // spaces after hash
+                while (lineBuffer.length() > 1 && Character.isWhitespace(lineBuffer.charAt(1))) {
+                    lineBuffer.replace(1, 2, "");
+                }
+                
+                // line continuation
+                while (lineBuffer.charAt(lineBuffer.length() - 1) == '\\') {
                     // remove trailing \
-                    line = line.substring(0, line.length() - 1);
+                    lineBuffer.replace(lineBuffer.length() - 1, lineBuffer.length(), "");
                     
                     String next = in.readLine();
                     if (next != null) {
-                        line += next;
+                        lineBuffer.append(next);
                     }
                 }
             }
             
-            line = removeComments(line).trim();
+            line = removeComments(lineBuffer.toString()).trim();
             
             if (line.startsWith("#ifdef")) {
                 handleIf("defined(" + line.substring("#ifdef".length()).trim() + ")");

@@ -840,4 +840,48 @@ public class BlockParserTest {
         parser.close();
     }
     
+    /**
+     * Tests whether preprocessor directives with whitespace characters between the hash and the directive are detected.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testSpaceAfterHash() throws IOException, FormatException {
+        String code = "# if defined(A)\n"
+                + " someCode;\n"
+                + "#\tendif\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests that a hash followed by only whitespaces doesn't crash.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testEmptyPreprocessorHash() throws IOException, FormatException {
+        String code = " # \n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList(
+                new CodeBlock(1, 2, new File("test.c"), True.INSTANCE, True.INSTANCE))));
+        
+        parser.close();
+    }
+    
 }
