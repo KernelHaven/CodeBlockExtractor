@@ -318,7 +318,7 @@ public class BlockParser implements Closeable {
             
             for (int i = 0; i < chars.length; i++) {
                 if (inInlineComment) {
-                    if (chars[i] == '/' && chars[i - 1] == '*') {
+                    if (chars[i] == '/' && i > 0 && chars[i - 1] == '*') {
                         inInlineComment = false;
                     }
                     

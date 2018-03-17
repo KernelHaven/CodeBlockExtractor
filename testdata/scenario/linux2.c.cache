@@ -1,0 +1,24 @@
+net.ssehub.kernel_haven.code_model.CodeBlock;0;1;2065;linux2.c;1;1
+net.ssehub.kernel_haven.code_model.CodeBlock;1;92;93;linux2.c;0;0
+net.ssehub.kernel_haven.code_model.CodeBlock;1;94;96;linux2.c;!0;!0
+net.ssehub.kernel_haven.code_model.CodeBlock;1;294;295;linux2.c;DEBUG;DEBUG
+net.ssehub.kernel_haven.code_model.CodeBlock;1;296;297;linux2.c;!DEBUG;!DEBUG
+net.ssehub.kernel_haven.code_model.CodeBlock;1;303;306;linux2.c;DEBUG;DEBUG
+net.ssehub.kernel_haven.code_model.CodeBlock;1;307;308;linux2.c;!DEBUG;!DEBUG
+net.ssehub.kernel_haven.code_model.CodeBlock;1;311;318;linux2.c;MODULE;MODULE
+net.ssehub.kernel_haven.code_model.CodeBlock;2;312;313;linux2.c;DEBUG;MODULE && DEBUG
+net.ssehub.kernel_haven.code_model.CodeBlock;1;343;366;linux2.c;DEBUG;DEBUG
+net.ssehub.kernel_haven.code_model.CodeBlock;1;367;368;linux2.c;!DEBUG;!DEBUG
+net.ssehub.kernel_haven.code_model.CodeBlock;1;631;637;linux2.c;DEBUG_EXTRA;DEBUG_EXTRA
+net.ssehub.kernel_haven.code_model.CodeBlock;1;652;658;linux2.c;DEBUG_EXTRA;DEBUG_EXTRA
+net.ssehub.kernel_haven.code_model.CodeBlock;1;663;664;linux2.c;1;1
+net.ssehub.kernel_haven.code_model.CodeBlock;1;665;674;linux2.c;!1;!1
+net.ssehub.kernel_haven.code_model.CodeBlock;1;815;817;linux2.c;0;0
+net.ssehub.kernel_haven.code_model.CodeBlock;1;1202;1210;linux2.c;DEBUG_EXTRA;DEBUG_EXTRA
+net.ssehub.kernel_haven.code_model.CodeBlock;1;1231;1280;linux2.c;0;0
+net.ssehub.kernel_haven.code_model.CodeBlock;1;1463;1465;linux2.c;0;0
+net.ssehub.kernel_haven.code_model.CodeBlock;1;1466;1467;linux2.c;!0;!0
+net.ssehub.kernel_haven.code_model.CodeBlock;1;1576;1593;linux2.c;IRQ_RATE_LIMIT;IRQ_RATE_LIMIT
+net.ssehub.kernel_haven.code_model.CodeBlock;1;1656;1664;linux2.c;FS_POLL_FREQ;FS_POLL_FREQ
+net.ssehub.kernel_haven.code_model.CodeBlock;1;1885;1890;linux2.c;FS_POLL_FREQ;FS_POLL_FREQ
+net.ssehub.kernel_haven.code_model.CodeBlock;1;1948;1963;linux2.c;0;0

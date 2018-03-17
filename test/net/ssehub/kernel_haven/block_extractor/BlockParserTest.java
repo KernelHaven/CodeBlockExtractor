@@ -659,4 +659,26 @@ public class BlockParserTest {
         parser.close();
     }
     
+    /**
+     * Tests that comments are handled correctly. This was a test case that used to crash the parser.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testInlineCommentLineStartingWithSlash() throws IOException, FormatException {
+        String code = "/*\n"
+                + "/\n"
+                + "*/\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList()));
+        
+        parser.close();
+    }
+    
 }

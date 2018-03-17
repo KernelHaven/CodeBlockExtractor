@@ -96,6 +96,40 @@ public class ScenarioTests {
     }
     
     /**
+     * Tests with the file drivers/atm/firestream.c from the Linux Kernel 4.4.
+     * This is the file caused the extractor to crash.
+     * 
+     * @throws ExtractorException unwanted.
+     * @throws SetUpException unwanted.
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void linux2() throws ExtractorException, SetUpException, IOException, FormatException {
+        Configuration config = new TestConfiguration(new Properties());
+        config.setValue(DefaultSettings.SOURCE_TREE, TESTDATA);
+        config.registerSetting(CodeBlockExtractor.HANDLE_LINUX_MACROS);
+        config.setValue(CodeBlockExtractor.HANDLE_LINUX_MACROS, true);
+        
+        CodeBlockExtractor extractor = new CodeBlockExtractor();
+        extractor.init(config);
+        
+        SourceFile result = extractor.runOnFile(new File("linux2.c"));
+        
+        // compare with cache that was manually verified
+        CodeModelCache cache = new CodeModelCache(TESTDATA);
+        SourceFile expected = cache.read(new File("linux2.c"));
+        
+        assertThat(result.getPath(), is(expected.getPath()));
+        for (int i = 0; i < expected.getTopElementCount(); i++) {
+            assertSameBlock((CodeBlock) result.getElement(i), (CodeBlock) expected.getElement(i));
+        }
+        assertThat(result.getTopElementCount(), is(expected.getTopElementCount()));
+        
+//        cache.write(result); // this was used to create the valid cache to verify against
+    }
+    
+    /**
      * Depth-first checks for equality of {@link CodeBlock}s. This is better than {@link CodeBlock#equals(Object)},
      * because we will know which nested block is not as expected.
      * 
