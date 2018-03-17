@@ -1,5 +1,6 @@
 package net.ssehub.kernel_haven.block_extractor;
 
+import static net.ssehub.kernel_haven.block_extractor.InvalidConditionHandling.EXCEPTION;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -30,7 +31,7 @@ public class CppConditionParserTest {
      */
     @Test
     public void testComplexCondition() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
         Formula condition = new Conjunction(new Variable("A"), new Disjunction(new Negation(new Variable("B")),
                 new Variable("C")));
@@ -45,7 +46,7 @@ public class CppConditionParserTest {
      */
     @Test
     public void testConditionLiteralTrue() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
         assertThat(parser.parse("1"), is(True.INSTANCE));
         assertThat(parser.parse("2"), is(True.INSTANCE));
@@ -59,7 +60,7 @@ public class CppConditionParserTest {
      */
     @Test
     public void testConditionLiteralFalse() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
         assertThat(parser.parse("0"), is(False.INSTANCE));
         assertThat(parser.parse("-0"), is(False.INSTANCE));
@@ -73,7 +74,7 @@ public class CppConditionParserTest {
      */
     @Test
     public void testDefinedWithSpace() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
         assertThat(parser.parse("defined (A)"), is(new Variable("A")));
     }
@@ -85,7 +86,7 @@ public class CppConditionParserTest {
      */
     @Test
     public void testDefinedWithoutBrackets() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
         
         assertThat(parser.parse("defined A"), is(new Variable("A")));
     }
@@ -97,7 +98,7 @@ public class CppConditionParserTest {
      */
     @Test
     public void testLinuxMacros() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(true, false);
+        CppConditionParser parser = new CppConditionParser(true, false, EXCEPTION);
 
         Formula condition = new Disjunction(new Variable("A"), new Variable("A_MODULE"));
         assertThat(parser.parse("IS_ENABLED(A)"), is(condition));
@@ -114,7 +115,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testIsEnabledWithoutLinuxEnabled() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("IS_ENABLED(A)");
     }
@@ -126,7 +127,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testIsBuiltinWithoutLinuxEnabled() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("IS_BUILTIN(A)");
     }
@@ -138,7 +139,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testIsModuleWithoutLinuxEnabled() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("IS_MODULE(A)");
     }
@@ -150,7 +151,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testUnknownFunctionWithLinuxEnabled() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(true, false);
+        CppConditionParser parser = new CppConditionParser(true, false, EXCEPTION);
 
         parser.parse("func(A)");
     }
@@ -162,7 +163,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testUnknownFunction() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("func(A)");
     }
@@ -174,7 +175,7 @@ public class CppConditionParserTest {
      */
     @Test
     public void testFuzzyParsingVarAndLiteral() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, true);
+        CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
         
         assertThat(parser.parse("A == 2"), is(new Variable("A_eq_2")));
         assertThat(parser.parse("A != 2"), is(new Variable("A_ne_2")));
@@ -191,7 +192,7 @@ public class CppConditionParserTest {
      */
     @Test
     public void testFuzzyParsingVarAndLiteralReversed() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, true);
+        CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
         
         assertThat(parser.parse("2 == A"), is(new Variable("A_eq_2")));
         assertThat(parser.parse("2 != A"), is(new Variable("A_ne_2")));
@@ -208,7 +209,7 @@ public class CppConditionParserTest {
      */
     @Test
     public void testFuzzyParsingVarAndVar() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, true);
+        CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
         
         assertThat(parser.parse("A == B"), is(new Variable("A_eq_B")));
         assertThat(parser.parse("A != B"), is(new Variable("A_ne_B")));
@@ -225,7 +226,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testFuzzyParsingWithNonVarOnLeft() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, true);
+        CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
 
         parser.parse("(A + 1) > 5");
     }
@@ -237,7 +238,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testFuzzyParsingWithNonVarOnRight() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, true);
+        CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
 
         parser.parse("5 > (A + 1)");
     }
@@ -249,7 +250,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testFuzzyParsingWithOneNonVar() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, true);
+        CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
 
         parser.parse("B > (A + 1)");
     }
@@ -261,7 +262,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testUnsupportedOperators() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("A ^ 1");
     }
@@ -273,7 +274,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testUnsupportedUnarySub() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("-A");
     }
@@ -285,7 +286,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testVariableWithoutDefined() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("A");
     }
@@ -297,7 +298,7 @@ public class CppConditionParserTest {
      */
     @Test
     public void testVariableWithoutDefinedFuzzyParsing() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, true);
+        CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
 
         assertThat(parser.parse("A"), is(new Variable("A_ne_0")));
     }
@@ -309,7 +310,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testDefinedWithoutArgument() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("defined()");
     }
@@ -321,7 +322,7 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testDefinedOnLiteral() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("defined(1)");
     }
@@ -333,9 +334,46 @@ public class CppConditionParserTest {
      */
     @Test(expected = FormatException.class)
     public void testComparatorWithoutFuzzyParsing() throws FormatException {
-        CppConditionParser parser = new CppConditionParser(false, false);
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
 
         parser.parse("A == 2");
+    }
+    
+    /**
+     * Tests that an invalid expression throws an exception if {@link InvalidConditionHandling#EXCEPTION} is used.
+     * 
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testMalformedException() throws FormatException {
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
+
+        parser.parse("defined(A) || ");
+    }
+    
+    /**
+     * Tests that an invalid expression is replaced by True if {@link InvalidConditionHandling#TRUE} is used.
+     * 
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testMalformedTrue() throws FormatException {
+        CppConditionParser parser = new CppConditionParser(false, false, InvalidConditionHandling.TRUE);
+
+        assertThat(parser.parse("defined(A) || "), is(True.INSTANCE));
+    }
+    
+    /**
+     * Tests that an invalid expression is replaced by an error variable if {@link InvalidConditionHandling#TRUE} is
+     * used.
+     * 
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testMalformedVariable() throws FormatException {
+        CppConditionParser parser = new CppConditionParser(false, false, InvalidConditionHandling.ERROR_VARIABLE);
+
+        assertThat(parser.parse("defined(A) || "), is(new Variable("PARSING_ERROR")));
     }
     
 }

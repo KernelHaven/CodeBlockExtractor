@@ -1,5 +1,7 @@
 package net.ssehub.kernel_haven.block_extractor;
 
+import static net.ssehub.kernel_haven.util.null_checks.NullHelpers.notNull;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,6 +12,9 @@ import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.code_model.SourceFile;
 import net.ssehub.kernel_haven.config.Configuration;
 import net.ssehub.kernel_haven.config.DefaultSettings;
+import net.ssehub.kernel_haven.config.EnumSetting;
+import net.ssehub.kernel_haven.config.Setting;
+import net.ssehub.kernel_haven.config.Setting.Type;
 import net.ssehub.kernel_haven.util.CodeExtractorException;
 import net.ssehub.kernel_haven.util.ExtractorException;
 import net.ssehub.kernel_haven.util.FormatException;
@@ -23,21 +28,35 @@ import net.ssehub.kernel_haven.util.null_checks.Nullable;
  * @author Adam
  */
 public class CodeBlockExtractor extends AbstractCodeModelExtractor {
+    
+    public static final @NonNull EnumSetting<@NonNull InvalidConditionHandling> INVALID_CONDITION_SETTING
+        = new EnumSetting<>("code.extractor.invalid_condition", InvalidConditionHandling.class, true,
+                InvalidConditionHandling.EXCEPTION, "How to handle conditions of blocks that are invalid or not "
+                        + "parseable.\n\n- EXCEPTION: Throw an exception. This causes the whole file to not be "
+                        + "parseable.\n- TRUE: Replace the invalid condition with true.\n- ERROR_VARIABLE: Replace "
+                        + "the invalid condition with a variable called \"PARSING_ERROR\"");
 
+    public static final @NonNull Setting<@NonNull Boolean> HANDLE_LINUX_MACROS = new Setting<>(
+        "code.extractor.handle_linux_macros", Type.BOOLEAN, true, "false", "Whether to handle the preprocessor macros "
+                + "IS_ENABLED, IS_BUILTIN and IS_MODULE in preprocessor block conditions.");
+    
     private File sourceTree;
     
     private boolean handleLinuxMacros;
     
     private boolean fuzzyParsing;
     
+    private InvalidConditionHandling invalidConditionHandling;
+    
     @Override
     protected void init(@NonNull Configuration config) throws SetUpException {
+        config.registerSetting(INVALID_CONDITION_SETTING);
+        config.registerSetting(HANDLE_LINUX_MACROS);
+        
         this.sourceTree = config.getValue(DefaultSettings.SOURCE_TREE);
-        
-        // if the arch setting is set, then we are (probably) analyzing Linux
-        this.handleLinuxMacros = config.getValue(DefaultSettings.ARCH) != null;
-        
         this.fuzzyParsing = config.getValue(DefaultSettings.FUZZY_PARSING);
+        this.handleLinuxMacros = config.getValue(HANDLE_LINUX_MACROS);
+        this.invalidConditionHandling = config.getValue(INVALID_CONDITION_SETTING);
     }
 
     @Override
@@ -46,8 +65,8 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
         
         SourceFile result = new SourceFile(target);
         
-        try (BlockParser parser = new BlockParser(
-                new FileReader(absoulteTarget), target, handleLinuxMacros, fuzzyParsing)) {
+        try (BlockParser parser = new BlockParser(new FileReader(absoulteTarget), target,
+                handleLinuxMacros, fuzzyParsing, notNull(invalidConditionHandling))) {
             
             for (CodeBlock block : parser.readBlocks()) {
                 result.addElement(block);

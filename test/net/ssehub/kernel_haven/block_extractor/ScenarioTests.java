@@ -74,7 +74,8 @@ public class ScenarioTests {
     public void linux1() throws ExtractorException, SetUpException, IOException, FormatException {
         Configuration config = new TestConfiguration(new Properties());
         config.setValue(DefaultSettings.SOURCE_TREE, TESTDATA);
-        config.setValue(DefaultSettings.ARCH, "blackfin");
+        config.registerSetting(CodeBlockExtractor.HANDLE_LINUX_MACROS);
+        config.setValue(CodeBlockExtractor.HANDLE_LINUX_MACROS, true);
         
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);

@@ -65,13 +65,14 @@ public class BlockParser implements Closeable {
     
     /**
      * Creates a parser for the given input. Fuzzy parsing and Linux replacements are disabled.
+     * Invalid condition handling is set to {@link InvalidConditionHandling#EXCEPTION}.
      * 
      * @param in The reader to get the input from. Internally, this will be wrapped into a {@link BufferedReader},
      *      so passing an unbuffered reader here is ok.
      * @param sourceFile The source file to specify in the {@link CodeBlock}s.
      */
     public BlockParser(@NonNull Reader in, @NonNull File sourceFile) {
-        this(in, sourceFile, false, false);
+        this(in, sourceFile, false, false, InvalidConditionHandling.EXCEPTION);
     }
     
     /**
@@ -83,14 +84,15 @@ public class BlockParser implements Closeable {
      * @param handleLinuxMacros Whether to handle preprocessor macros found in the Linux Kernel (i.e.
      *      IS_ENABLED, IS_BUILTIN, IS_MODULE).
      * @param fuzzyParsing Whether to do fuzzy parsing for non-boolean integer comparisons.
+     * @param invalidConditionHandling How to handle unparseable conditions.
      */
     public BlockParser(@NonNull Reader in, @NonNull File sourceFile, boolean handleLinuxMacros,
-            boolean fuzzyParsing) {
+            boolean fuzzyParsing, @NonNull InvalidConditionHandling invalidConditionHandling) {
         
         this.in = new LineNumberReader(in);
         this.sourceFile = sourceFile;
         
-        this.conditionParser = new CppConditionParser(handleLinuxMacros, fuzzyParsing);
+        this.conditionParser = new CppConditionParser(handleLinuxMacros, fuzzyParsing, invalidConditionHandling);
         
         this.topBlocks = new LinkedList<>();
         this.nesting = new LinkedList<>();

@@ -27,9 +27,14 @@ import net.ssehub.kernel_haven.util.null_checks.NonNull;
  */
 public class CppConditionParser implements ICppExressionVisitor<@NonNull Formula> {
 
+    private static final net.ssehub.kernel_haven.util.logic.@NonNull Variable ERROR_VARIBLE
+            = new net.ssehub.kernel_haven.util.logic.Variable("PARSING_ERROR");
+    
     private boolean handleLinuxMacros;
     
     private boolean fuzzyParsing;
+
+    private InvalidConditionHandling invalidConditionHandling;
     
     private CppParser cppParser;
     
@@ -39,10 +44,14 @@ public class CppConditionParser implements ICppExressionVisitor<@NonNull Formula
      * @param handleLinuxMacros Whether to handle preprocessor macros found in the Linux Kernel (i.e.
      *      IS_ENABLED, IS_BUILTIN, IS_MODULE).
      * @param fuzzyParsing Whether to do fuzzy parsing for non-boolean integer comparisons.
+     * @param invalidConditionHandling How to handle unparseable conditions.
      */
-    public CppConditionParser(boolean handleLinuxMacros, boolean fuzzyParsing) {
+    public CppConditionParser(boolean handleLinuxMacros, boolean fuzzyParsing,
+            InvalidConditionHandling invalidConditionHandling) {
+        
         this.handleLinuxMacros = handleLinuxMacros;
         this.fuzzyParsing = fuzzyParsing;
+        this.invalidConditionHandling = invalidConditionHandling;
         this.cppParser = new CppParser();
     }
     
@@ -60,7 +69,17 @@ public class CppConditionParser implements ICppExressionVisitor<@NonNull Formula
         try {
             result = cppParser.parse(expression).accept(this);
         } catch (ExpressionFormatException e) {
-            throw new FormatException(e);
+            
+            if (invalidConditionHandling == InvalidConditionHandling.TRUE) {
+                result = True.INSTANCE;
+                
+            } else if (invalidConditionHandling == InvalidConditionHandling.ERROR_VARIABLE) {
+                result = ERROR_VARIBLE;
+                
+            } else {
+                throw new FormatException(e);
+            }
+            
         }
         
         return result;

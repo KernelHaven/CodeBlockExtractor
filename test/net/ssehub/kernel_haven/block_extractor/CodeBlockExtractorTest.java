@@ -54,29 +54,56 @@ public class CodeBlockExtractorTest {
     }
     
     /**
-     * Tests running the extractor on one Linux file.
+     * Tests running the extractor on a file using a Linux macro.
      * 
      * @throws ExtractorException unwanted.
      * @throws SetUpException unwanted.
      */
     @Test
-    public void testLinuxFile() throws ExtractorException, SetUpException {
+    public void testLinuxMacro() throws ExtractorException, SetUpException {
         Configuration config = new TestConfiguration(new Properties());
         config.setValue(DefaultSettings.SOURCE_TREE, TESTDATA);
-        config.setValue(DefaultSettings.ARCH, "x86"); // this means we analyze Linux
+        config.registerSetting(CodeBlockExtractor.HANDLE_LINUX_MACROS);
+        config.setValue(CodeBlockExtractor.HANDLE_LINUX_MACROS, true);
         
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
         
-        SourceFile result = extractor.runOnFile(new File("linux.c"));
+        SourceFile result = extractor.runOnFile(new File("linux_macro.c"));
         
-        assertThat(result.getPath(), is(new File("linux.c")));
+        assertThat(result.getPath(), is(new File("linux_macro.c")));
         assertThat(result.getTopElementCount(), is(1));
         
         Formula condition = new Disjunction(new Variable("A"), new Variable("A_MODULE"));
         
         assertThat(result.getElement(0), is(
-                new CodeBlock(2, 3, new File("linux.c"), condition, condition)));
+                new CodeBlock(2, 3, new File("linux_macro.c"), condition, condition)));
+    }
+    
+    /**
+     * Tests running the extractor on a file with an invalid condition and replacement enabled.
+     * 
+     * @throws ExtractorException unwanted.
+     * @throws SetUpException unwanted.
+     */
+    @Test
+    public void testInvalidConditionReplacement() throws ExtractorException, SetUpException {
+        Configuration config = new TestConfiguration(new Properties());
+        config.setValue(DefaultSettings.SOURCE_TREE, TESTDATA);
+        config.registerSetting(CodeBlockExtractor.INVALID_CONDITION_SETTING);
+        config.setValue(CodeBlockExtractor.INVALID_CONDITION_SETTING, InvalidConditionHandling.ERROR_VARIABLE);
+        
+        CodeBlockExtractor extractor = new CodeBlockExtractor();
+        extractor.init(config);
+        
+        SourceFile result = extractor.runOnFile(new File("invalid_condition.c"));
+        
+        assertThat(result.getPath(), is(new File("invalid_condition.c")));
+        assertThat(result.getTopElementCount(), is(1));
+        
+        assertThat(result.getElement(0), is(
+                new CodeBlock(2, 3, new File("invalid_condition.c"),
+                    new Variable("PARSING_ERROR"), new Variable("PARSING_ERROR"))));
     }
     
     /**
