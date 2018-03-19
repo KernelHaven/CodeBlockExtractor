@@ -623,8 +623,8 @@ public class BlockParserTest {
         List<CodeBlock> result = parser.readBlocks();
         
         Formula firstElif = and(not("A"), "B");
-        Formula secondElif = and(not(firstElif), "C");
-        Formula elseCond = not(secondElif);
+        Formula secondElif = and(and(not("A"), not("B")), "C");
+        Formula elseCond = and(and(not("A"), not("B")), not("C"));
         
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(1, 2, new File("test.c"), new Variable("A"), new Variable("A")),
@@ -728,6 +728,50 @@ public class BlockParserTest {
                 + " someElseCode;\n"
                 + "#endif\n"
                 + "#else\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
+     * Tests an #elif after an #else.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testElifAfterElse() throws IOException, FormatException {
+        String code = "#if defined(A)\n" 
+                + " someCode;\n"
+                + "#else\n"
+                + " someCode;\n"
+                + "#elif defined(B)\n"
+                + "#endif\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        parser.readBlocks();
+        parser.close();
+    }
+    
+    /**
+     * Tests an #else after an #else.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException wanted.
+     */
+    @Test(expected = FormatException.class)
+    public void testElseAfterElse() throws IOException, FormatException {
+        String code = "#if defined(A)\n" 
+                + " someCode;\n"
+                + "#else\n"
+                + " someCode;\n"
+                + "#else\n"
+                + "#endif\n";
         
         BlockParser parser = new BlockParser(
                 new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
