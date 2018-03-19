@@ -932,4 +932,26 @@ public class BlockParserTest {
         parser.close();
     }
     
+    /**
+     * Tests that a (multi line) commented out line without a slash is also removed by removeComments().
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testCommentedOutLineWithoutSlash() throws IOException, FormatException {
+        String code = "/*\n"
+                + " * This comment line has on slash\n"
+                + " */\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        assertThat(result, is(Arrays.asList()));
+        
+        parser.close();
+    }
+    
 }

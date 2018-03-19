@@ -383,6 +383,9 @@ public class BlockParser implements Closeable {
             }
             
             replaced = result.toString();
+            
+        } else if (inInlineComment) {
+            replaced = "";
         }
         
         return replaced;

@@ -1,0 +1,11 @@
+net.ssehub.kernel_haven.code_model.CodeBlock;0;20;176;linux3.c;!CHIP_AU8810;!CHIP_AU8810
+net.ssehub.kernel_haven.code_model.CodeBlock;1;34;36;linux3.c;CHIP_AU8820;!CHIP_AU8810 && CHIP_AU8820
+net.ssehub.kernel_haven.code_model.CodeBlock;1;37;39;linux3.c;!CHIP_AU8820;!CHIP_AU8810 && !CHIP_AU8820
+net.ssehub.kernel_haven.code_model.CodeBlock;1;70;71;linux3.c;CHIP_AU8820;!CHIP_AU8810 && CHIP_AU8820
+net.ssehub.kernel_haven.code_model.CodeBlock;1;72;73;linux3.c;!CHIP_AU8820;!CHIP_AU8810 && !CHIP_AU8820
+net.ssehub.kernel_haven.code_model.CodeBlock;1;80;81;linux3.c;CHIP_AU8820;!CHIP_AU8810 && CHIP_AU8820
+net.ssehub.kernel_haven.code_model.CodeBlock;1;83;85;linux3.c;CHIP_AU8830;!CHIP_AU8810 && CHIP_AU8830
+net.ssehub.kernel_haven.code_model.CodeBlock;1;87;89;linux3.c;CHIP_AU8810;!CHIP_AU8810 && CHIP_AU8810
+net.ssehub.kernel_haven.code_model.CodeBlock;1;94;95;linux3.c;CHIP_AU8820;!CHIP_AU8810 && CHIP_AU8820
+net.ssehub.kernel_haven.code_model.CodeBlock;1;97;99;linux3.c;CHIP_AU8830;!CHIP_AU8810 && CHIP_AU8830
+net.ssehub.kernel_haven.code_model.CodeBlock;1;101;103;linux3.c;CHIP_AU8810;!CHIP_AU8810 && CHIP_AU8810
