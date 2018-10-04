@@ -24,6 +24,18 @@ import net.ssehub.kernel_haven.util.logic.parser.ExpressionFormatException;
 public class CppConditionParserTest {
     
     /**
+     * Tests a variable with underscore characters.
+     * 
+     * @throws ExpressionFormatException unwanted.
+     */
+    @Test
+    public void testUnderscore() throws ExpressionFormatException {
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
+        
+        assertThat(parser.parse("defined(__a_b__)"), is(new Variable("__a_b__")));
+    }
+    
+    /**
      * Tests a more complex condition that uses all boolean operators.
      * 
      * @throws ExpressionFormatException unwanted.
