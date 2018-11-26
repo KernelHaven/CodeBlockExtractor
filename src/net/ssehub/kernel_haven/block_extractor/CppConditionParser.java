@@ -7,7 +7,7 @@ import net.ssehub.kernel_haven.util.cpp.parser.CppParser;
 import net.ssehub.kernel_haven.util.cpp.parser.ast.CppExpression;
 import net.ssehub.kernel_haven.util.cpp.parser.ast.FunctionCall;
 import net.ssehub.kernel_haven.util.cpp.parser.ast.ICppExressionVisitor;
-import net.ssehub.kernel_haven.util.cpp.parser.ast.IntegerLiteral;
+import net.ssehub.kernel_haven.util.cpp.parser.ast.NumberLiteral;
 import net.ssehub.kernel_haven.util.cpp.parser.ast.Operator;
 import net.ssehub.kernel_haven.util.cpp.parser.ast.Variable;
 import net.ssehub.kernel_haven.util.logic.Conjunction;
@@ -156,9 +156,10 @@ public class CppConditionParser implements ICppExressionVisitor<@NonNull Formula
             break;
             
         case INT_SUB_UNARY:
-            if (operator.getLeftSide() instanceof IntegerLiteral) {
+            if (operator.getLeftSide() instanceof NumberLiteral) {
                 // support -LITERAL, e.g. -2; everything != 0 is TRUE
-                result = ((IntegerLiteral) operator.getLeftSide()).getValue() != 0 ? True.INSTANCE : False.INSTANCE;
+                result = ((NumberLiteral) operator.getLeftSide()).getValue().doubleValue() != 0.0
+                        ? True.INSTANCE : False.INSTANCE;
                 
             } else {
                 throw new ExpressionFormatException("Unsupported operator: " + operator.getOperator());
@@ -173,10 +174,10 @@ public class CppConditionParser implements ICppExressionVisitor<@NonNull Formula
     }
 
     @Override
-    public @NonNull Formula visitLiteral(@NonNull IntegerLiteral literal) throws ExpressionFormatException {
+    public @NonNull Formula visitLiteral(@NonNull NumberLiteral literal) throws ExpressionFormatException {
         Formula result;
         
-        if (literal.getValue() == 0) {
+        if (literal.getValue().doubleValue() == 0.0) {
             result = False.INSTANCE;
         } else {
             result = True.INSTANCE;
@@ -206,14 +207,14 @@ public class CppConditionParser implements ICppExressionVisitor<@NonNull Formula
         String opStr;
         String value;
         
-        if (leftSide instanceof Variable && rightSide instanceof IntegerLiteral) {
+        if (leftSide instanceof Variable && rightSide instanceof NumberLiteral) {
             variable = ((Variable) leftSide).getName();
-            value = String.valueOf(((IntegerLiteral) rightSide).getValue());
+            value = String.valueOf(((NumberLiteral) rightSide).getValue()).replace('.', '_');
             opStr = getOpString(op.getOperator(), false);
             
-        } else if (leftSide instanceof IntegerLiteral && rightSide instanceof Variable) {
+        } else if (leftSide instanceof NumberLiteral && rightSide instanceof Variable) {
             variable = ((Variable) rightSide).getName();
-            value = String.valueOf((((IntegerLiteral) leftSide).getValue()));
+            value = String.valueOf((((NumberLiteral) leftSide).getValue())).replace('.', '_');
             opStr = getOpString(op.getOperator(), true);
             
         } else if (leftSide instanceof Variable && rightSide instanceof Variable) {
