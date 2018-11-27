@@ -383,4 +383,36 @@ public class CppConditionParserTest {
         assertThat(parser.parse("defined(A) || "), is(new Variable("PARSING_ERROR")));
     }
     
+    /**
+     * Tests that floating point zero is detected as false.
+     * 
+     * @throws ExpressionFormatException unwanted.
+     */
+    @Test
+    public void testVisitLiteralFloat() throws ExpressionFormatException {
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
+        
+        assertThat(parser.parse("0.0"), is(False.INSTANCE));
+        assertThat(parser.parse("-0.0"), is(False.INSTANCE));
+        assertThat(parser.parse("-4.2"), is(True.INSTANCE));
+        assertThat(parser.parse("5.2"), is(True.INSTANCE));
+    }
+   
+    /**
+     * Tests that fuzzy parsing with floating point works.
+     * 
+     * @throws ExpressionFormatException unwanted.
+     */
+    @Test
+    public void testFuzzyParsingFloat() throws ExpressionFormatException {
+        CppConditionParser parser = new CppConditionParser(false, true, EXCEPTION);
+        
+        assertThat(parser.parse("A == 2.26"), is(new Variable("A_eq_2_26")));
+        assertThat(parser.parse("A != 0.0"), is(new Variable("A_ne_0")));
+        assertThat(parser.parse("A >= 2.214"), is(new Variable("A_ge_2_214")));
+        assertThat(parser.parse("2.26 == A"), is(new Variable("A_eq_2_26")));
+        assertThat(parser.parse("0.0 != A"), is(new Variable("A_ne_0")));
+        assertThat(parser.parse("2.214 <= A"), is(new Variable("A_ge_2_214")));
+    }
+
 }
