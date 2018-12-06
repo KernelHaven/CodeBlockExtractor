@@ -1,0 +1,226 @@
+{
+	"version": 2,
+	"path": "linux2.c",
+	"elements": [
+		{
+			"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+			"id": 1,
+			"sourceFile": "linux2.c",
+			"lineStart": 1,
+			"lineEnd": 2065,
+			"condition": "1",
+			"presenceCondition": "1",
+			"nested": [
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 2,
+					"sourceFile": "linux2.c",
+					"lineStart": 92,
+					"lineEnd": 93,
+					"condition": "0",
+					"presenceCondition": "0"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 3,
+					"sourceFile": "linux2.c",
+					"lineStart": 94,
+					"lineEnd": 96,
+					"condition": "!0",
+					"presenceCondition": "!0"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 4,
+					"sourceFile": "linux2.c",
+					"lineStart": 294,
+					"lineEnd": 295,
+					"condition": "DEBUG",
+					"presenceCondition": "DEBUG"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 5,
+					"sourceFile": "linux2.c",
+					"lineStart": 296,
+					"lineEnd": 297,
+					"condition": "!DEBUG",
+					"presenceCondition": "!DEBUG"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 6,
+					"sourceFile": "linux2.c",
+					"lineStart": 303,
+					"lineEnd": 306,
+					"condition": "DEBUG",
+					"presenceCondition": "DEBUG"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 7,
+					"sourceFile": "linux2.c",
+					"lineStart": 307,
+					"lineEnd": 308,
+					"condition": "!DEBUG",
+					"presenceCondition": "!DEBUG"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 8,
+					"sourceFile": "linux2.c",
+					"lineStart": 311,
+					"lineEnd": 318,
+					"condition": "MODULE",
+					"presenceCondition": "MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 9,
+							"sourceFile": "linux2.c",
+							"lineStart": 312,
+							"lineEnd": 313,
+							"condition": "DEBUG",
+							"presenceCondition": "MODULE && DEBUG"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 10,
+					"sourceFile": "linux2.c",
+					"lineStart": 343,
+					"lineEnd": 366,
+					"condition": "DEBUG",
+					"presenceCondition": "DEBUG"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 11,
+					"sourceFile": "linux2.c",
+					"lineStart": 367,
+					"lineEnd": 368,
+					"condition": "!DEBUG",
+					"presenceCondition": "!DEBUG"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 12,
+					"sourceFile": "linux2.c",
+					"lineStart": 631,
+					"lineEnd": 637,
+					"condition": "DEBUG_EXTRA",
+					"presenceCondition": "DEBUG_EXTRA"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 13,
+					"sourceFile": "linux2.c",
+					"lineStart": 652,
+					"lineEnd": 658,
+					"condition": "DEBUG_EXTRA",
+					"presenceCondition": "DEBUG_EXTRA"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 14,
+					"sourceFile": "linux2.c",
+					"lineStart": 663,
+					"lineEnd": 664,
+					"condition": "1",
+					"presenceCondition": "1"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 15,
+					"sourceFile": "linux2.c",
+					"lineStart": 665,
+					"lineEnd": 674,
+					"condition": "!1",
+					"presenceCondition": "!1"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 16,
+					"sourceFile": "linux2.c",
+					"lineStart": 815,
+					"lineEnd": 817,
+					"condition": "0",
+					"presenceCondition": "0"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 17,
+					"sourceFile": "linux2.c",
+					"lineStart": 1202,
+					"lineEnd": 1210,
+					"condition": "DEBUG_EXTRA",
+					"presenceCondition": "DEBUG_EXTRA"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 18,
+					"sourceFile": "linux2.c",
+					"lineStart": 1231,
+					"lineEnd": 1280,
+					"condition": "0",
+					"presenceCondition": "0"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 19,
+					"sourceFile": "linux2.c",
+					"lineStart": 1463,
+					"lineEnd": 1465,
+					"condition": "0",
+					"presenceCondition": "0"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 20,
+					"sourceFile": "linux2.c",
+					"lineStart": 1466,
+					"lineEnd": 1467,
+					"condition": "!0",
+					"presenceCondition": "!0"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 21,
+					"sourceFile": "linux2.c",
+					"lineStart": 1576,
+					"lineEnd": 1593,
+					"condition": "IRQ_RATE_LIMIT",
+					"presenceCondition": "IRQ_RATE_LIMIT"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 22,
+					"sourceFile": "linux2.c",
+					"lineStart": 1656,
+					"lineEnd": 1664,
+					"condition": "FS_POLL_FREQ",
+					"presenceCondition": "FS_POLL_FREQ"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 23,
+					"sourceFile": "linux2.c",
+					"lineStart": 1885,
+					"lineEnd": 1890,
+					"condition": "FS_POLL_FREQ",
+					"presenceCondition": "FS_POLL_FREQ"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 24,
+					"sourceFile": "linux2.c",
+					"lineStart": 1948,
+					"lineEnd": 1963,
+					"condition": "0",
+					"presenceCondition": "0"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,53 @@
+{
+	"version": 2,
+	"path": "test1.c",
+	"elements": [
+		{
+			"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+			"id": 1,
+			"sourceFile": "test1.c",
+			"lineStart": 1,
+			"lineEnd": 29,
+			"condition": "1",
+			"presenceCondition": "1",
+			"nested": [
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 2,
+					"sourceFile": "test1.c",
+					"lineStart": 5,
+					"lineEnd": 7,
+					"condition": "CONFIG_ADDITION && !CONFIG_A",
+					"presenceCondition": "CONFIG_ADDITION && !CONFIG_A"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 3,
+					"sourceFile": "test1.c",
+					"lineStart": 8,
+					"lineEnd": 10,
+					"condition": "!(CONFIG_ADDITION && !CONFIG_A) && CONFIG_SUBTRACTION",
+					"presenceCondition": "!(CONFIG_ADDITION && !CONFIG_A) && CONFIG_SUBTRACTION"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 4,
+					"sourceFile": "test1.c",
+					"lineStart": 19,
+					"lineEnd": 20,
+					"condition": "CONFIG_LOGGING",
+					"presenceCondition": "CONFIG_LOGGING"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 5,
+					"sourceFile": "test1.c",
+					"lineStart": 23,
+					"lineEnd": 24,
+					"condition": "CONFIG_CALCULATION",
+					"presenceCondition": "CONFIG_CALCULATION"
+				}
+			]
+		}
+	]
+}

@@ -43,7 +43,7 @@ public class CodeBlockExtractorTest {
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
         
-        SourceFile result = extractor.runOnFile(new File("simpleIf.c"));
+        SourceFile<CodeBlock> result = extractor.runOnFile(new File("simpleIf.c"));
         
         assertThat(result.getPath(), is(new File("simpleIf.c")));
         assertThat(result.getTopElementCount(), is(1));
@@ -68,7 +68,7 @@ public class CodeBlockExtractorTest {
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
         
-        SourceFile result = extractor.runOnFile(new File("linux_macro.c"));
+        SourceFile<CodeBlock> result = extractor.runOnFile(new File("linux_macro.c"));
         
         assertThat(result.getPath(), is(new File("linux_macro.c")));
         assertThat(result.getTopElementCount(), is(1));
@@ -93,7 +93,7 @@ public class CodeBlockExtractorTest {
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
         
-        SourceFile result = extractor.runOnFile(new File("invalid_condition.c"));
+        SourceFile<CodeBlock> result = extractor.runOnFile(new File("invalid_condition.c"));
         
         assertThat(result.getPath(), is(new File("invalid_condition.c")));
         assertThat(result.getTopElementCount(), is(1));

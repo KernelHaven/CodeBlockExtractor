@@ -227,7 +227,7 @@ public class BlockParser implements Closeable {
         
         // copy to set the end line // TODO: this is not ideal....
         List<@NonNull CodeBlock> nested = new ArrayList<>(block.getNestedElementCount());
-        for (CodeBlock child : block.iterateNestedBlocks()) {
+        for (CodeBlock child : block) {
             nested.add(child);
         }
         block = new CodeBlock(block.getLineStart(), currentLineNumber - 1, sourceFile, block.getCondition(),

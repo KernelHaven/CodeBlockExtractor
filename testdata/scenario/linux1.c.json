@@ -1,0 +1,1981 @@
+{
+	"version": 2,
+	"path": "linux1.c",
+	"elements": [
+		{
+			"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+			"id": 1,
+			"sourceFile": "linux1.c",
+			"lineStart": 1,
+			"lineEnd": 3023,
+			"condition": "1",
+			"presenceCondition": "1",
+			"nested": [
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 2,
+					"sourceFile": "linux1.c",
+					"lineStart": 24,
+					"lineEnd": 25,
+					"condition": "CONFIG_USB_ISP1362_HCD || CONFIG_USB_ISP1362_HCD_MODULE",
+					"presenceCondition": "CONFIG_USB_ISP1362_HCD || CONFIG_USB_ISP1362_HCD_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 3,
+					"sourceFile": "linux1.c",
+					"lineStart": 43,
+					"lineEnd": 44,
+					"condition": "CONFIG_REGULATOR_FIXED_VOLTAGE",
+					"presenceCondition": "CONFIG_REGULATOR_FIXED_VOLTAGE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 4,
+					"sourceFile": "linux1.c",
+					"lineStart": 59,
+					"lineEnd": 91,
+					"condition": "CONFIG_USB_ISP1760_HCD || CONFIG_USB_ISP1760_HCD_MODULE",
+					"presenceCondition": "CONFIG_USB_ISP1760_HCD || CONFIG_USB_ISP1760_HCD_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 5,
+					"sourceFile": "linux1.c",
+					"lineStart": 94,
+					"lineEnd": 114,
+					"condition": "CONFIG_KEYBOARD_GPIO || CONFIG_KEYBOARD_GPIO_MODULE",
+					"presenceCondition": "CONFIG_KEYBOARD_GPIO || CONFIG_KEYBOARD_GPIO_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 6,
+					"sourceFile": "linux1.c",
+					"lineStart": 117,
+					"lineEnd": 143,
+					"condition": "CONFIG_BFIN_CFPCMCIA || CONFIG_BFIN_CFPCMCIA_MODULE",
+					"presenceCondition": "CONFIG_BFIN_CFPCMCIA || CONFIG_BFIN_CFPCMCIA_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 7,
+					"sourceFile": "linux1.c",
+					"lineStart": 146,
+					"lineEnd": 150,
+					"condition": "CONFIG_RTC_DRV_BFIN || CONFIG_RTC_DRV_BFIN_MODULE",
+					"presenceCondition": "CONFIG_RTC_DRV_BFIN || CONFIG_RTC_DRV_BFIN_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 8,
+					"sourceFile": "linux1.c",
+					"lineStart": 153,
+					"lineEnd": 183,
+					"condition": "CONFIG_SMC91X || CONFIG_SMC91X_MODULE",
+					"presenceCondition": "CONFIG_SMC91X || CONFIG_SMC91X_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 9,
+					"sourceFile": "linux1.c",
+					"lineStart": 186,
+					"lineEnd": 210,
+					"condition": "CONFIG_DM9000 || CONFIG_DM9000_MODULE",
+					"presenceCondition": "CONFIG_DM9000 || CONFIG_DM9000_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 10,
+					"sourceFile": "linux1.c",
+					"lineStart": 213,
+					"lineEnd": 254,
+					"condition": "CONFIG_USB_SL811_HCD || CONFIG_USB_SL811_HCD_MODULE",
+					"presenceCondition": "CONFIG_USB_SL811_HCD || CONFIG_USB_SL811_HCD_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 11,
+							"sourceFile": "linux1.c",
+							"lineStart": 230,
+							"lineEnd": 235,
+							"condition": "CONFIG_USB_SL811_BFIN_USE_VBUS",
+							"presenceCondition": "(CONFIG_USB_SL811_HCD || CONFIG_USB_SL811_HCD_MODULE) && CONFIG_USB_SL811_BFIN_USE_VBUS"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 12,
+							"sourceFile": "linux1.c",
+							"lineStart": 241,
+							"lineEnd": 242,
+							"condition": "CONFIG_USB_SL811_BFIN_USE_VBUS",
+							"presenceCondition": "(CONFIG_USB_SL811_HCD || CONFIG_USB_SL811_HCD_MODULE) && CONFIG_USB_SL811_BFIN_USE_VBUS"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 13,
+					"sourceFile": "linux1.c",
+					"lineStart": 257,
+					"lineEnd": 293,
+					"condition": "CONFIG_USB_ISP1362_HCD || CONFIG_USB_ISP1362_HCD_MODULE",
+					"presenceCondition": "CONFIG_USB_ISP1362_HCD || CONFIG_USB_ISP1362_HCD_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 14,
+					"sourceFile": "linux1.c",
+					"lineStart": 296,
+					"lineEnd": 331,
+					"condition": "CONFIG_CAN_BFIN || CONFIG_CAN_BFIN_MODULE",
+					"presenceCondition": "CONFIG_CAN_BFIN || CONFIG_CAN_BFIN_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 15,
+					"sourceFile": "linux1.c",
+					"lineStart": 334,
+					"lineEnd": 364,
+					"condition": "CONFIG_BFIN_MAC || CONFIG_BFIN_MAC_MODULE",
+					"presenceCondition": "CONFIG_BFIN_MAC || CONFIG_BFIN_MAC_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 16,
+					"sourceFile": "linux1.c",
+					"lineStart": 367,
+					"lineEnd": 388,
+					"condition": "CONFIG_USB_NET2272 || CONFIG_USB_NET2272_MODULE",
+					"presenceCondition": "CONFIG_USB_NET2272 || CONFIG_USB_NET2272_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 17,
+					"sourceFile": "linux1.c",
+					"lineStart": 391,
+					"lineEnd": 462,
+					"condition": "CONFIG_MTD_NAND_PLATFORM || CONFIG_MTD_NAND_PLATFORM_MODULE",
+					"presenceCondition": "CONFIG_MTD_NAND_PLATFORM || CONFIG_MTD_NAND_PLATFORM_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 18,
+					"sourceFile": "linux1.c",
+					"lineStart": 463,
+					"lineEnd": 464,
+					"condition": "!(CONFIG_MTD_NAND_PLATFORM || CONFIG_MTD_NAND_PLATFORM_MODULE)",
+					"presenceCondition": "!(CONFIG_MTD_NAND_PLATFORM || CONFIG_MTD_NAND_PLATFORM_MODULE)"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 19,
+					"sourceFile": "linux1.c",
+					"lineStart": 467,
+					"lineEnd": 512,
+					"condition": "CONFIG_MTD_PHYSMAP || CONFIG_MTD_PHYSMAP_MODULE",
+					"presenceCondition": "CONFIG_MTD_PHYSMAP || CONFIG_MTD_PHYSMAP_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 20,
+							"sourceFile": "linux1.c",
+							"lineStart": 493,
+							"lineEnd": 494,
+							"condition": "CONFIG_ROMKERNEL",
+							"presenceCondition": "(CONFIG_MTD_PHYSMAP || CONFIG_MTD_PHYSMAP_MODULE) && CONFIG_ROMKERNEL"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 21,
+					"sourceFile": "linux1.c",
+					"lineStart": 515,
+					"lineEnd": 543,
+					"condition": "CONFIG_MTD_M25P80 || CONFIG_MTD_M25P80_MODULE",
+					"presenceCondition": "CONFIG_MTD_M25P80 || CONFIG_MTD_M25P80_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 22,
+					"sourceFile": "linux1.c",
+					"lineStart": 546,
+					"lineEnd": 604,
+					"condition": "CONFIG_INPUT_AD714X_SPI || CONFIG_INPUT_AD714X_SPI_MODULE",
+					"presenceCondition": "CONFIG_INPUT_AD714X_SPI || CONFIG_INPUT_AD714X_SPI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 23,
+					"sourceFile": "linux1.c",
+					"lineStart": 607,
+					"lineEnd": 651,
+					"condition": "CONFIG_INPUT_AD714X_I2C || CONFIG_INPUT_AD714X_I2C_MODULE",
+					"presenceCondition": "CONFIG_INPUT_AD714X_I2C || CONFIG_INPUT_AD714X_I2C_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 24,
+					"sourceFile": "linux1.c",
+					"lineStart": 654,
+					"lineEnd": 657,
+					"condition": "CONFIG_AD2S90 || CONFIG_AD2S90_MODULE",
+					"presenceCondition": "CONFIG_AD2S90 || CONFIG_AD2S90_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 25,
+					"sourceFile": "linux1.c",
+					"lineStart": 660,
+					"lineEnd": 668,
+					"condition": "CONFIG_AD2S1200 || CONFIG_AD2S1200_MODULE",
+					"presenceCondition": "CONFIG_AD2S1200 || CONFIG_AD2S1200_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 26,
+					"sourceFile": "linux1.c",
+					"lineStart": 671,
+					"lineEnd": 684,
+					"condition": "CONFIG_AD2S1210 || CONFIG_AD2S1210_MODULE",
+					"presenceCondition": "CONFIG_AD2S1210 || CONFIG_AD2S1210_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 27,
+							"sourceFile": "linux1.c",
+							"lineStart": 675,
+							"lineEnd": 677,
+							"condition": "CONFIG_AD2S1210_GPIO_INPUT || CONFIG_AD2S1210_GPIO_OUTPUT",
+							"presenceCondition": "(CONFIG_AD2S1210 || CONFIG_AD2S1210_MODULE) && (CONFIG_AD2S1210_GPIO_INPUT || CONFIG_AD2S1210_GPIO_OUTPUT)"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 28,
+					"sourceFile": "linux1.c",
+					"lineStart": 687,
+					"lineEnd": 690,
+					"condition": "CONFIG_SENSORS_AD7314 || CONFIG_SENSORS_AD7314_MODULE",
+					"presenceCondition": "CONFIG_SENSORS_AD7314 || CONFIG_SENSORS_AD7314_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 29,
+					"sourceFile": "linux1.c",
+					"lineStart": 693,
+					"lineEnd": 703,
+					"condition": "CONFIG_AD7816 || CONFIG_AD7816_MODULE",
+					"presenceCondition": "CONFIG_AD7816 || CONFIG_AD7816_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 30,
+					"sourceFile": "linux1.c",
+					"lineStart": 706,
+					"lineEnd": 716,
+					"condition": "CONFIG_ADT7310 || CONFIG_ADT7310_MODULE",
+					"presenceCondition": "CONFIG_ADT7310 || CONFIG_ADT7310_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 31,
+					"sourceFile": "linux1.c",
+					"lineStart": 719,
+					"lineEnd": 723,
+					"condition": "CONFIG_AD7298 || CONFIG_AD7298_MODULE",
+					"presenceCondition": "CONFIG_AD7298 || CONFIG_AD7298_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 32,
+					"sourceFile": "linux1.c",
+					"lineStart": 726,
+					"lineEnd": 734,
+					"condition": "CONFIG_ADT7316_SPI || CONFIG_ADT7316_SPI_MODULE",
+					"presenceCondition": "CONFIG_ADT7316_SPI || CONFIG_ADT7316_SPI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 33,
+					"sourceFile": "linux1.c",
+					"lineStart": 737,
+					"lineEnd": 761,
+					"condition": "CONFIG_MMC_SPI || CONFIG_MMC_SPI_MODULE",
+					"presenceCondition": "CONFIG_MMC_SPI || CONFIG_MMC_SPI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 34,
+					"sourceFile": "linux1.c",
+					"lineStart": 764,
+					"lineEnd": 778,
+					"condition": "CONFIG_TOUCHSCREEN_AD7877 || CONFIG_TOUCHSCREEN_AD7877_MODULE",
+					"presenceCondition": "CONFIG_TOUCHSCREEN_AD7877 || CONFIG_TOUCHSCREEN_AD7877_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 35,
+					"sourceFile": "linux1.c",
+					"lineStart": 781,
+					"lineEnd": 795,
+					"condition": "CONFIG_TOUCHSCREEN_AD7879 || CONFIG_TOUCHSCREEN_AD7879_MODULE",
+					"presenceCondition": "CONFIG_TOUCHSCREEN_AD7879 || CONFIG_TOUCHSCREEN_AD7879_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 36,
+					"sourceFile": "linux1.c",
+					"lineStart": 798,
+					"lineEnd": 834,
+					"condition": "CONFIG_INPUT_ADXL34X || CONFIG_INPUT_ADXL34X_MODULE",
+					"presenceCondition": "CONFIG_INPUT_ADXL34X || CONFIG_INPUT_ADXL34X_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 37,
+					"sourceFile": "linux1.c",
+					"lineStart": 837,
+					"lineEnd": 840,
+					"condition": "CONFIG_ENC28J60 || CONFIG_ENC28J60_MODULE",
+					"presenceCondition": "CONFIG_ENC28J60 || CONFIG_ENC28J60_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 38,
+					"sourceFile": "linux1.c",
+					"lineStart": 843,
+					"lineEnd": 880,
+					"condition": "CONFIG_ADF702X || CONFIG_ADF702X_MODULE",
+					"presenceCondition": "CONFIG_ADF702X || CONFIG_ADF702X_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 39,
+					"sourceFile": "linux1.c",
+					"lineStart": 881,
+					"lineEnd": 882,
+					"condition": "!(CONFIG_ADF702X || CONFIG_ADF702X_MODULE)",
+					"presenceCondition": "!(CONFIG_ADF702X || CONFIG_ADF702X_MODULE)"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 40,
+					"sourceFile": "linux1.c",
+					"lineStart": 885,
+					"lineEnd": 901,
+					"condition": "CONFIG_TOUCHSCREEN_ADS7846 || CONFIG_TOUCHSCREEN_ADS7846_MODULE",
+					"presenceCondition": "CONFIG_TOUCHSCREEN_ADS7846 || CONFIG_TOUCHSCREEN_ADS7846_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 41,
+					"sourceFile": "linux1.c",
+					"lineStart": 904,
+					"lineEnd": 932,
+					"condition": "CONFIG_MTD_DATAFLASH || CONFIG_MTD_DATAFLASH_MODULE",
+					"presenceCondition": "CONFIG_MTD_DATAFLASH || CONFIG_MTD_DATAFLASH_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 42,
+					"sourceFile": "linux1.c",
+					"lineStart": 935,
+					"lineEnd": 938,
+					"condition": "CONFIG_AD7476 || CONFIG_AD7476_MODULE",
+					"presenceCondition": "CONFIG_AD7476 || CONFIG_AD7476_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 43,
+					"sourceFile": "linux1.c",
+					"lineStart": 942,
+					"lineEnd": 952,
+					"condition": "CONFIG_MTD_M25P80 || CONFIG_MTD_M25P80_MODULE",
+					"presenceCondition": "CONFIG_MTD_M25P80 || CONFIG_MTD_M25P80_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 44,
+					"sourceFile": "linux1.c",
+					"lineStart": 954,
+					"lineEnd": 963,
+					"condition": "CONFIG_MTD_DATAFLASH || CONFIG_MTD_DATAFLASH_MODULE",
+					"presenceCondition": "CONFIG_MTD_DATAFLASH || CONFIG_MTD_DATAFLASH_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 45,
+					"sourceFile": "linux1.c",
+					"lineStart": 966,
+					"lineEnd": 974,
+					"condition": "CONFIG_SND_BF5XX_SOC_AD1836 || CONFIG_SND_BF5XX_SOC_AD1836_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_SOC_AD1836 || CONFIG_SND_BF5XX_SOC_AD1836_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 46,
+					"sourceFile": "linux1.c",
+					"lineStart": 977,
+					"lineEnd": 984,
+					"condition": "CONFIG_SND_SOC_AD193X_SPI",
+					"presenceCondition": "CONFIG_SND_SOC_AD193X_SPI"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 47,
+					"sourceFile": "linux1.c",
+					"lineStart": 987,
+					"lineEnd": 994,
+					"condition": "CONFIG_SND_SOC_ADAV80X || CONFIG_SND_SOC_ADAV80X_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_ADAV80X || CONFIG_SND_SOC_ADAV80X_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 48,
+					"sourceFile": "linux1.c",
+					"lineStart": 997,
+					"lineEnd": 1006,
+					"condition": "CONFIG_INPUT_AD714X_SPI || CONFIG_INPUT_AD714X_SPI_MODULE",
+					"presenceCondition": "CONFIG_INPUT_AD714X_SPI || CONFIG_INPUT_AD714X_SPI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 49,
+					"sourceFile": "linux1.c",
+					"lineStart": 1009,
+					"lineEnd": 1017,
+					"condition": "CONFIG_AD2S90 || CONFIG_AD2S90_MODULE",
+					"presenceCondition": "CONFIG_AD2S90 || CONFIG_AD2S90_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 50,
+					"sourceFile": "linux1.c",
+					"lineStart": 1020,
+					"lineEnd": 1027,
+					"condition": "CONFIG_AD2S1200 || CONFIG_AD2S1200_MODULE",
+					"presenceCondition": "CONFIG_AD2S1200 || CONFIG_AD2S1200_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 51,
+					"sourceFile": "linux1.c",
+					"lineStart": 1030,
+					"lineEnd": 1038,
+					"condition": "CONFIG_AD2S1210 || CONFIG_AD2S1210_MODULE",
+					"presenceCondition": "CONFIG_AD2S1210 || CONFIG_AD2S1210_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 52,
+					"sourceFile": "linux1.c",
+					"lineStart": 1041,
+					"lineEnd": 1049,
+					"condition": "CONFIG_SENSORS_AD7314 || CONFIG_SENSORS_AD7314_MODULE",
+					"presenceCondition": "CONFIG_SENSORS_AD7314 || CONFIG_SENSORS_AD7314_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 53,
+					"sourceFile": "linux1.c",
+					"lineStart": 1052,
+					"lineEnd": 1061,
+					"condition": "CONFIG_AD7816 || CONFIG_AD7816_MODULE",
+					"presenceCondition": "CONFIG_AD7816 || CONFIG_AD7816_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 54,
+					"sourceFile": "linux1.c",
+					"lineStart": 1064,
+					"lineEnd": 1074,
+					"condition": "CONFIG_ADT7310 || CONFIG_ADT7310_MODULE",
+					"presenceCondition": "CONFIG_ADT7310 || CONFIG_ADT7310_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 55,
+					"sourceFile": "linux1.c",
+					"lineStart": 1077,
+					"lineEnd": 1085,
+					"condition": "CONFIG_AD7298 || CONFIG_AD7298_MODULE",
+					"presenceCondition": "CONFIG_AD7298 || CONFIG_AD7298_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 56,
+					"sourceFile": "linux1.c",
+					"lineStart": 1088,
+					"lineEnd": 1098,
+					"condition": "CONFIG_ADT7316_SPI || CONFIG_ADT7316_SPI_MODULE",
+					"presenceCondition": "CONFIG_ADT7316_SPI || CONFIG_ADT7316_SPI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 57,
+					"sourceFile": "linux1.c",
+					"lineStart": 1101,
+					"lineEnd": 1110,
+					"condition": "CONFIG_MMC_SPI || CONFIG_MMC_SPI_MODULE",
+					"presenceCondition": "CONFIG_MMC_SPI || CONFIG_MMC_SPI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 58,
+					"sourceFile": "linux1.c",
+					"lineStart": 1112,
+					"lineEnd": 1120,
+					"condition": "CONFIG_TOUCHSCREEN_AD7877 || CONFIG_TOUCHSCREEN_AD7877_MODULE",
+					"presenceCondition": "CONFIG_TOUCHSCREEN_AD7877 || CONFIG_TOUCHSCREEN_AD7877_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 59,
+					"sourceFile": "linux1.c",
+					"lineStart": 1122,
+					"lineEnd": 1131,
+					"condition": "CONFIG_TOUCHSCREEN_AD7879_SPI || CONFIG_TOUCHSCREEN_AD7879_SPI_MODULE",
+					"presenceCondition": "CONFIG_TOUCHSCREEN_AD7879_SPI || CONFIG_TOUCHSCREEN_AD7879_SPI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 60,
+					"sourceFile": "linux1.c",
+					"lineStart": 1133,
+					"lineEnd": 1139,
+					"condition": "CONFIG_SPI_SPIDEV || CONFIG_SPI_SPIDEV_MODULE",
+					"presenceCondition": "CONFIG_SPI_SPIDEV || CONFIG_SPI_SPIDEV_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 61,
+					"sourceFile": "linux1.c",
+					"lineStart": 1141,
+					"lineEnd": 1148,
+					"condition": "CONFIG_FB_BFIN_LQ035Q1 || CONFIG_FB_BFIN_LQ035Q1_MODULE",
+					"presenceCondition": "CONFIG_FB_BFIN_LQ035Q1 || CONFIG_FB_BFIN_LQ035Q1_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 62,
+					"sourceFile": "linux1.c",
+					"lineStart": 1150,
+					"lineEnd": 1159,
+					"condition": "CONFIG_ENC28J60 || CONFIG_ENC28J60_MODULE",
+					"presenceCondition": "CONFIG_ENC28J60 || CONFIG_ENC28J60_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 63,
+					"sourceFile": "linux1.c",
+					"lineStart": 1161,
+					"lineEnd": 1170,
+					"condition": "CONFIG_INPUT_ADXL34X_SPI || CONFIG_INPUT_ADXL34X_SPI_MODULE",
+					"presenceCondition": "CONFIG_INPUT_ADXL34X_SPI || CONFIG_INPUT_ADXL34X_SPI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 64,
+					"sourceFile": "linux1.c",
+					"lineStart": 1172,
+					"lineEnd": 1180,
+					"condition": "CONFIG_ADF702X || CONFIG_ADF702X_MODULE",
+					"presenceCondition": "CONFIG_ADF702X || CONFIG_ADF702X_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 65,
+					"sourceFile": "linux1.c",
+					"lineStart": 1182,
+					"lineEnd": 1191,
+					"condition": "CONFIG_TOUCHSCREEN_ADS7846 || CONFIG_TOUCHSCREEN_ADS7846_MODULE",
+					"presenceCondition": "CONFIG_TOUCHSCREEN_ADS7846 || CONFIG_TOUCHSCREEN_ADS7846_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 66,
+					"sourceFile": "linux1.c",
+					"lineStart": 1193,
+					"lineEnd": 1202,
+					"condition": "CONFIG_AD7476 || CONFIG_AD7476_MODULE",
+					"presenceCondition": "CONFIG_AD7476 || CONFIG_AD7476_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 67,
+					"sourceFile": "linux1.c",
+					"lineStart": 1204,
+					"lineEnd": 1212,
+					"condition": "CONFIG_ADE7753 || CONFIG_ADE7753_MODULE",
+					"presenceCondition": "CONFIG_ADE7753 || CONFIG_ADE7753_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 68,
+					"sourceFile": "linux1.c",
+					"lineStart": 1214,
+					"lineEnd": 1222,
+					"condition": "CONFIG_ADE7754 || CONFIG_ADE7754_MODULE",
+					"presenceCondition": "CONFIG_ADE7754 || CONFIG_ADE7754_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 69,
+					"sourceFile": "linux1.c",
+					"lineStart": 1224,
+					"lineEnd": 1232,
+					"condition": "CONFIG_ADE7758 || CONFIG_ADE7758_MODULE",
+					"presenceCondition": "CONFIG_ADE7758 || CONFIG_ADE7758_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 70,
+					"sourceFile": "linux1.c",
+					"lineStart": 1234,
+					"lineEnd": 1242,
+					"condition": "CONFIG_ADE7759 || CONFIG_ADE7759_MODULE",
+					"presenceCondition": "CONFIG_ADE7759 || CONFIG_ADE7759_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 71,
+					"sourceFile": "linux1.c",
+					"lineStart": 1244,
+					"lineEnd": 1252,
+					"condition": "CONFIG_ADE7854_SPI || CONFIG_ADE7854_SPI_MODULE",
+					"presenceCondition": "CONFIG_ADE7854_SPI || CONFIG_ADE7854_SPI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 72,
+					"sourceFile": "linux1.c",
+					"lineStart": 1254,
+					"lineEnd": 1270,
+					"condition": "CONFIG_ADIS16060 || CONFIG_ADIS16060_MODULE",
+					"presenceCondition": "CONFIG_ADIS16060 || CONFIG_ADIS16060_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 73,
+					"sourceFile": "linux1.c",
+					"lineStart": 1272,
+					"lineEnd": 1280,
+					"condition": "CONFIG_ADIS16130 || CONFIG_ADIS16130_MODULE",
+					"presenceCondition": "CONFIG_ADIS16130 || CONFIG_ADIS16130_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 74,
+					"sourceFile": "linux1.c",
+					"lineStart": 1282,
+					"lineEnd": 1291,
+					"condition": "CONFIG_ADIS16201 || CONFIG_ADIS16201_MODULE",
+					"presenceCondition": "CONFIG_ADIS16201 || CONFIG_ADIS16201_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 75,
+					"sourceFile": "linux1.c",
+					"lineStart": 1293,
+					"lineEnd": 1302,
+					"condition": "CONFIG_ADIS16203 || CONFIG_ADIS16203_MODULE",
+					"presenceCondition": "CONFIG_ADIS16203 || CONFIG_ADIS16203_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 76,
+					"sourceFile": "linux1.c",
+					"lineStart": 1304,
+					"lineEnd": 1313,
+					"condition": "CONFIG_ADIS16204 || CONFIG_ADIS16204_MODULE",
+					"presenceCondition": "CONFIG_ADIS16204 || CONFIG_ADIS16204_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 77,
+					"sourceFile": "linux1.c",
+					"lineStart": 1315,
+					"lineEnd": 1324,
+					"condition": "CONFIG_ADIS16209 || CONFIG_ADIS16209_MODULE",
+					"presenceCondition": "CONFIG_ADIS16209 || CONFIG_ADIS16209_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 78,
+					"sourceFile": "linux1.c",
+					"lineStart": 1326,
+					"lineEnd": 1335,
+					"condition": "CONFIG_ADIS16220 || CONFIG_ADIS16220_MODULE",
+					"presenceCondition": "CONFIG_ADIS16220 || CONFIG_ADIS16220_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 79,
+					"sourceFile": "linux1.c",
+					"lineStart": 1337,
+					"lineEnd": 1346,
+					"condition": "CONFIG_ADIS16240 || CONFIG_ADIS16240_MODULE",
+					"presenceCondition": "CONFIG_ADIS16240 || CONFIG_ADIS16240_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 80,
+					"sourceFile": "linux1.c",
+					"lineStart": 1348,
+					"lineEnd": 1357,
+					"condition": "CONFIG_ADIS16260 || CONFIG_ADIS16260_MODULE",
+					"presenceCondition": "CONFIG_ADIS16260 || CONFIG_ADIS16260_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 81,
+					"sourceFile": "linux1.c",
+					"lineStart": 1359,
+					"lineEnd": 1367,
+					"condition": "CONFIG_ADIS16261 || CONFIG_ADIS16261_MODULE",
+					"presenceCondition": "CONFIG_ADIS16261 || CONFIG_ADIS16261_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 82,
+					"sourceFile": "linux1.c",
+					"lineStart": 1369,
+					"lineEnd": 1378,
+					"condition": "CONFIG_ADIS16300 || CONFIG_ADIS16300_MODULE",
+					"presenceCondition": "CONFIG_ADIS16300 || CONFIG_ADIS16300_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 83,
+					"sourceFile": "linux1.c",
+					"lineStart": 1380,
+					"lineEnd": 1389,
+					"condition": "CONFIG_ADIS16350 || CONFIG_ADIS16350_MODULE",
+					"presenceCondition": "CONFIG_ADIS16350 || CONFIG_ADIS16350_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 84,
+					"sourceFile": "linux1.c",
+					"lineStart": 1391,
+					"lineEnd": 1399,
+					"condition": "CONFIG_ADIS16400 || CONFIG_ADIS16400_MODULE",
+					"presenceCondition": "CONFIG_ADIS16400 || CONFIG_ADIS16400_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 85,
+					"sourceFile": "linux1.c",
+					"lineStart": 1403,
+					"lineEnd": 1438,
+					"condition": "CONFIG_SPI_BFIN5XX || CONFIG_SPI_BFIN5XX_MODULE",
+					"presenceCondition": "CONFIG_SPI_BFIN5XX || CONFIG_SPI_BFIN5XX_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 86,
+					"sourceFile": "linux1.c",
+					"lineStart": 1441,
+					"lineEnd": 1503,
+					"condition": "CONFIG_SPI_BFIN_SPORT || CONFIG_SPI_BFIN_SPORT_MODULE",
+					"presenceCondition": "CONFIG_SPI_BFIN_SPORT || CONFIG_SPI_BFIN_SPORT_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 87,
+					"sourceFile": "linux1.c",
+					"lineStart": 1506,
+					"lineEnd": 1509,
+					"condition": "CONFIG_FB_BF537_LQ035 || CONFIG_FB_BF537_LQ035_MODULE",
+					"presenceCondition": "CONFIG_FB_BF537_LQ035 || CONFIG_FB_BF537_LQ035_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 88,
+					"sourceFile": "linux1.c",
+					"lineStart": 1512,
+					"lineEnd": 1538,
+					"condition": "CONFIG_FB_BFIN_LQ035Q1 || CONFIG_FB_BFIN_LQ035Q1_MODULE",
+					"presenceCondition": "CONFIG_FB_BFIN_LQ035Q1 || CONFIG_FB_BFIN_LQ035Q1_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 89,
+					"sourceFile": "linux1.c",
+					"lineStart": 1541,
+					"lineEnd": 1601,
+					"condition": "CONFIG_VIDEO_BLACKFIN_CAPTURE || CONFIG_VIDEO_BLACKFIN_CAPTURE_MODULE",
+					"presenceCondition": "CONFIG_VIDEO_BLACKFIN_CAPTURE || CONFIG_VIDEO_BLACKFIN_CAPTURE_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 90,
+							"sourceFile": "linux1.c",
+							"lineStart": 1561,
+							"lineEnd": 1593,
+							"condition": "CONFIG_VIDEO_VS6624 || CONFIG_VIDEO_VS6624_MODULE",
+							"presenceCondition": "(CONFIG_VIDEO_BLACKFIN_CAPTURE || CONFIG_VIDEO_BLACKFIN_CAPTURE_MODULE) && (CONFIG_VIDEO_VS6624 || CONFIG_VIDEO_VS6624_MODULE)"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 91,
+					"sourceFile": "linux1.c",
+					"lineStart": 1604,
+					"lineEnd": 1712,
+					"condition": "CONFIG_SERIAL_BFIN || CONFIG_SERIAL_BFIN_MODULE",
+					"presenceCondition": "CONFIG_SERIAL_BFIN || CONFIG_SERIAL_BFIN_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 92,
+							"sourceFile": "linux1.c",
+							"lineStart": 1605,
+							"lineEnd": 1663,
+							"condition": "CONFIG_SERIAL_BFIN_UART0",
+							"presenceCondition": "(CONFIG_SERIAL_BFIN || CONFIG_SERIAL_BFIN_MODULE) && CONFIG_SERIAL_BFIN_UART0",
+							"nested": [
+								{
+									"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+									"id": 93,
+									"sourceFile": "linux1.c",
+									"lineStart": 1637,
+									"lineEnd": 1647,
+									"condition": "CONFIG_BFIN_UART0_CTSRTS",
+									"presenceCondition": "(CONFIG_SERIAL_BFIN || CONFIG_SERIAL_BFIN_MODULE) && CONFIG_SERIAL_BFIN_UART0 && CONFIG_BFIN_UART0_CTSRTS"
+								}
+							]
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 94,
+							"sourceFile": "linux1.c",
+							"lineStart": 1665,
+							"lineEnd": 1711,
+							"condition": "CONFIG_SERIAL_BFIN_UART1",
+							"presenceCondition": "(CONFIG_SERIAL_BFIN || CONFIG_SERIAL_BFIN_MODULE) && CONFIG_SERIAL_BFIN_UART1"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 95,
+					"sourceFile": "linux1.c",
+					"lineStart": 1715,
+					"lineEnd": 1767,
+					"condition": "CONFIG_BFIN_SIR || CONFIG_BFIN_SIR_MODULE",
+					"presenceCondition": "CONFIG_BFIN_SIR || CONFIG_BFIN_SIR_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 96,
+							"sourceFile": "linux1.c",
+							"lineStart": 1716,
+							"lineEnd": 1740,
+							"condition": "CONFIG_BFIN_SIR0",
+							"presenceCondition": "(CONFIG_BFIN_SIR || CONFIG_BFIN_SIR_MODULE) && CONFIG_BFIN_SIR0"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 97,
+							"sourceFile": "linux1.c",
+							"lineStart": 1742,
+							"lineEnd": 1766,
+							"condition": "CONFIG_BFIN_SIR1",
+							"presenceCondition": "(CONFIG_BFIN_SIR || CONFIG_BFIN_SIR_MODULE) && CONFIG_BFIN_SIR1"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 98,
+					"sourceFile": "linux1.c",
+					"lineStart": 1770,
+					"lineEnd": 1794,
+					"condition": "CONFIG_I2C_BLACKFIN_TWI || CONFIG_I2C_BLACKFIN_TWI_MODULE",
+					"presenceCondition": "CONFIG_I2C_BLACKFIN_TWI || CONFIG_I2C_BLACKFIN_TWI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 99,
+					"sourceFile": "linux1.c",
+					"lineStart": 1797,
+					"lineEnd": 1879,
+					"condition": "CONFIG_KEYBOARD_ADP5588 || CONFIG_KEYBOARD_ADP5588_MODULE",
+					"presenceCondition": "CONFIG_KEYBOARD_ADP5588 || CONFIG_KEYBOARD_ADP5588_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 100,
+					"sourceFile": "linux1.c",
+					"lineStart": 1882,
+					"lineEnd": 1990,
+					"condition": "CONFIG_PMIC_ADP5520 || CONFIG_PMIC_ADP5520_MODULE",
+					"presenceCondition": "CONFIG_PMIC_ADP5520 || CONFIG_PMIC_ADP5520_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 101,
+							"sourceFile": "linux1.c",
+							"lineStart": 1917,
+							"lineEnd": 1927,
+							"condition": "ADP5520_EN_ALL_LEDS",
+							"presenceCondition": "(CONFIG_PMIC_ADP5520 || CONFIG_PMIC_ADP5520_MODULE) && ADP5520_EN_ALL_LEDS"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 102,
+					"sourceFile": "linux1.c",
+					"lineStart": 1993,
+					"lineEnd": 1997,
+					"condition": "CONFIG_GPIO_ADP5588 || CONFIG_GPIO_ADP5588_MODULE",
+					"presenceCondition": "CONFIG_GPIO_ADP5588 || CONFIG_GPIO_ADP5588_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 103,
+					"sourceFile": "linux1.c",
+					"lineStart": 2000,
+					"lineEnd": 2049,
+					"condition": "CONFIG_BACKLIGHT_ADP8870 || CONFIG_BACKLIGHT_ADP8870_MODULE",
+					"presenceCondition": "CONFIG_BACKLIGHT_ADP8870 || CONFIG_BACKLIGHT_ADP8870_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 104,
+					"sourceFile": "linux1.c",
+					"lineStart": 2052,
+					"lineEnd": 2091,
+					"condition": "CONFIG_BACKLIGHT_ADP8860 || CONFIG_BACKLIGHT_ADP8860_MODULE",
+					"presenceCondition": "CONFIG_BACKLIGHT_ADP8860 || CONFIG_BACKLIGHT_ADP8860_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 105,
+					"sourceFile": "linux1.c",
+					"lineStart": 2094,
+					"lineEnd": 2136,
+					"condition": "CONFIG_REGULATOR_AD5398 || CONFIG_REGULATOR_AD5398_MODULE",
+					"presenceCondition": "CONFIG_REGULATOR_AD5398 || CONFIG_REGULATOR_AD5398_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 106,
+							"sourceFile": "linux1.c",
+							"lineStart": 2109,
+							"lineEnd": 2116,
+							"condition": "CONFIG_REGULATOR_VIRTUAL_CONSUMER || CONFIG_REGULATOR_VIRTUAL_CONSUMER_MODULE",
+							"presenceCondition": "(CONFIG_REGULATOR_AD5398 || CONFIG_REGULATOR_AD5398_MODULE) && (CONFIG_REGULATOR_VIRTUAL_CONSUMER || CONFIG_REGULATOR_VIRTUAL_CONSUMER_MODULE)"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 107,
+							"sourceFile": "linux1.c",
+							"lineStart": 2118,
+							"lineEnd": 2135,
+							"condition": "CONFIG_REGULATOR_USERSPACE_CONSUMER || CONFIG_REGULATOR_USERSPACE_CONSUMER_MODULE",
+							"presenceCondition": "(CONFIG_REGULATOR_AD5398 || CONFIG_REGULATOR_AD5398_MODULE) && (CONFIG_REGULATOR_USERSPACE_CONSUMER || CONFIG_REGULATOR_USERSPACE_CONSUMER_MODULE)"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 108,
+					"sourceFile": "linux1.c",
+					"lineStart": 2139,
+					"lineEnd": 2143,
+					"condition": "CONFIG_ADT7410 || CONFIG_ADT7410_MODULE",
+					"presenceCondition": "CONFIG_ADT7410 || CONFIG_ADT7410_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 109,
+					"sourceFile": "linux1.c",
+					"lineStart": 2146,
+					"lineEnd": 2151,
+					"condition": "CONFIG_ADT7316_I2C || CONFIG_ADT7316_I2C_MODULE",
+					"presenceCondition": "CONFIG_ADT7316_I2C || CONFIG_ADT7316_I2C_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 110,
+					"sourceFile": "linux1.c",
+					"lineStart": 2155,
+					"lineEnd": 2158,
+					"condition": "CONFIG_SND_SOC_AD193X_I2C",
+					"presenceCondition": "CONFIG_SND_SOC_AD193X_I2C"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 111,
+					"sourceFile": "linux1.c",
+					"lineStart": 2161,
+					"lineEnd": 2164,
+					"condition": "CONFIG_SND_SOC_ADAV80X || CONFIG_SND_SOC_ADAV80X_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_ADAV80X || CONFIG_SND_SOC_ADAV80X_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 112,
+					"sourceFile": "linux1.c",
+					"lineStart": 2167,
+					"lineEnd": 2172,
+					"condition": "CONFIG_INPUT_AD714X_I2C || CONFIG_INPUT_AD714X_I2C_MODULE",
+					"presenceCondition": "CONFIG_INPUT_AD714X_I2C || CONFIG_INPUT_AD714X_I2C_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 113,
+					"sourceFile": "linux1.c",
+					"lineStart": 2175,
+					"lineEnd": 2179,
+					"condition": "CONFIG_AD7150 || CONFIG_AD7150_MODULE",
+					"presenceCondition": "CONFIG_AD7150 || CONFIG_AD7150_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 114,
+					"sourceFile": "linux1.c",
+					"lineStart": 2182,
+					"lineEnd": 2185,
+					"condition": "CONFIG_AD7152 || CONFIG_AD7152_MODULE",
+					"presenceCondition": "CONFIG_AD7152 || CONFIG_AD7152_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 115,
+					"sourceFile": "linux1.c",
+					"lineStart": 2188,
+					"lineEnd": 2191,
+					"condition": "CONFIG_AD774X || CONFIG_AD774X_MODULE",
+					"presenceCondition": "CONFIG_AD774X || CONFIG_AD774X_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 116,
+					"sourceFile": "linux1.c",
+					"lineStart": 2194,
+					"lineEnd": 2197,
+					"condition": "CONFIG_ADE7854_I2C || CONFIG_ADE7854_I2C_MODULE",
+					"presenceCondition": "CONFIG_ADE7854_I2C || CONFIG_ADE7854_I2C_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 117,
+					"sourceFile": "linux1.c",
+					"lineStart": 2200,
+					"lineEnd": 2204,
+					"condition": "CONFIG_SENSORS_LM75 || CONFIG_SENSORS_LM75_MODULE",
+					"presenceCondition": "CONFIG_SENSORS_LM75 || CONFIG_SENSORS_LM75_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 118,
+					"sourceFile": "linux1.c",
+					"lineStart": 2207,
+					"lineEnd": 2213,
+					"condition": "CONFIG_ADT7410 || CONFIG_ADT7410_MODULE",
+					"presenceCondition": "CONFIG_ADT7410 || CONFIG_ADT7410_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 119,
+					"sourceFile": "linux1.c",
+					"lineStart": 2216,
+					"lineEnd": 2220,
+					"condition": "CONFIG_AD7291 || CONFIG_AD7291_MODULE",
+					"presenceCondition": "CONFIG_AD7291 || CONFIG_AD7291_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 120,
+					"sourceFile": "linux1.c",
+					"lineStart": 2223,
+					"lineEnd": 2228,
+					"condition": "CONFIG_ADT7316_I2C || CONFIG_ADT7316_I2C_MODULE",
+					"presenceCondition": "CONFIG_ADT7316_I2C || CONFIG_ADT7316_I2C_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 121,
+					"sourceFile": "linux1.c",
+					"lineStart": 2231,
+					"lineEnd": 2234,
+					"condition": "CONFIG_BFIN_TWI_LCD || CONFIG_BFIN_TWI_LCD_MODULE",
+					"presenceCondition": "CONFIG_BFIN_TWI_LCD || CONFIG_BFIN_TWI_LCD_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 122,
+					"sourceFile": "linux1.c",
+					"lineStart": 2236,
+					"lineEnd": 2240,
+					"condition": "CONFIG_INPUT_PCF8574 || CONFIG_INPUT_PCF8574_MODULE",
+					"presenceCondition": "CONFIG_INPUT_PCF8574 || CONFIG_INPUT_PCF8574_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 123,
+					"sourceFile": "linux1.c",
+					"lineStart": 2242,
+					"lineEnd": 2247,
+					"condition": "CONFIG_TOUCHSCREEN_AD7879_I2C || CONFIG_TOUCHSCREEN_AD7879_I2C_MODULE",
+					"presenceCondition": "CONFIG_TOUCHSCREEN_AD7879_I2C || CONFIG_TOUCHSCREEN_AD7879_I2C_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 124,
+					"sourceFile": "linux1.c",
+					"lineStart": 2249,
+					"lineEnd": 2254,
+					"condition": "CONFIG_KEYBOARD_ADP5588 || CONFIG_KEYBOARD_ADP5588_MODULE",
+					"presenceCondition": "CONFIG_KEYBOARD_ADP5588 || CONFIG_KEYBOARD_ADP5588_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 125,
+					"sourceFile": "linux1.c",
+					"lineStart": 2256,
+					"lineEnd": 2261,
+					"condition": "CONFIG_PMIC_ADP5520 || CONFIG_PMIC_ADP5520_MODULE",
+					"presenceCondition": "CONFIG_PMIC_ADP5520 || CONFIG_PMIC_ADP5520_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 126,
+					"sourceFile": "linux1.c",
+					"lineStart": 2263,
+					"lineEnd": 2268,
+					"condition": "CONFIG_INPUT_ADXL34X_I2C || CONFIG_INPUT_ADXL34X_I2C_MODULE",
+					"presenceCondition": "CONFIG_INPUT_ADXL34X_I2C || CONFIG_INPUT_ADXL34X_I2C_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 127,
+					"sourceFile": "linux1.c",
+					"lineStart": 2270,
+					"lineEnd": 2274,
+					"condition": "CONFIG_GPIO_ADP5588 || CONFIG_GPIO_ADP5588_MODULE",
+					"presenceCondition": "CONFIG_GPIO_ADP5588 || CONFIG_GPIO_ADP5588_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 128,
+					"sourceFile": "linux1.c",
+					"lineStart": 2276,
+					"lineEnd": 2279,
+					"condition": "CONFIG_FB_BFIN_7393 || CONFIG_FB_BFIN_7393_MODULE",
+					"presenceCondition": "CONFIG_FB_BFIN_7393 || CONFIG_FB_BFIN_7393_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 129,
+					"sourceFile": "linux1.c",
+					"lineStart": 2281,
+					"lineEnd": 2284,
+					"condition": "CONFIG_FB_BF537_LQ035 || CONFIG_FB_BF537_LQ035_MODULE",
+					"presenceCondition": "CONFIG_FB_BF537_LQ035 || CONFIG_FB_BF537_LQ035_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 130,
+					"sourceFile": "linux1.c",
+					"lineStart": 2286,
+					"lineEnd": 2290,
+					"condition": "CONFIG_BACKLIGHT_ADP8870 || CONFIG_BACKLIGHT_ADP8870_MODULE",
+					"presenceCondition": "CONFIG_BACKLIGHT_ADP8870 || CONFIG_BACKLIGHT_ADP8870_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 131,
+					"sourceFile": "linux1.c",
+					"lineStart": 2292,
+					"lineEnd": 2295,
+					"condition": "CONFIG_SND_SOC_ADAU1371 || CONFIG_SND_SOC_ADAU1371_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_ADAU1371 || CONFIG_SND_SOC_ADAU1371_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 132,
+					"sourceFile": "linux1.c",
+					"lineStart": 2297,
+					"lineEnd": 2300,
+					"condition": "CONFIG_SND_SOC_ADAU1761 || CONFIG_SND_SOC_ADAU1761_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_ADAU1761 || CONFIG_SND_SOC_ADAU1761_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 133,
+					"sourceFile": "linux1.c",
+					"lineStart": 2302,
+					"lineEnd": 2305,
+					"condition": "CONFIG_SND_SOC_ADAU1361 || CONFIG_SND_SOC_ADAU1361_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_ADAU1361 || CONFIG_SND_SOC_ADAU1361_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 134,
+					"sourceFile": "linux1.c",
+					"lineStart": 2307,
+					"lineEnd": 2310,
+					"condition": "CONFIG_SND_SOC_ADAU1701 || CONFIG_SND_SOC_ADAU1701_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_ADAU1701 || CONFIG_SND_SOC_ADAU1701_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 135,
+					"sourceFile": "linux1.c",
+					"lineStart": 2312,
+					"lineEnd": 2315,
+					"condition": "CONFIG_AD525X_DPOT || CONFIG_AD525X_DPOT_MODULE",
+					"presenceCondition": "CONFIG_AD525X_DPOT || CONFIG_AD525X_DPOT_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 136,
+					"sourceFile": "linux1.c",
+					"lineStart": 2317,
+					"lineEnd": 2320,
+					"condition": "CONFIG_SND_SOC_SSM2602 || CONFIG_SND_SOC_SSM2602_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_SSM2602 || CONFIG_SND_SOC_SSM2602_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 137,
+					"sourceFile": "linux1.c",
+					"lineStart": 2322,
+					"lineEnd": 2326,
+					"condition": "CONFIG_REGULATOR_AD5398 || CONFIG_REGULATOR_AD5398_MODULE",
+					"presenceCondition": "CONFIG_REGULATOR_AD5398 || CONFIG_REGULATOR_AD5398_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 138,
+					"sourceFile": "linux1.c",
+					"lineStart": 2328,
+					"lineEnd": 2332,
+					"condition": "CONFIG_BACKLIGHT_ADP8860 || CONFIG_BACKLIGHT_ADP8860_MODULE",
+					"presenceCondition": "CONFIG_BACKLIGHT_ADP8860 || CONFIG_BACKLIGHT_ADP8860_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 139,
+					"sourceFile": "linux1.c",
+					"lineStart": 2334,
+					"lineEnd": 2337,
+					"condition": "CONFIG_SND_SOC_ADAU1373 || CONFIG_SND_SOC_ADAU1373_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_ADAU1373 || CONFIG_SND_SOC_ADAU1373_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 140,
+					"sourceFile": "linux1.c",
+					"lineStart": 2339,
+					"lineEnd": 2342,
+					"condition": "CONFIG_BFIN_TWI_LCD || CONFIG_BFIN_TWI_LCD_MODULE",
+					"presenceCondition": "CONFIG_BFIN_TWI_LCD || CONFIG_BFIN_TWI_LCD_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 141,
+					"sourceFile": "linux1.c",
+					"lineStart": 2345,
+					"lineEnd": 2350,
+					"condition": "CONFIG_SERIAL_BFIN_SPORT || CONFIG_SERIAL_BFIN_SPORT_MODULE || CONFIG_BFIN_SPORT || CONFIG_BFIN_SPORT_MODULE",
+					"presenceCondition": "CONFIG_SERIAL_BFIN_SPORT || CONFIG_SERIAL_BFIN_SPORT_MODULE || CONFIG_BFIN_SPORT || CONFIG_BFIN_SPORT_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 142,
+					"sourceFile": "linux1.c",
+					"lineStart": 2352,
+					"lineEnd": 2415,
+					"condition": "CONFIG_SERIAL_BFIN_SPORT || CONFIG_SERIAL_BFIN_SPORT_MODULE",
+					"presenceCondition": "CONFIG_SERIAL_BFIN_SPORT || CONFIG_SERIAL_BFIN_SPORT_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 143,
+							"sourceFile": "linux1.c",
+							"lineStart": 2353,
+							"lineEnd": 2380,
+							"condition": "CONFIG_SERIAL_BFIN_SPORT0_UART",
+							"presenceCondition": "(CONFIG_SERIAL_BFIN_SPORT || CONFIG_SERIAL_BFIN_SPORT_MODULE) && CONFIG_SERIAL_BFIN_SPORT0_UART"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 144,
+							"sourceFile": "linux1.c",
+							"lineStart": 2382,
+							"lineEnd": 2414,
+							"condition": "CONFIG_SERIAL_BFIN_SPORT1_UART",
+							"presenceCondition": "(CONFIG_SERIAL_BFIN_SPORT || CONFIG_SERIAL_BFIN_SPORT_MODULE) && CONFIG_SERIAL_BFIN_SPORT1_UART"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 145,
+					"sourceFile": "linux1.c",
+					"lineStart": 2417,
+					"lineEnd": 2458,
+					"condition": "CONFIG_BFIN_SPORT || CONFIG_BFIN_SPORT_MODULE",
+					"presenceCondition": "CONFIG_BFIN_SPORT || CONFIG_BFIN_SPORT_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 146,
+					"sourceFile": "linux1.c",
+					"lineStart": 2460,
+					"lineEnd": 2516,
+					"condition": "CONFIG_PATA_PLATFORM || CONFIG_PATA_PLATFORM_MODULE",
+					"presenceCondition": "CONFIG_PATA_PLATFORM || CONFIG_PATA_PLATFORM_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 147,
+							"sourceFile": "linux1.c",
+							"lineStart": 2464,
+							"lineEnd": 2486,
+							"condition": "CF_IDE_NAND_CARD_USE_HDD_INTERFACE",
+							"presenceCondition": "(CONFIG_PATA_PLATFORM || CONFIG_PATA_PLATFORM_MODULE) && CF_IDE_NAND_CARD_USE_HDD_INTERFACE"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 148,
+							"sourceFile": "linux1.c",
+							"lineStart": 2487,
+							"lineEnd": 2505,
+							"condition": "!CF_IDE_NAND_CARD_USE_HDD_INTERFACE && CF_IDE_NAND_CARD_USE_CF_IN_COMMON_MEMORY_MODE",
+							"presenceCondition": "(CONFIG_PATA_PLATFORM || CONFIG_PATA_PLATFORM_MODULE) && !CF_IDE_NAND_CARD_USE_HDD_INTERFACE && CF_IDE_NAND_CARD_USE_CF_IN_COMMON_MEMORY_MODE"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 149,
+					"sourceFile": "linux1.c",
+					"lineStart": 2546,
+					"lineEnd": 2594,
+					"condition": "CONFIG_SND_BF5XX_I2S || CONFIG_SND_BF5XX_I2S_MODULE || CONFIG_SND_BF5XX_AC97 || CONFIG_SND_BF5XX_AC97_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_I2S || CONFIG_SND_BF5XX_I2S_MODULE || CONFIG_SND_BF5XX_AC97 || CONFIG_SND_BF5XX_AC97_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 150,
+					"sourceFile": "linux1.c",
+					"lineStart": 2597,
+					"lineEnd": 2601,
+					"condition": "CONFIG_SND_BF5XX_I2S || CONFIG_SND_BF5XX_I2S_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_I2S || CONFIG_SND_BF5XX_I2S_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 151,
+					"sourceFile": "linux1.c",
+					"lineStart": 2604,
+					"lineEnd": 2608,
+					"condition": "CONFIG_SND_BF5XX_AC97 || CONFIG_SND_BF5XX_AC97_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_AC97 || CONFIG_SND_BF5XX_AC97_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 152,
+					"sourceFile": "linux1.c",
+					"lineStart": 2611,
+					"lineEnd": 2622,
+					"condition": "CONFIG_SND_BF5XX_SOC_AD1836 || CONFIG_SND_BF5XX_SOC_AD1836_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_SOC_AD1836 || CONFIG_SND_BF5XX_SOC_AD1836_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 153,
+					"sourceFile": "linux1.c",
+					"lineStart": 2625,
+					"lineEnd": 2636,
+					"condition": "CONFIG_SND_BF5XX_SOC_AD73311 || CONFIG_SND_BF5XX_SOC_AD73311_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_SOC_AD73311 || CONFIG_SND_BF5XX_SOC_AD73311_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 154,
+					"sourceFile": "linux1.c",
+					"lineStart": 2639,
+					"lineEnd": 2643,
+					"condition": "CONFIG_SND_SOC_AD73311 || CONFIG_SND_SOC_AD73311_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_AD73311 || CONFIG_SND_SOC_AD73311_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 155,
+					"sourceFile": "linux1.c",
+					"lineStart": 2646,
+					"lineEnd": 2650,
+					"condition": "CONFIG_SND_SOC_BFIN_EVAL_ADAV80X || CONFIG_SND_SOC_BFIN_EVAL_ADAV80X_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_BFIN_EVAL_ADAV80X || CONFIG_SND_SOC_BFIN_EVAL_ADAV80X_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 156,
+					"sourceFile": "linux1.c",
+					"lineStart": 2653,
+					"lineEnd": 2662,
+					"condition": "CONFIG_SND_BF5XX_SOC_I2S || CONFIG_SND_BF5XX_SOC_I2S_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_SOC_I2S || CONFIG_SND_BF5XX_SOC_I2S_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 157,
+					"sourceFile": "linux1.c",
+					"lineStart": 2665,
+					"lineEnd": 2674,
+					"condition": "CONFIG_SND_BF5XX_SOC_AC97 || CONFIG_SND_BF5XX_SOC_AC97_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_SOC_AC97 || CONFIG_SND_BF5XX_SOC_AC97_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 158,
+					"sourceFile": "linux1.c",
+					"lineStart": 2677,
+					"lineEnd": 2733,
+					"condition": "CONFIG_REGULATOR_FIXED_VOLTAGE || CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE",
+					"presenceCondition": "CONFIG_REGULATOR_FIXED_VOLTAGE || CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 159,
+							"sourceFile": "linux1.c",
+							"lineStart": 2715,
+							"lineEnd": 2732,
+							"condition": "CONFIG_REGULATOR_USERSPACE_CONSUMER || CONFIG_REGULATOR_USERSPACE_CONSUMER_MODULE",
+							"presenceCondition": "(CONFIG_REGULATOR_FIXED_VOLTAGE || CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE) && (CONFIG_REGULATOR_USERSPACE_CONSUMER || CONFIG_REGULATOR_USERSPACE_CONSUMER_MODULE)"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 160,
+					"sourceFile": "linux1.c",
+					"lineStart": 2736,
+					"lineEnd": 2750,
+					"condition": "CONFIG_IIO_GPIO_TRIGGER || CONFIG_IIO_GPIO_TRIGGER_MODULE",
+					"presenceCondition": "CONFIG_IIO_GPIO_TRIGGER || CONFIG_IIO_GPIO_TRIGGER_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 161,
+					"sourceFile": "linux1.c",
+					"lineStart": 2753,
+					"lineEnd": 2756,
+					"condition": "CONFIG_SND_SOC_BFIN_EVAL_ADAU1373 || CONFIG_SND_SOC_BFIN_EVAL_ADAU1373_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_BFIN_EVAL_ADAU1373 || CONFIG_SND_SOC_BFIN_EVAL_ADAU1373_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 162,
+					"sourceFile": "linux1.c",
+					"lineStart": 2759,
+					"lineEnd": 2762,
+					"condition": "CONFIG_SND_SOC_BFIN_EVAL_ADAU1701 || CONFIG_SND_SOC_BFIN_EVAL_ADAU1701_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_BFIN_EVAL_ADAU1701 || CONFIG_SND_SOC_BFIN_EVAL_ADAU1701_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 163,
+					"sourceFile": "linux1.c",
+					"lineStart": 2768,
+					"lineEnd": 2769,
+					"condition": "CONFIG_BFIN_SPORT || CONFIG_BFIN_SPORT_MODULE",
+					"presenceCondition": "CONFIG_BFIN_SPORT || CONFIG_BFIN_SPORT_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 164,
+					"sourceFile": "linux1.c",
+					"lineStart": 2771,
+					"lineEnd": 2772,
+					"condition": "CONFIG_BFIN_CFPCMCIA || CONFIG_BFIN_CFPCMCIA_MODULE",
+					"presenceCondition": "CONFIG_BFIN_CFPCMCIA || CONFIG_BFIN_CFPCMCIA_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 165,
+					"sourceFile": "linux1.c",
+					"lineStart": 2775,
+					"lineEnd": 2776,
+					"condition": "CONFIG_RTC_DRV_BFIN || CONFIG_RTC_DRV_BFIN_MODULE",
+					"presenceCondition": "CONFIG_RTC_DRV_BFIN || CONFIG_RTC_DRV_BFIN_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 166,
+					"sourceFile": "linux1.c",
+					"lineStart": 2779,
+					"lineEnd": 2780,
+					"condition": "CONFIG_USB_SL811_HCD || CONFIG_USB_SL811_HCD_MODULE",
+					"presenceCondition": "CONFIG_USB_SL811_HCD || CONFIG_USB_SL811_HCD_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 167,
+					"sourceFile": "linux1.c",
+					"lineStart": 2783,
+					"lineEnd": 2784,
+					"condition": "CONFIG_USB_ISP1362_HCD || CONFIG_USB_ISP1362_HCD_MODULE",
+					"presenceCondition": "CONFIG_USB_ISP1362_HCD || CONFIG_USB_ISP1362_HCD_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 168,
+					"sourceFile": "linux1.c",
+					"lineStart": 2787,
+					"lineEnd": 2788,
+					"condition": "CONFIG_USB_ISP1760_HCD || CONFIG_USB_ISP1760_HCD_MODULE",
+					"presenceCondition": "CONFIG_USB_ISP1760_HCD || CONFIG_USB_ISP1760_HCD_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 169,
+					"sourceFile": "linux1.c",
+					"lineStart": 2791,
+					"lineEnd": 2792,
+					"condition": "CONFIG_SMC91X || CONFIG_SMC91X_MODULE",
+					"presenceCondition": "CONFIG_SMC91X || CONFIG_SMC91X_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 170,
+					"sourceFile": "linux1.c",
+					"lineStart": 2795,
+					"lineEnd": 2796,
+					"condition": "CONFIG_DM9000 || CONFIG_DM9000_MODULE",
+					"presenceCondition": "CONFIG_DM9000 || CONFIG_DM9000_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 171,
+					"sourceFile": "linux1.c",
+					"lineStart": 2799,
+					"lineEnd": 2800,
+					"condition": "CONFIG_CAN_BFIN || CONFIG_CAN_BFIN_MODULE",
+					"presenceCondition": "CONFIG_CAN_BFIN || CONFIG_CAN_BFIN_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 172,
+					"sourceFile": "linux1.c",
+					"lineStart": 2803,
+					"lineEnd": 2805,
+					"condition": "CONFIG_BFIN_MAC || CONFIG_BFIN_MAC_MODULE",
+					"presenceCondition": "CONFIG_BFIN_MAC || CONFIG_BFIN_MAC_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 173,
+					"sourceFile": "linux1.c",
+					"lineStart": 2808,
+					"lineEnd": 2809,
+					"condition": "CONFIG_USB_NET2272 || CONFIG_USB_NET2272_MODULE",
+					"presenceCondition": "CONFIG_USB_NET2272 || CONFIG_USB_NET2272_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 174,
+					"sourceFile": "linux1.c",
+					"lineStart": 2812,
+					"lineEnd": 2813,
+					"condition": "CONFIG_SPI_BFIN5XX || CONFIG_SPI_BFIN5XX_MODULE",
+					"presenceCondition": "CONFIG_SPI_BFIN5XX || CONFIG_SPI_BFIN5XX_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 175,
+					"sourceFile": "linux1.c",
+					"lineStart": 2816,
+					"lineEnd": 2818,
+					"condition": "CONFIG_SPI_BFIN_SPORT || CONFIG_SPI_BFIN_SPORT_MODULE",
+					"presenceCondition": "CONFIG_SPI_BFIN_SPORT || CONFIG_SPI_BFIN_SPORT_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 176,
+					"sourceFile": "linux1.c",
+					"lineStart": 2821,
+					"lineEnd": 2822,
+					"condition": "CONFIG_FB_BF537_LQ035 || CONFIG_FB_BF537_LQ035_MODULE",
+					"presenceCondition": "CONFIG_FB_BF537_LQ035 || CONFIG_FB_BF537_LQ035_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 177,
+					"sourceFile": "linux1.c",
+					"lineStart": 2825,
+					"lineEnd": 2826,
+					"condition": "CONFIG_FB_BFIN_LQ035Q1 || CONFIG_FB_BFIN_LQ035Q1_MODULE",
+					"presenceCondition": "CONFIG_FB_BFIN_LQ035Q1 || CONFIG_FB_BFIN_LQ035Q1_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 178,
+					"sourceFile": "linux1.c",
+					"lineStart": 2829,
+					"lineEnd": 2830,
+					"condition": "CONFIG_VIDEO_BLACKFIN_CAPTURE || CONFIG_VIDEO_BLACKFIN_CAPTURE_MODULE",
+					"presenceCondition": "CONFIG_VIDEO_BLACKFIN_CAPTURE || CONFIG_VIDEO_BLACKFIN_CAPTURE_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 179,
+					"sourceFile": "linux1.c",
+					"lineStart": 2833,
+					"lineEnd": 2839,
+					"condition": "CONFIG_SERIAL_BFIN || CONFIG_SERIAL_BFIN_MODULE",
+					"presenceCondition": "CONFIG_SERIAL_BFIN || CONFIG_SERIAL_BFIN_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 180,
+							"sourceFile": "linux1.c",
+							"lineStart": 2834,
+							"lineEnd": 2835,
+							"condition": "CONFIG_SERIAL_BFIN_UART0",
+							"presenceCondition": "(CONFIG_SERIAL_BFIN || CONFIG_SERIAL_BFIN_MODULE) && CONFIG_SERIAL_BFIN_UART0"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 181,
+							"sourceFile": "linux1.c",
+							"lineStart": 2837,
+							"lineEnd": 2838,
+							"condition": "CONFIG_SERIAL_BFIN_UART1",
+							"presenceCondition": "(CONFIG_SERIAL_BFIN || CONFIG_SERIAL_BFIN_MODULE) && CONFIG_SERIAL_BFIN_UART1"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 182,
+					"sourceFile": "linux1.c",
+					"lineStart": 2842,
+					"lineEnd": 2848,
+					"condition": "CONFIG_BFIN_SIR || CONFIG_BFIN_SIR_MODULE",
+					"presenceCondition": "CONFIG_BFIN_SIR || CONFIG_BFIN_SIR_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 183,
+							"sourceFile": "linux1.c",
+							"lineStart": 2843,
+							"lineEnd": 2844,
+							"condition": "CONFIG_BFIN_SIR0",
+							"presenceCondition": "(CONFIG_BFIN_SIR || CONFIG_BFIN_SIR_MODULE) && CONFIG_BFIN_SIR0"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 184,
+							"sourceFile": "linux1.c",
+							"lineStart": 2846,
+							"lineEnd": 2847,
+							"condition": "CONFIG_BFIN_SIR1",
+							"presenceCondition": "(CONFIG_BFIN_SIR || CONFIG_BFIN_SIR_MODULE) && CONFIG_BFIN_SIR1"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 185,
+					"sourceFile": "linux1.c",
+					"lineStart": 2851,
+					"lineEnd": 2852,
+					"condition": "CONFIG_I2C_BLACKFIN_TWI || CONFIG_I2C_BLACKFIN_TWI_MODULE",
+					"presenceCondition": "CONFIG_I2C_BLACKFIN_TWI || CONFIG_I2C_BLACKFIN_TWI_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 186,
+					"sourceFile": "linux1.c",
+					"lineStart": 2855,
+					"lineEnd": 2861,
+					"condition": "CONFIG_SERIAL_BFIN_SPORT || CONFIG_SERIAL_BFIN_SPORT_MODULE",
+					"presenceCondition": "CONFIG_SERIAL_BFIN_SPORT || CONFIG_SERIAL_BFIN_SPORT_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 187,
+							"sourceFile": "linux1.c",
+							"lineStart": 2856,
+							"lineEnd": 2857,
+							"condition": "CONFIG_SERIAL_BFIN_SPORT0_UART",
+							"presenceCondition": "(CONFIG_SERIAL_BFIN_SPORT || CONFIG_SERIAL_BFIN_SPORT_MODULE) && CONFIG_SERIAL_BFIN_SPORT0_UART"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 188,
+							"sourceFile": "linux1.c",
+							"lineStart": 2859,
+							"lineEnd": 2860,
+							"condition": "CONFIG_SERIAL_BFIN_SPORT1_UART",
+							"presenceCondition": "(CONFIG_SERIAL_BFIN_SPORT || CONFIG_SERIAL_BFIN_SPORT_MODULE) && CONFIG_SERIAL_BFIN_SPORT1_UART"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 189,
+					"sourceFile": "linux1.c",
+					"lineStart": 2864,
+					"lineEnd": 2865,
+					"condition": "CONFIG_PATA_PLATFORM || CONFIG_PATA_PLATFORM_MODULE",
+					"presenceCondition": "CONFIG_PATA_PLATFORM || CONFIG_PATA_PLATFORM_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 190,
+					"sourceFile": "linux1.c",
+					"lineStart": 2868,
+					"lineEnd": 2869,
+					"condition": "CONFIG_KEYBOARD_GPIO || CONFIG_KEYBOARD_GPIO_MODULE",
+					"presenceCondition": "CONFIG_KEYBOARD_GPIO || CONFIG_KEYBOARD_GPIO_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 191,
+					"sourceFile": "linux1.c",
+					"lineStart": 2872,
+					"lineEnd": 2873,
+					"condition": "CONFIG_MTD_NAND_PLATFORM || CONFIG_MTD_NAND_PLATFORM_MODULE",
+					"presenceCondition": "CONFIG_MTD_NAND_PLATFORM || CONFIG_MTD_NAND_PLATFORM_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 192,
+					"sourceFile": "linux1.c",
+					"lineStart": 2876,
+					"lineEnd": 2877,
+					"condition": "CONFIG_MTD_PHYSMAP || CONFIG_MTD_PHYSMAP_MODULE",
+					"presenceCondition": "CONFIG_MTD_PHYSMAP || CONFIG_MTD_PHYSMAP_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 193,
+					"sourceFile": "linux1.c",
+					"lineStart": 2880,
+					"lineEnd": 2881,
+					"condition": "CONFIG_SND_BF5XX_I2S || CONFIG_SND_BF5XX_I2S_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_I2S || CONFIG_SND_BF5XX_I2S_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 194,
+					"sourceFile": "linux1.c",
+					"lineStart": 2884,
+					"lineEnd": 2885,
+					"condition": "CONFIG_SND_BF5XX_AC97 || CONFIG_SND_BF5XX_AC97_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_AC97 || CONFIG_SND_BF5XX_AC97_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 195,
+					"sourceFile": "linux1.c",
+					"lineStart": 2888,
+					"lineEnd": 2889,
+					"condition": "CONFIG_SND_BF5XX_SOC_AD1836 || CONFIG_SND_BF5XX_SOC_AD1836_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_SOC_AD1836 || CONFIG_SND_BF5XX_SOC_AD1836_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 196,
+					"sourceFile": "linux1.c",
+					"lineStart": 2892,
+					"lineEnd": 2893,
+					"condition": "CONFIG_SND_BF5XX_SOC_AD73311 || CONFIG_SND_BF5XX_SOC_AD73311_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_SOC_AD73311 || CONFIG_SND_BF5XX_SOC_AD73311_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 197,
+					"sourceFile": "linux1.c",
+					"lineStart": 2896,
+					"lineEnd": 2897,
+					"condition": "CONFIG_SND_SOC_AD73311 || CONFIG_SND_SOC_AD73311_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_AD73311 || CONFIG_SND_SOC_AD73311_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 198,
+					"sourceFile": "linux1.c",
+					"lineStart": 2900,
+					"lineEnd": 2901,
+					"condition": "CONFIG_SND_BF5XX_SOC_I2S || CONFIG_SND_BF5XX_SOC_I2S_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_SOC_I2S || CONFIG_SND_BF5XX_SOC_I2S_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 199,
+					"sourceFile": "linux1.c",
+					"lineStart": 2904,
+					"lineEnd": 2905,
+					"condition": "CONFIG_SND_BF5XX_SOC_AC97 || CONFIG_SND_BF5XX_SOC_AC97_MODULE",
+					"presenceCondition": "CONFIG_SND_BF5XX_SOC_AC97 || CONFIG_SND_BF5XX_SOC_AC97_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 200,
+					"sourceFile": "linux1.c",
+					"lineStart": 2908,
+					"lineEnd": 2914,
+					"condition": "CONFIG_REGULATOR_AD5398 || CONFIG_REGULATOR_AD5398_MODULE",
+					"presenceCondition": "CONFIG_REGULATOR_AD5398 || CONFIG_REGULATOR_AD5398_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 201,
+							"sourceFile": "linux1.c",
+							"lineStart": 2909,
+							"lineEnd": 2910,
+							"condition": "CONFIG_REGULATOR_VIRTUAL_CONSUMER || CONFIG_REGULATOR_VIRTUAL_CONSUMER_MODULE",
+							"presenceCondition": "(CONFIG_REGULATOR_AD5398 || CONFIG_REGULATOR_AD5398_MODULE) && (CONFIG_REGULATOR_VIRTUAL_CONSUMER || CONFIG_REGULATOR_VIRTUAL_CONSUMER_MODULE)"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 202,
+							"sourceFile": "linux1.c",
+							"lineStart": 2912,
+							"lineEnd": 2913,
+							"condition": "CONFIG_REGULATOR_USERSPACE_CONSUMER || CONFIG_REGULATOR_USERSPACE_CONSUMER_MODULE",
+							"presenceCondition": "(CONFIG_REGULATOR_AD5398 || CONFIG_REGULATOR_AD5398_MODULE) && (CONFIG_REGULATOR_USERSPACE_CONSUMER || CONFIG_REGULATOR_USERSPACE_CONSUMER_MODULE)"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 203,
+					"sourceFile": "linux1.c",
+					"lineStart": 2917,
+					"lineEnd": 2921,
+					"condition": "CONFIG_REGULATOR_FIXED_VOLTAGE || CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE",
+					"presenceCondition": "CONFIG_REGULATOR_FIXED_VOLTAGE || CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 204,
+							"sourceFile": "linux1.c",
+							"lineStart": 2919,
+							"lineEnd": 2920,
+							"condition": "CONFIG_REGULATOR_USERSPACE_CONSUMER || CONFIG_REGULATOR_USERSPACE_CONSUMER_MODULE",
+							"presenceCondition": "(CONFIG_REGULATOR_FIXED_VOLTAGE || CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE) && (CONFIG_REGULATOR_USERSPACE_CONSUMER || CONFIG_REGULATOR_USERSPACE_CONSUMER_MODULE)"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 205,
+					"sourceFile": "linux1.c",
+					"lineStart": 2924,
+					"lineEnd": 2925,
+					"condition": "CONFIG_IIO_GPIO_TRIGGER || CONFIG_IIO_GPIO_TRIGGER_MODULE",
+					"presenceCondition": "CONFIG_IIO_GPIO_TRIGGER || CONFIG_IIO_GPIO_TRIGGER_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 206,
+					"sourceFile": "linux1.c",
+					"lineStart": 2928,
+					"lineEnd": 2929,
+					"condition": "CONFIG_SND_SOC_BFIN_EVAL_ADAU1373 || CONFIG_SND_SOC_BFIN_EVAL_ADAU1373_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_BFIN_EVAL_ADAU1373 || CONFIG_SND_SOC_BFIN_EVAL_ADAU1373_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 207,
+					"sourceFile": "linux1.c",
+					"lineStart": 2932,
+					"lineEnd": 2933,
+					"condition": "CONFIG_SND_SOC_BFIN_EVAL_ADAU1701 || CONFIG_SND_SOC_BFIN_EVAL_ADAU1701_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_BFIN_EVAL_ADAU1701 || CONFIG_SND_SOC_BFIN_EVAL_ADAU1701_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 208,
+					"sourceFile": "linux1.c",
+					"lineStart": 2936,
+					"lineEnd": 2937,
+					"condition": "CONFIG_SND_SOC_BFIN_EVAL_ADAV80X || CONFIG_SND_SOC_BFIN_EVAL_ADAV80X_MODULE",
+					"presenceCondition": "CONFIG_SND_SOC_BFIN_EVAL_ADAV80X || CONFIG_SND_SOC_BFIN_EVAL_ADAV80X_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 209,
+					"sourceFile": "linux1.c",
+					"lineStart": 2943,
+					"lineEnd": 2953,
+					"condition": "CONFIG_USB_NET2272 || CONFIG_USB_NET2272_MODULE",
+					"presenceCondition": "CONFIG_USB_NET2272 || CONFIG_USB_NET2272_MODULE"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 210,
+					"sourceFile": "linux1.c",
+					"lineStart": 2979,
+					"lineEnd": 2985,
+					"condition": "CONFIG_SERIAL_BFIN_CONSOLE || CONFIG_EARLY_PRINTK",
+					"presenceCondition": "CONFIG_SERIAL_BFIN_CONSOLE || CONFIG_EARLY_PRINTK",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 211,
+							"sourceFile": "linux1.c",
+							"lineStart": 2980,
+							"lineEnd": 2981,
+							"condition": "CONFIG_SERIAL_BFIN_UART0",
+							"presenceCondition": "(CONFIG_SERIAL_BFIN_CONSOLE || CONFIG_EARLY_PRINTK) && CONFIG_SERIAL_BFIN_UART0"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 212,
+							"sourceFile": "linux1.c",
+							"lineStart": 2983,
+							"lineEnd": 2984,
+							"condition": "CONFIG_SERIAL_BFIN_UART1",
+							"presenceCondition": "(CONFIG_SERIAL_BFIN_CONSOLE || CONFIG_EARLY_PRINTK) && CONFIG_SERIAL_BFIN_UART1"
+						}
+					]
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 213,
+					"sourceFile": "linux1.c",
+					"lineStart": 2988,
+					"lineEnd": 2994,
+					"condition": "CONFIG_SERIAL_BFIN_SPORT_CONSOLE",
+					"presenceCondition": "CONFIG_SERIAL_BFIN_SPORT_CONSOLE",
+					"nested": [
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 214,
+							"sourceFile": "linux1.c",
+							"lineStart": 2989,
+							"lineEnd": 2990,
+							"condition": "CONFIG_SERIAL_BFIN_SPORT0_UART",
+							"presenceCondition": "CONFIG_SERIAL_BFIN_SPORT_CONSOLE && CONFIG_SERIAL_BFIN_SPORT0_UART"
+						},
+						{
+							"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+							"id": 215,
+							"sourceFile": "linux1.c",
+							"lineStart": 2992,
+							"lineEnd": 2993,
+							"condition": "CONFIG_SERIAL_BFIN_SPORT1_UART",
+							"presenceCondition": "CONFIG_SERIAL_BFIN_SPORT_CONSOLE && CONFIG_SERIAL_BFIN_SPORT1_UART"
+						}
+					]
+				}
+			]
+		}
+	]
+}

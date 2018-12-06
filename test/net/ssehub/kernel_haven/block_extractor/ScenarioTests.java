@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import net.ssehub.kernel_haven.SetUpException;
 import net.ssehub.kernel_haven.code_model.CodeBlock;
-import net.ssehub.kernel_haven.code_model.CodeModelCache;
+import net.ssehub.kernel_haven.code_model.JsonCodeModelCache;
 import net.ssehub.kernel_haven.code_model.SourceFile;
 import net.ssehub.kernel_haven.config.Configuration;
 import net.ssehub.kernel_haven.config.DefaultSettings;
@@ -46,15 +46,15 @@ public class ScenarioTests {
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
         
-        SourceFile result = extractor.runOnFile(new File("test1.c"));
+        SourceFile<CodeBlock> result = extractor.runOnFile(new File("test1.c"));
         
         // compare with cache that was manually verified
-        CodeModelCache cache = new CodeModelCache(TESTDATA);
-        SourceFile expected = cache.read(new File("test1.c"));
+        JsonCodeModelCache cache = new JsonCodeModelCache(TESTDATA);
+        SourceFile<CodeBlock> expected = cache.read(new File("test1.c")).castTo(CodeBlock.class);
         
         assertThat(result.getPath(), is(expected.getPath()));
         for (int i = 0; i < expected.getTopElementCount(); i++) {
-            assertSameBlock((CodeBlock) result.getElement(i), (CodeBlock) expected.getElement(i));
+            assertSameBlock(result.getElement(i), expected.getElement(i));
         }
         assertThat(result.getTopElementCount(), is(expected.getTopElementCount()));
         
@@ -80,15 +80,15 @@ public class ScenarioTests {
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
         
-        SourceFile result = extractor.runOnFile(new File("linux1.c"));
+        SourceFile<CodeBlock> result = extractor.runOnFile(new File("linux1.c"));
         
         // compare with cache that was manually verified
-        CodeModelCache cache = new CodeModelCache(TESTDATA);
-        SourceFile expected = cache.read(new File("linux1.c"));
+        JsonCodeModelCache cache = new JsonCodeModelCache(TESTDATA);
+        SourceFile<CodeBlock> expected = cache.read(new File("linux1.c")).castTo(CodeBlock.class);
         
         assertThat(result.getPath(), is(expected.getPath()));
         for (int i = 0; i < expected.getTopElementCount(); i++) {
-            assertSameBlock((CodeBlock) result.getElement(i), (CodeBlock) expected.getElement(i));
+            assertSameBlock(result.getElement(i), expected.getElement(i));
         }
         assertThat(result.getTopElementCount(), is(expected.getTopElementCount()));
         
@@ -114,15 +114,15 @@ public class ScenarioTests {
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
         
-        SourceFile result = extractor.runOnFile(new File("linux2.c"));
+        SourceFile<CodeBlock> result = extractor.runOnFile(new File("linux2.c"));
         
         // compare with cache that was manually verified
-        CodeModelCache cache = new CodeModelCache(TESTDATA);
-        SourceFile expected = cache.read(new File("linux2.c"));
+        JsonCodeModelCache cache = new JsonCodeModelCache(TESTDATA);
+        SourceFile<CodeBlock> expected = cache.read(new File("linux2.c")).castTo(CodeBlock.class);
         
         assertThat(result.getPath(), is(expected.getPath()));
         for (int i = 0; i < expected.getTopElementCount(); i++) {
-            assertSameBlock((CodeBlock) result.getElement(i), (CodeBlock) expected.getElement(i));
+            assertSameBlock(result.getElement(i), expected.getElement(i));
         }
         assertThat(result.getTopElementCount(), is(expected.getTopElementCount()));
         
@@ -148,15 +148,15 @@ public class ScenarioTests {
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
         
-        SourceFile result = extractor.runOnFile(new File("linux3.c"));
+        SourceFile<CodeBlock> result = extractor.runOnFile(new File("linux3.c"));
         
         // compare with cache that was manually verified
-        CodeModelCache cache = new CodeModelCache(TESTDATA);
-        SourceFile expected = cache.read(new File("linux3.c"));
+        JsonCodeModelCache cache = new JsonCodeModelCache(TESTDATA);
+        SourceFile<CodeBlock> expected = cache.read(new File("linux3.c")).castTo(CodeBlock.class);
         
         assertThat(result.getPath(), is(expected.getPath()));
         for (int i = 0; i < expected.getTopElementCount(); i++) {
-            assertSameBlock((CodeBlock) result.getElement(i), (CodeBlock) expected.getElement(i));
+            assertThat(result.getElement(i), is(expected.getElement(i)));
         }
         assertThat(result.getTopElementCount(), is(expected.getTopElementCount()));
         

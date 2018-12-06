@@ -1,0 +1,107 @@
+{
+	"version": 2,
+	"path": "linux3.c",
+	"elements": [
+		{
+			"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+			"id": 1,
+			"sourceFile": "linux3.c",
+			"lineStart": 20,
+			"lineEnd": 176,
+			"condition": "!CHIP_AU8810",
+			"presenceCondition": "!CHIP_AU8810",
+			"nested": [
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 2,
+					"sourceFile": "linux3.c",
+					"lineStart": 34,
+					"lineEnd": 36,
+					"condition": "CHIP_AU8820",
+					"presenceCondition": "!CHIP_AU8810 && CHIP_AU8820"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 3,
+					"sourceFile": "linux3.c",
+					"lineStart": 37,
+					"lineEnd": 39,
+					"condition": "!CHIP_AU8820",
+					"presenceCondition": "!CHIP_AU8810 && !CHIP_AU8820"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 4,
+					"sourceFile": "linux3.c",
+					"lineStart": 70,
+					"lineEnd": 71,
+					"condition": "CHIP_AU8820",
+					"presenceCondition": "!CHIP_AU8810 && CHIP_AU8820"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 5,
+					"sourceFile": "linux3.c",
+					"lineStart": 72,
+					"lineEnd": 73,
+					"condition": "!CHIP_AU8820",
+					"presenceCondition": "!CHIP_AU8810 && !CHIP_AU8820"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 6,
+					"sourceFile": "linux3.c",
+					"lineStart": 80,
+					"lineEnd": 81,
+					"condition": "CHIP_AU8820",
+					"presenceCondition": "!CHIP_AU8810 && CHIP_AU8820"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 7,
+					"sourceFile": "linux3.c",
+					"lineStart": 83,
+					"lineEnd": 85,
+					"condition": "CHIP_AU8830",
+					"presenceCondition": "!CHIP_AU8810 && CHIP_AU8830"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 8,
+					"sourceFile": "linux3.c",
+					"lineStart": 87,
+					"lineEnd": 89,
+					"condition": "CHIP_AU8810",
+					"presenceCondition": "!CHIP_AU8810 && CHIP_AU8810"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 9,
+					"sourceFile": "linux3.c",
+					"lineStart": 94,
+					"lineEnd": 95,
+					"condition": "CHIP_AU8820",
+					"presenceCondition": "!CHIP_AU8810 && CHIP_AU8820"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 10,
+					"sourceFile": "linux3.c",
+					"lineStart": 97,
+					"lineEnd": 99,
+					"condition": "CHIP_AU8830",
+					"presenceCondition": "!CHIP_AU8810 && CHIP_AU8830"
+				},
+				{
+					"class": "net.ssehub.kernel_haven.code_model.CodeBlock",
+					"id": 11,
+					"sourceFile": "linux3.c",
+					"lineStart": 101,
+					"lineEnd": 103,
+					"condition": "CHIP_AU8810",
+					"presenceCondition": "!CHIP_AU8810 && CHIP_AU8810"
+				}
+			]
+		}
+	]
+}

@@ -60,10 +60,10 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
     }
 
     @Override
-    protected @Nullable SourceFile runOnFile(@NonNull File target) throws ExtractorException {
+    protected @Nullable SourceFile<CodeBlock> runOnFile(@NonNull File target) throws ExtractorException {
         File absoulteTarget = new File(sourceTree, target.getPath());
         
-        SourceFile result = new SourceFile(target);
+        SourceFile<CodeBlock> result = new SourceFile<>(target);
         
         try (BlockParser parser = new BlockParser(new FileReader(absoulteTarget), target,
                 handleLinuxMacros, fuzzyParsing, notNull(invalidConditionHandling))) {
