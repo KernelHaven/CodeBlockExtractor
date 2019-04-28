@@ -63,14 +63,11 @@ public class BlockParser implements Closeable {
     private @NonNull Deque<@NonNull CodeBlock> nesting;
     
     /**
-     * <p>
      * The list of conditions of the previous #if and #elif siblings. Used to construct the negated conditions for
      * #elif and #else. A stack to preserve nesting information.
-     * </p>
      * <p>
      * A starting #if, #ifdef or #ifndef pushes a new list with its condition as first element.
      * An #else clears the list, so that any following #else or #elifs throw an exception.
-     * </p>
      */
     private @NonNull Deque<@NonNull List<@NonNull Formula>> previousConditions;
     

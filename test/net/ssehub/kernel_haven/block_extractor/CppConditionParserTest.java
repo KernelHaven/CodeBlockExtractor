@@ -22,8 +22,6 @@ import static net.ssehub.kernel_haven.util.logic.FormulaBuilder.or;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.io.IOException;
-
 import org.junit.Test;
 
 import net.ssehub.kernel_haven.util.logic.False;
@@ -92,7 +90,6 @@ public class CppConditionParserTest {
     /**
      * Tests an defined (VAR) with a space before the bracket.
      * 
-     * @throws IOException unwanted.
      * @throws ExpressionFormatException unwanted.
      */
     @Test
