@@ -22,7 +22,7 @@ A simple extractor that extracts `#ifdef` blocks in C source files (`*.c`).
 
 ## Usage
 
-Place [`CodeBlockExtractor.jar`](https://jenkins-2.sse.uni-hildesheim.de/view/KernelHaven/job/KH_CodeBlockExtractor/lastSuccessfulBuild/artifact/build/jar/CodeBlockExtractor.jar) in the plugins folder of KernelHaven.
+Place [`CodeBlockExtractor.jar`](https://jenkins-2.sse.uni-hildesheim.de/job/KH_CodeBlockExtractor/lastSuccessfulBuild/artifact/build/jar/CodeBlockExtractor.jar) in the plugins folder of KernelHaven.
 
 To use this extractor, set `code.extractor.class` to `net.ssehub.kernel_haven.block_extractor.CodeBlockExtractor` in the KernelHaven properties.
 
