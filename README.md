@@ -15,7 +15,7 @@ A simple extractor that extracts `#ifdef` blocks in C source files (`*.c`).
 	* Optionally considers `IS_ENABLED`, `IS_BUILTIN` and `IS_MODULE` macros used in the Linux Kernel
 * Calculates presence conditions for nested blocks
 * Provides the start and end line numbers of blocks
-* Creates a pseudo-block for the whole file if there is code outside of blocks
+* Optionally creates a pseudo-block with condition `true` for the whole file if there is code outside of blocks
 * Considers line continuation of preprocessor directives (a `\` at the end of the line)
 * Considers comments (commented out blocks are ignored)
 * The result is provided as a hierachy of `CodeBlock`s to the analysis

@@ -55,6 +55,11 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
         "code.extractor.handle_linux_macros", Type.BOOLEAN, true, "false", "Whether to handle the preprocessor macros "
                 + "IS_ENABLED, IS_BUILTIN and IS_MODULE in preprocessor block conditions.");
     
+    public static final @NonNull Setting<@NonNull Boolean> ADD_PSEUDO_BLOCK = new Setting<>(
+            "code.extractor.add_pseudo_block", Type.BOOLEAN, true, "true", "If code is found outside of all #ifdef "
+                    + "blocks, this setting specifies whether to add a pseudo block for the whole file. This block "
+                    + "starts at line 1, ends at the last line of the file and has the condition 'true'.");
+    
     private File sourceTree;
     
     private boolean handleLinuxMacros;
@@ -63,15 +68,19 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
     
     private InvalidConditionHandling invalidConditionHandling;
     
+    private boolean addPseudoBlock;
+    
     @Override
     protected void init(@NonNull Configuration config) throws SetUpException {
         config.registerSetting(INVALID_CONDITION_SETTING);
         config.registerSetting(HANDLE_LINUX_MACROS);
+        config.registerSetting(ADD_PSEUDO_BLOCK);
         
         this.sourceTree = config.getValue(DefaultSettings.SOURCE_TREE);
         this.fuzzyParsing = config.getValue(DefaultSettings.FUZZY_PARSING);
         this.handleLinuxMacros = config.getValue(HANDLE_LINUX_MACROS);
         this.invalidConditionHandling = config.getValue(INVALID_CONDITION_SETTING);
+        this.addPseudoBlock = config.getValue(ADD_PSEUDO_BLOCK);
     }
 
     @Override
@@ -82,6 +91,7 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
         
         try (BlockParser parser = new BlockParser(new FileReader(absoulteTarget), target,
                 handleLinuxMacros, fuzzyParsing, notNull(invalidConditionHandling))) {
+            parser.setAddPseudoBlock(addPseudoBlock);
             
             for (CodeBlock block : parser.readBlocks()) {
                 result.addElement(block);

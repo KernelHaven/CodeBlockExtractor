@@ -315,7 +315,7 @@ public class BlockParserTest {
     }
     
     /**
-     * Tests that a pseudo block is added if there is a non-whitespace character is outside of all blocks. 
+     * Tests that a pseudo block is added if there is a non-whitespace character outside of all blocks. 
      * 
      * @throws IOException unwanted.
      * @throws FormatException unwanted.
@@ -342,7 +342,7 @@ public class BlockParserTest {
     }
     
     /**
-     * Tests that a pseudo block is added if there is a non-whitespace character is outside of all blocks. 
+     * Tests that a pseudo block is added if there is a non-whitespace character outside of all blocks. 
      * 
      * @throws IOException unwanted.
      * @throws FormatException unwanted.
@@ -393,6 +393,32 @@ public class BlockParserTest {
         
         assertThat(result, is(Arrays.asList(
                 new CodeBlock(2, 3, new File("test.c"), new Variable("A"),  new Variable("A")))));
+        
+        parser.close();
+    }
+    
+    /**
+     * Tests that no a pseudo block is added if there addPseudoBlock is set to <code>false</code>.
+     * 
+     * @throws IOException unwanted.
+     * @throws FormatException unwanted.
+     */
+    @Test
+    public void testAddPseudoBlockFalse() throws IOException, FormatException {
+        String code = "a;\n"
+                + "#if defined(A)\n"
+                + " someCode;\n"
+                + "#endif\n";
+        
+        BlockParser parser = new BlockParser(
+                new InputStreamReader(new ByteArrayInputStream(code.getBytes())), new File("test.c"));
+        parser.setAddPseudoBlock(false);
+        
+        List<CodeBlock> result = parser.readBlocks();
+        
+        CodeBlock expected = new CodeBlock(2, 3, new File("test.c"), new Variable("A"),  new Variable("A"));
+        
+        assertThat(result, is(Arrays.asList(expected)));
         
         parser.close();
     }

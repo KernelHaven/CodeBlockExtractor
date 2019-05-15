@@ -52,6 +52,8 @@ public class BlockParser implements Closeable {
     
     private CppConditionParser conditionParser;
     
+    private boolean addPseudoBlock;
+    
     /**
      * All blocks that are not nested inside other blocks.
      */
@@ -113,9 +115,21 @@ public class BlockParser implements Closeable {
         
         this.conditionParser = new CppConditionParser(handleLinuxMacros, fuzzyParsing, invalidConditionHandling);
         
+        this.addPseudoBlock = true;
+        
         this.topBlocks = new LinkedList<>();
         this.nesting = new LinkedList<>();
         this.previousConditions = new LinkedList<>();
+    }
+    
+    /**
+     * Sets whether a pseudo block should be added for the whole file when code is found outside of #ifdef blocks.
+     * Default value is <code>true</code>. 
+     * 
+     * @param addPseudoBlock Whether to add the pseudo block or not.
+     */
+    public void setAddPseudoBlock(boolean addPseudoBlock) {
+        this.addPseudoBlock = addPseudoBlock;
     }
     
     /**
@@ -187,9 +201,9 @@ public class BlockParser implements Closeable {
     }
 
     /**
-     * Builds the final list of top blocks from {@link #topBlocks}. If foundContentOutsideTopBlocks is
-     * <code>true</code>, then a pseudo block is added for the while file and the {@link #topBlocks} are nested
-     * inside of it.
+     * Builds the final list of top blocks from {@link #topBlocks}. If foundContentOutsideTopBlocks and
+     * {@link #addPseudoBlock} are <code>true</code>, then a pseudo block is added for the whole file and the
+     * {@link #topBlocks} are nested inside of it.
      * 
      * @param foundContentOutsideTopBlocks Whether non-whitespace characters were found outside of all blocks.
      * 
@@ -197,7 +211,7 @@ public class BlockParser implements Closeable {
      */
     private @NonNull List<@NonNull CodeBlock> buildResult(boolean foundContentOutsideTopBlocks) {
         List<@NonNull CodeBlock> result;
-        if (foundContentOutsideTopBlocks) {
+        if (this.addPseudoBlock && foundContentOutsideTopBlocks) {
             // if we found code outside of #ifdefs, then add a pseudo block for the whole file
             
             // use currentLineNumber + 1 because of trailing \n
