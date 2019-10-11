@@ -41,7 +41,7 @@ import net.ssehub.kernel_haven.util.null_checks.NonNull;
  */
 public class CppConditionParser implements ICppExressionVisitor<@NonNull Formula> {
 
-    private static final net.ssehub.kernel_haven.util.logic.@NonNull Variable ERROR_VARIBLE
+    public static final net.ssehub.kernel_haven.util.logic.@NonNull Variable ERROR_VARIBLE
             = new net.ssehub.kernel_haven.util.logic.Variable("PARSING_ERROR");
     
     private boolean handleLinuxMacros;
