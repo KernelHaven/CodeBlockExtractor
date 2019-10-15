@@ -72,10 +72,16 @@ public class CodeBlockExtractorParsingStatistics extends AbstractAnalysis {
         
         // anaylze results
         
-        if (config.getValue(CodeBlockExtractor.INVALID_CONDITION_SETTING) != InvalidConditionHandling.ERROR_VARIABLE) {
-            LOGGER.logWarning("Can't find number of unparseable conditions when "
-                    + CodeBlockExtractor.INVALID_CONDITION_SETTING.getKey() + " is not set to "
-                    + InvalidConditionHandling.ERROR_VARIABLE.name());
+        try {
+            config.registerSetting(CodeBlockExtractor.INVALID_CONDITION_SETTING);
+            if (config.getValue(CodeBlockExtractor.INVALID_CONDITION_SETTING)
+                    != InvalidConditionHandling.ERROR_VARIABLE) {
+                LOGGER.logWarning("Can't find number of unparseable conditions when "
+                        + CodeBlockExtractor.INVALID_CONDITION_SETTING.getKey() + " is not set to "
+                        + InvalidConditionHandling.ERROR_VARIABLE.name());
+            }
+        } catch (SetUpException e) {
+            LOGGER.logException("Can't read setting " + CodeBlockExtractor.INVALID_CONDITION_SETTING.getKey(), e);
         }
         
         ErrorVariableCounter counter = new ErrorVariableCounter();
