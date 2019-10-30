@@ -335,6 +335,30 @@ public class CppConditionParserTest {
     }
     
     /**
+     * Tests that a defined() call with too many parameters throws an exception.
+     * 
+     * @throws ExpressionFormatException wanted.
+     */
+    @Test(expected = ExpressionFormatException.class)
+    public void testDefinedWithTooManyArguments() throws ExpressionFormatException {
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
+
+        parser.parse("defined(a, b)");
+    }
+    
+    /**
+     * Tests that a macro call with more than 1 parameter throws an exception.
+     * 
+     * @throws ExpressionFormatException wanted.
+     */
+    @Test(expected = ExpressionFormatException.class)
+    public void testMacroTwoArguments() throws ExpressionFormatException {
+        CppConditionParser parser = new CppConditionParser(false, false, EXCEPTION);
+
+        parser.parse("myMacro(a, b)");
+    }
+    
+    /**
      * Tests that a defined() call on a literal throws an exception.
      * 
      * @throws ExpressionFormatException wanted.
