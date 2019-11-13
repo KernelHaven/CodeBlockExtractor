@@ -222,7 +222,7 @@ public class CppConditionParserTest {
     }
     
     /**
-     * Tests fuzzy parsing with two variabels.
+     * Tests fuzzy parsing with two variables.
      * 
      * @throws ExpressionFormatException unwanted.
      */

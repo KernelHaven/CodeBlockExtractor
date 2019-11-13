@@ -129,7 +129,7 @@ public class CppConditionParser implements ICppExressionVisitor<@NonNull Formula
             result = variable;
             
         } else {
-            throw new ExpressionFormatException("Unsupprted function/macro: " + function);
+            throw new ExpressionFormatException("Unsupported function/macro: " + function);
         }
         
         return result;
