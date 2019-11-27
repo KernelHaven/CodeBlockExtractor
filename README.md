@@ -28,7 +28,8 @@ To use this extractor, set `code.extractor.class` to `net.ssehub.kernel_haven.bl
 
 ## Dependencies
 
-This plugin has no additional dependencies other than KernelHaven.
+In addition to KernelHaven, this plugin has the following dependencies:
+* [CppUtils](https://github.com/KernelHaven/CppUtils)
 
 ## License
 

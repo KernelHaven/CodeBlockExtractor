@@ -31,6 +31,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.ssehub.kernel_haven.code_model.CodeBlock;
+import net.ssehub.kernel_haven.cpp_utils.CppConditionParser;
+import net.ssehub.kernel_haven.cpp_utils.InvalidConditionHandling;
 import net.ssehub.kernel_haven.util.FormatException;
 import net.ssehub.kernel_haven.util.logic.Conjunction;
 import net.ssehub.kernel_haven.util.logic.Formula;

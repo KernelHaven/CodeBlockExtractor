@@ -27,9 +27,10 @@ import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.code_model.SourceFile;
 import net.ssehub.kernel_haven.config.Configuration;
 import net.ssehub.kernel_haven.config.DefaultSettings;
-import net.ssehub.kernel_haven.config.EnumSetting;
 import net.ssehub.kernel_haven.config.Setting;
 import net.ssehub.kernel_haven.config.Setting.Type;
+import net.ssehub.kernel_haven.cpp_utils.CppParsingSettings;
+import net.ssehub.kernel_haven.cpp_utils.InvalidConditionHandling;
 import net.ssehub.kernel_haven.util.CodeExtractorException;
 import net.ssehub.kernel_haven.util.ExtractorException;
 import net.ssehub.kernel_haven.util.FormatException;
@@ -43,17 +44,6 @@ import net.ssehub.kernel_haven.util.null_checks.Nullable;
  * @author Adam
  */
 public class CodeBlockExtractor extends AbstractCodeModelExtractor {
-    
-    public static final @NonNull EnumSetting<@NonNull InvalidConditionHandling> INVALID_CONDITION_SETTING
-        = new EnumSetting<>("code.extractor.invalid_condition", InvalidConditionHandling.class, true,
-                InvalidConditionHandling.EXCEPTION, "How to handle conditions of blocks that are invalid or not "
-                        + "parseable.\n\n- EXCEPTION: Throw an exception. This causes the whole file to not be "
-                        + "parseable.\n- TRUE: Replace the invalid condition with true.\n- ERROR_VARIABLE: Replace "
-                        + "the invalid condition with a variable called \"PARSING_ERROR\"");
-
-    public static final @NonNull Setting<@NonNull Boolean> HANDLE_LINUX_MACROS = new Setting<>(
-        "code.extractor.handle_linux_macros", Type.BOOLEAN, true, "false", "Whether to handle the preprocessor macros "
-                + "IS_ENABLED, IS_BUILTIN and IS_MODULE in preprocessor block conditions.");
     
     public static final @NonNull Setting<@NonNull Boolean> ADD_PSEUDO_BLOCK = new Setting<>(
             "code.extractor.add_pseudo_block", Type.BOOLEAN, true, "true", "If code is found outside of all #ifdef "
@@ -72,14 +62,14 @@ public class CodeBlockExtractor extends AbstractCodeModelExtractor {
     
     @Override
     protected void init(@NonNull Configuration config) throws SetUpException {
-        config.registerSetting(INVALID_CONDITION_SETTING);
-        config.registerSetting(HANDLE_LINUX_MACROS);
+        config.registerSetting(CppParsingSettings.INVALID_CONDITION_SETTING);
+        config.registerSetting(CppParsingSettings.HANDLE_LINUX_MACROS);
         config.registerSetting(ADD_PSEUDO_BLOCK);
         
         this.sourceTree = config.getValue(DefaultSettings.SOURCE_TREE);
         this.fuzzyParsing = config.getValue(DefaultSettings.FUZZY_PARSING);
-        this.handleLinuxMacros = config.getValue(HANDLE_LINUX_MACROS);
-        this.invalidConditionHandling = config.getValue(INVALID_CONDITION_SETTING);
+        this.handleLinuxMacros = config.getValue(CppParsingSettings.HANDLE_LINUX_MACROS);
+        this.invalidConditionHandling = config.getValue(CppParsingSettings.INVALID_CONDITION_SETTING);
         this.addPseudoBlock = config.getValue(ADD_PSEUDO_BLOCK);
     }
 

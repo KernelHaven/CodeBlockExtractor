@@ -25,6 +25,9 @@ import net.ssehub.kernel_haven.analysis.AbstractAnalysis;
 import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.code_model.SourceFile;
 import net.ssehub.kernel_haven.config.Configuration;
+import net.ssehub.kernel_haven.cpp_utils.CppConditionParser;
+import net.ssehub.kernel_haven.cpp_utils.CppParsingSettings;
+import net.ssehub.kernel_haven.cpp_utils.InvalidConditionHandling;
 import net.ssehub.kernel_haven.util.Util;
 import net.ssehub.kernel_haven.util.logic.Conjunction;
 import net.ssehub.kernel_haven.util.logic.Disjunction;
@@ -73,15 +76,15 @@ public class CodeBlockExtractorParsingStatistics extends AbstractAnalysis {
         // anaylze results
         
         try {
-            config.registerSetting(CodeBlockExtractor.INVALID_CONDITION_SETTING);
-            if (config.getValue(CodeBlockExtractor.INVALID_CONDITION_SETTING)
+            config.registerSetting(CppParsingSettings.INVALID_CONDITION_SETTING);
+            if (config.getValue(CppParsingSettings.INVALID_CONDITION_SETTING)
                     != InvalidConditionHandling.ERROR_VARIABLE) {
                 LOGGER.logWarning("Can't find number of unparseable conditions when "
-                        + CodeBlockExtractor.INVALID_CONDITION_SETTING.getKey() + " is not set to "
+                        + CppParsingSettings.INVALID_CONDITION_SETTING.getKey() + " is not set to "
                         + InvalidConditionHandling.ERROR_VARIABLE.name());
             }
         } catch (SetUpException e) {
-            LOGGER.logException("Can't read setting " + CodeBlockExtractor.INVALID_CONDITION_SETTING.getKey(), e);
+            LOGGER.logException("Can't read setting " + CppParsingSettings.INVALID_CONDITION_SETTING.getKey(), e);
         }
         
         ErrorVariableCounter counter = new ErrorVariableCounter();

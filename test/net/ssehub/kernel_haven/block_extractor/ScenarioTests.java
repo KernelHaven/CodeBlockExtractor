@@ -30,6 +30,7 @@ import net.ssehub.kernel_haven.code_model.JsonCodeModelCache;
 import net.ssehub.kernel_haven.code_model.SourceFile;
 import net.ssehub.kernel_haven.config.Configuration;
 import net.ssehub.kernel_haven.config.DefaultSettings;
+import net.ssehub.kernel_haven.cpp_utils.CppParsingSettings;
 import net.ssehub.kernel_haven.test_utils.TestConfiguration;
 import net.ssehub.kernel_haven.util.ExtractorException;
 import net.ssehub.kernel_haven.util.FormatException;
@@ -89,8 +90,8 @@ public class ScenarioTests {
     public void linux1() throws ExtractorException, SetUpException, IOException, FormatException {
         Configuration config = new TestConfiguration(new Properties());
         config.setValue(DefaultSettings.SOURCE_TREE, TESTDATA);
-        config.registerSetting(CodeBlockExtractor.HANDLE_LINUX_MACROS);
-        config.setValue(CodeBlockExtractor.HANDLE_LINUX_MACROS, true);
+        config.registerSetting(CppParsingSettings.HANDLE_LINUX_MACROS);
+        config.setValue(CppParsingSettings.HANDLE_LINUX_MACROS, true);
         
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
@@ -123,8 +124,8 @@ public class ScenarioTests {
     public void linux2() throws ExtractorException, SetUpException, IOException, FormatException {
         Configuration config = new TestConfiguration(new Properties());
         config.setValue(DefaultSettings.SOURCE_TREE, TESTDATA);
-        config.registerSetting(CodeBlockExtractor.HANDLE_LINUX_MACROS);
-        config.setValue(CodeBlockExtractor.HANDLE_LINUX_MACROS, true);
+        config.registerSetting(CppParsingSettings.HANDLE_LINUX_MACROS);
+        config.setValue(CppParsingSettings.HANDLE_LINUX_MACROS, true);
         
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
@@ -157,8 +158,8 @@ public class ScenarioTests {
     public void linux3() throws ExtractorException, SetUpException, IOException, FormatException {
         Configuration config = new TestConfiguration(new Properties());
         config.setValue(DefaultSettings.SOURCE_TREE, TESTDATA);
-        config.registerSetting(CodeBlockExtractor.HANDLE_LINUX_MACROS);
-        config.setValue(CodeBlockExtractor.HANDLE_LINUX_MACROS, true);
+        config.registerSetting(CppParsingSettings.HANDLE_LINUX_MACROS);
+        config.setValue(CppParsingSettings.HANDLE_LINUX_MACROS, true);
         
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);

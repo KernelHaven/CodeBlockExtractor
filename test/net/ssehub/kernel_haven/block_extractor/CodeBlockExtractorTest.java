@@ -29,6 +29,8 @@ import net.ssehub.kernel_haven.code_model.CodeBlock;
 import net.ssehub.kernel_haven.code_model.SourceFile;
 import net.ssehub.kernel_haven.config.Configuration;
 import net.ssehub.kernel_haven.config.DefaultSettings;
+import net.ssehub.kernel_haven.cpp_utils.CppParsingSettings;
+import net.ssehub.kernel_haven.cpp_utils.InvalidConditionHandling;
 import net.ssehub.kernel_haven.test_utils.TestConfiguration;
 import net.ssehub.kernel_haven.util.CodeExtractorException;
 import net.ssehub.kernel_haven.util.ExtractorException;
@@ -77,8 +79,8 @@ public class CodeBlockExtractorTest {
     public void testLinuxMacro() throws ExtractorException, SetUpException {
         Configuration config = new TestConfiguration(new Properties());
         config.setValue(DefaultSettings.SOURCE_TREE, TESTDATA);
-        config.registerSetting(CodeBlockExtractor.HANDLE_LINUX_MACROS);
-        config.setValue(CodeBlockExtractor.HANDLE_LINUX_MACROS, true);
+        config.registerSetting(CppParsingSettings.HANDLE_LINUX_MACROS);
+        config.setValue(CppParsingSettings.HANDLE_LINUX_MACROS, true);
         
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
@@ -102,8 +104,8 @@ public class CodeBlockExtractorTest {
     public void testInvalidConditionReplacement() throws ExtractorException, SetUpException {
         Configuration config = new TestConfiguration(new Properties());
         config.setValue(DefaultSettings.SOURCE_TREE, TESTDATA);
-        config.registerSetting(CodeBlockExtractor.INVALID_CONDITION_SETTING);
-        config.setValue(CodeBlockExtractor.INVALID_CONDITION_SETTING, InvalidConditionHandling.ERROR_VARIABLE);
+        config.registerSetting(CppParsingSettings.INVALID_CONDITION_SETTING);
+        config.setValue(CppParsingSettings.INVALID_CONDITION_SETTING, InvalidConditionHandling.ERROR_VARIABLE);
         
         CodeBlockExtractor extractor = new CodeBlockExtractor();
         extractor.init(config);
